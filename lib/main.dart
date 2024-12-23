@@ -3,7 +3,9 @@ import 'package:gradution/core/routeing/app_routing.dart';
 import 'package:gradution/core/routeing/routes.dart';
 
 void main() {
-  runApp(MyApp(appRouting: AppRouting(),));
+  runApp(MyApp(
+    appRouting: AppRouting(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -15,8 +17,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       initialRoute: Routes.onBoarding,
-       onGenerateRoute: appRouting.generateRoute,
+      onGenerateRoute: appRouting.generateRoute,
     );
   }
 }

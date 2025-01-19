@@ -11,33 +11,42 @@ class HomeView extends StatelessWidget {
         title: Text('Home'),
       ),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
-            child:GestureDetector(
+            child: GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, Routes.categories);
-            })
+              },
+              child: Text('Categories'),
+            ),
           ),
           Center(
-            child:GestureDetector(
+            child: GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, Routes.blog);
-            })
+              },
+              child: Text('Blog'),
+            ),
           ),
           Center(
-            child:GestureDetector(
+            child: GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, Routes.products);
-            })
+              },
+              child: Text('Products'),
+            ),
           ),
-           Center(
-            child:GestureDetector(
+          Center(
+            child: GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, Routes.profile);
-            })
+              },
+              child: Text('Profile'),
+            ),
           ),
         ],
-      )
+      ),
     );
   }
 }

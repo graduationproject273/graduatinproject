@@ -20,6 +20,14 @@ class ProductView extends StatelessWidget {
               child: Text('Product Details'),
             ),
           ),
+            Center(
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pushNamed(context, Routes.cart);
+              },
+              child: Text('cart'),
+            ),
+          ),
         ],
       ),
     );

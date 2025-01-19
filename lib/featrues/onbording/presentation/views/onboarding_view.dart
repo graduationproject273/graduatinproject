@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:gradution/constants/images.dart';
 import 'package:gradution/core/routeing/routes.dart';
 
 class OnboardingView extends StatelessWidget {
@@ -16,7 +18,7 @@ class OnboardingView extends StatelessWidget {
           onTap: () {
             Navigator.pushNamed(context, Routes.register);
           },
-          child: Text('Go to register'),
+          child: SvgPicture.asset(Assets.imagesOnboardingimagesecond),
         ),
       ),
     );

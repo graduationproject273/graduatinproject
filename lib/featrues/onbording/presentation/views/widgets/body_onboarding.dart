@@ -29,10 +29,11 @@ class bodyOnboarding extends StatelessWidget {
           Positioned(
             bottom: 0,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                width: double.infinity,
-                height: MediaQuery.of(context).size.height * 0.4,
+              padding: const EdgeInsets.all(16.0),
+              child: SizedBox(
+               
+                height: MediaQuery.of(context).size.height * 0.25,
+                width: MediaQuery.of(context).size.width*.9,
                 child: Column(
                 children: [
                   TextsInOnboarding(

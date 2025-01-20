@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import 'package:gradution/constants/images.dart';
 
 class OnboardingView extends StatelessWidget {
@@ -11,27 +11,32 @@ class OnboardingView extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          // خلفية SVG
-          SvgPicture.asset(
-            Assets.imagesOnboardingimagethird,
-            width: double.infinity,
-            height: double.infinity,
-            fit: BoxFit.cover,
-          ),
+      
+          Image.asset(Assets.imagesOnboardingimagethird,
+          width: double.infinity,
+          height: double.infinity
+          ,
+          fit: BoxFit.cover,),
 
-          // تدرج لوني فوق الخلفية
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Colors.transparent, // لون أغمق
-                  Colors.black, // شفاف
-                ],
-                begin: Alignment.topCenter, // يبدأ من الأعلى
-                end: Alignment.bottomCenter, // ينتهي في الأسفل
+          
+           Positioned(
+            bottom: 0,
+             child: Container(
+                width: MediaQuery.of(context).size.width, 
+                height: MediaQuery.of(context).size.height ,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.transparent, // لون أغمق
+                      Colors.black, // شفاف
+                    ],
+                    begin: Alignment.topCenter, // يبدأ من الأعلى
+                    end: Alignment.bottomCenter, // ينتهي في الأسفل
+                  ),
+                ),
               ),
-            ),
-          ),
+           ),
+         
 
           // المحتوى فوق الخلفية
         ],

@@ -36,6 +36,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.0.17
   data_connection_checker_tv: ^0.3.5-nullsafety
+  dots_indicator: ^3.0.0
 
 dev_dependencies:
   flutter_test:

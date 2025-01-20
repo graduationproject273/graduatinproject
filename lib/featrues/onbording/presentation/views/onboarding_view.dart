@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gradution/constants/images.dart';
-import 'package:gradution/core/routeing/routes.dart';
+import 'package:gradution/featrues/onbording/presentation/views/widgets/onboaeding_view_body.dart';
 
 class OnboardingView extends StatelessWidget {
   const OnboardingView({super.key});
@@ -10,17 +8,7 @@ class OnboardingView extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Onboarding'),
-      ),
-      body: Center(
-        child: GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, Routes.register);
-          },
-          child: SvgPicture.asset(Assets.imagesOnboardingimagesecond),
-        ),
-      ),
+      body: SafeArea(child: OnboaedingViewBody()),
     );
   }
 }

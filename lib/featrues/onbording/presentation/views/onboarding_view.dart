@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-
-
 import 'package:gradution/featrues/onbording/presentation/views/widgets/body_onboarding.dart';
 
 

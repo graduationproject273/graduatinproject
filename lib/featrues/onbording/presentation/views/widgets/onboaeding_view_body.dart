@@ -30,6 +30,7 @@ class _OnboaedingViewBodyState extends State<OnboaedingViewBody> {
         Expanded(
           child: 
          PageView(
+          controller: _pageController,
             children: [
            
          ])

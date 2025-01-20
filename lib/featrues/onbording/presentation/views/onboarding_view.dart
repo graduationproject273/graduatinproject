@@ -6,6 +6,9 @@ import 'package:gradution/featrues/onbording/presentation/views/widgets/onboaedi
 import 'package:gradution/featrues/onbording/presentation/views/widgets/texts_in_onboarding.dart';
 
 
+import 'package:gradution/featrues/onbording/presentation/views/widgets/body_onboarding.dart';
+
+
 class OnboardingView extends StatelessWidget {
   const OnboardingView({
     super.key,
@@ -13,16 +16,7 @@ class OnboardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: SafeArea(child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Spacer(),
-          TextsInOnboarding(text1: 'Convenience', text2: 'Control your home devices using a single app from anywhere in the world'),
-          SizedBox(height: 20,),
-          ButtonAndIndicators()
-        ]
-      )),
+     
      /* body: Stack(
         children: [
           // خلفية SVG
@@ -50,6 +44,12 @@ class OnboardingView extends StatelessWidget {
           // المحتوى فوق الخلفية
         ],
       ),*/
+
+
+    //  body: SafeArea(child: OnboaedingViewBody()),
+      body: const bodyOnboarding(),
     );
   }
 }
+
+// ignore: camel_case_types

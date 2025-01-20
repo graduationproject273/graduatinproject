@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gradution/constants/images.dart';
+import 'package:gradution/featrues/onbording/presentation/views/widgets/button_and_indicators.dart';
 import 'package:gradution/featrues/onbording/presentation/views/widgets/color_onboarding.dart';
+import 'package:gradution/featrues/onbording/presentation/views/widgets/texts_in_onboarding.dart';
 
 // ignore: camel_case_types
 class bodyOnboarding extends StatelessWidget {
@@ -24,6 +26,27 @@ class bodyOnboarding extends StatelessWidget {
           bottom: 0,
            child:const coloronboarding(),
          ),
+          Positioned(
+            bottom: 0,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height * 0.4,
+                child: Column(
+                children: [
+                  TextsInOnboarding(
+                    text1: 'Convenience',
+                    text2:
+                        'Control your home devices using a single app from anywhere in the world',
+                  ),
+                const  SizedBox(height: 20,),
+                  ButtonAndIndicators()
+                ],
+                        ),
+              ),
+            ),
+          )
        
     
         // المحتوى فوق الخلفية

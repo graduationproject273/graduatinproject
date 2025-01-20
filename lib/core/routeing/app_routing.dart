@@ -22,7 +22,7 @@ class AppRouting {
     switch (settings.name) {
       case Routes.onBoarding:
         return MaterialPageRoute(
-          builder: (_) => const OnboardingView(),
+          builder: (_) => OnboardingView(),
         );
       case Routes.home:
         return MaterialPageRoute(

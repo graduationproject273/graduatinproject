@@ -1,9 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:gradution/constants/images.dart';
-import 'package:gradution/featrues/onbording/presentation/views/widgets/button_and_indicators.dart';
-import 'package:gradution/featrues/onbording/presentation/views/widgets/onboaeding_view_body.dart';
-import 'package:gradution/featrues/onbording/presentation/views/widgets/texts_in_onboarding.dart';
 
 
 import 'package:gradution/featrues/onbording/presentation/views/widgets/body_onboarding.dart';

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:gradution/constants/images.dart';
 
+
 class OnboardingView extends StatelessWidget {
   const OnboardingView({
     super.key,
@@ -9,6 +10,8 @@ class OnboardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
+    //  body: SafeArea(child: OnboaedingViewBody()),
       body: Stack(
         children: [
       

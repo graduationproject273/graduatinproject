@@ -24,21 +24,22 @@ class ButtonAndIndicators extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(
-          width: 140,
-          height: 35,
-          child: ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: maincolor,
-              textStyle: const TextStyle(fontSize: 17),
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(15),
+        ClipOval(
+          child: Material(
+            color: maincolor, // لون الزر
+            child: InkWell(
+              onTap: () {},
+              splashColor: Colors.white.withOpacity(0.2), // تأثير النقر
+              child: SizedBox(
+                width: 56, // العرض
+                height: 56, // الارتفاع
+                child: Icon(
+                  Icons.arrow_forward_ios,
+                  color: Colors.white,
+                  size: 24,
                 ),
               ),
             ),
-            child: Icon( Icons.arrow_forward_ios, color: Colors.white,),
           ),
         ),
       ],

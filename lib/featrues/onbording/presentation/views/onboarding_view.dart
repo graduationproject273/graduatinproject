@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gradution/featrues/onbording/presentation/views/widgets/onboaeding_view_body.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gradution/constants/images.dart';
+import 'package:gradution/featrues/onbording/presentation/views/widgets/button_and_indicators.dart';
+import 'package:gradution/featrues/onbording/presentation/views/widgets/onboaeding_view_body.dart';
+import 'package:gradution/featrues/onbording/presentation/views/widgets/texts_in_onboarding.dart';
 
 
 class OnboardingView extends StatelessWidget {
@@ -11,9 +13,17 @@ class OnboardingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-    //  body: SafeArea(child: OnboaedingViewBody()),
-      body: Stack(
+      backgroundColor: Colors.black,
+      body: SafeArea(child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Spacer(),
+          TextsInOnboarding(text1: 'Convenience', text2: 'Control your home devices using a single app from anywhere in the world'),
+          SizedBox(height: 20,),
+          ButtonAndIndicators()
+        ]
+      )),
+     /* body: Stack(
         children: [
           // خلفية SVG
           SvgPicture.asset(
@@ -39,7 +49,7 @@ class OnboardingView extends StatelessWidget {
 
           // المحتوى فوق الخلفية
         ],
-      ),
+      ),*/
     );
   }
 }

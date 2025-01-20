@@ -9,7 +9,10 @@ class TextsInOnboarding extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children:  [
-        Text(text1,style: Textstyles.text1Inonboarding),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Text(text1,style: Textstyles.text1Inonboarding)),
+          SizedBox(height: 10,),
         Text(text2,style: Textstyles.text2Inonboarding),
       ],
     );

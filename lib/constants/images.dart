@@ -4,14 +4,14 @@ class Assets {
 
   /// Assets for imagesOnboardingimagefirst
   /// assets/images/onboardingimagefirst.jpg
-  static const String imagesOnboardingimagefirst = "assets/images/onboardingimagefirst.jpg";
+  static const String imagesOnboardingimagefirst = "assets/images/onboardingimagethird.jpg";
 
   /// Assets for imagesOnboardingimagesecond
   /// assets/images/onboardingimagesecond.jpg
-  static const String imagesOnboardingimagesecond = "assets/images/onboardingimagesecond.jpg";
+  static const String imagesOnboardingimagesecond = "assets/images/onboardingimagefirst.jpg";
 
   /// Assets for imagesOnboardingimagethird
   /// assets/images/onboardingimagethird.jpg
-  static const String imagesOnboardingimagethird = "assets/images/onboardingimagethird.jpg";
+  static const String imagesOnboardingimagethird = "assets/images/onboardingimagesecond.jpg";
 }
 

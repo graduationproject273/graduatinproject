@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gradution/core/routeing/routes.dart';
+import 'package:gradution/core/styles/extention.dart';
 import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/featrues/onbording/presentation/views/widgets/color_onboarding.dart';
 import 'package:gradution/featrues/onbording/presentation/views/widgets/texts_in_onboarding.dart';
@@ -15,54 +16,66 @@ class BodyOnboarding extends StatelessWidget {
   });
 
   @override
+  /// This widget is the body of the onboarding screen,
+  /// it shows the background image and the texts and the skip button
+  @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        // Background image
         Image.asset(image,
-        width: double.infinity,
-        height: double.infinity
-        ,
-        fit: BoxFit.cover,),
-         Positioned(
+          width: double.infinity,
+          height: double.infinity,
+          fit: BoxFit.cover,
+        ),
+
+        // Color onboarding widget
+        Positioned(
           bottom: 0,
-           child:const coloronboarding(),
-         ),
-          Positioned(
-            bottom: 0,
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height * 0.25,
-                width: MediaQuery.of(context).size.width*.9,
-                child: Column(
+          child: const coloronboarding(),
+        ),
+
+        // Texts in onboarding widget
+        Positioned(
+          bottom: 0,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: SizedBox(
+              height: context.height*.25,
+              width: context.width * .9,
+              child: Column(
                 children: [
                   TextsInOnboarding(
                     text1: text1,
                     text2: text2,
                   ),
                 ],
-                        ),
               ),
             ),
           ),
-            Visibility(
-                visible: isVisible,
-                child: GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, Routes.login);
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 16, top: 16),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          'Skip', style: Textstyles.text2Inonboarding.copyWith(fontWeight: FontWeight.bold)),
-                      ],
-                    ),
+        ),
+
+        // Skip button
+        Visibility(
+          visible: isVisible,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, Routes.login);
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(right: 16, top: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text(
+                    'Skip',
+                    style: Textstyles.text2Inonboarding.copyWith(fontWeight: FontWeight.bold)
                   ),
-                ),
-              )
+                ],
+              ),
+            ),
+          ),
+        ),
       ],
     );
   }

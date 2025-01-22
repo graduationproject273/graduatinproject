@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gradution/core/styles/textstyles.dart';
 
 class TextsInOnboarding extends StatelessWidget {
@@ -8,11 +9,12 @@ class TextsInOnboarding extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children:  [
         Align(
           alignment: Alignment.centerLeft,
           child: Text(text1,style: Textstyles.text1Inonboarding)),
-          SizedBox(height: 10,),
+          SizedBox(height: 4.h,),
         Text(text2,style: Textstyles.text2Inonboarding),
       ],
     );

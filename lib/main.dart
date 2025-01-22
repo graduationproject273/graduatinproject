@@ -34,7 +34,7 @@ class EZhome extends StatelessWidget {
             ),
             title: 'EZhome',
             debugShowCheckedModeBanner: false,
-            initialRoute: Routes.onBoarding,
+            initialRoute: Routes.splash,
             onGenerateRoute: appRouting.generateRoute,
           );
         });

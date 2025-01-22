@@ -14,7 +14,7 @@ import 'package:gradution/main.dart';
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp(appRouting: AppRouting(),));
+    await tester.pumpWidget(EZhome(appRouting: AppRouting(),));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

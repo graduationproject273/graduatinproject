@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gradution/constants/images.dart';
 import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/featrues/onbording/presentation/views/widgets/body_onboarding.dart';
@@ -83,16 +84,16 @@ Widget build(BuildContext context) {
         ],
       ),
       Positioned(
-        bottom: 16,
-        left: 16,
-        right: 16,
+        bottom: 16.h,
+        left: 16.w,
+        right: 16.h,
         child: ButtonAndIndicators(position: currentPage, onNextPressed: () { 
           if (currentPage == 2) {
              Navigator.pushNamed(context, Routes.login);
           }
           _pageController.nextPage(
             duration: const Duration(milliseconds: 300),
-            curve: Curves.easeIn,
+            curve: Curves.easeInOut,
           );
          }, animationController: _animationController,),
       ),

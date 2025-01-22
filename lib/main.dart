@@ -1,28 +1,39 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gradution/core/routeing/app_routing.dart';
 import 'package:gradution/core/routeing/routes.dart';
 
 void main() {
-  runApp(MyApp(
-    appRouting: AppRouting(),
+  runApp(DevicePreview(
+    enabled: true,
+    builder: (context) => 
+    EZhome(
+      appRouting: AppRouting(),
+    ),
   ));
 }
 
-class MyApp extends StatelessWidget {
+class EZhome extends StatelessWidget {
   final AppRouting appRouting;
-  const MyApp({super.key, required this.appRouting});
-
+  const EZhome({super.key, required this.appRouting});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        fontFamily: 'Poppins',
-      ),
-      title: 'EZhome',
-      debugShowCheckedModeBanner: false,
-      initialRoute: Routes.onBoarding,
-      onGenerateRoute: appRouting.generateRoute,
-    );
+    return ScreenUtilInit(
+        designSize: const Size(360, 690),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (_, child) {
+          return MaterialApp(
+            theme: ThemeData(
+              fontFamily: 'Poppins',
+            ),
+            title: 'EZhome',
+            debugShowCheckedModeBanner: false,
+            initialRoute: Routes.onBoarding,
+            onGenerateRoute: appRouting.generateRoute,
+          );
+        });
   }
 }

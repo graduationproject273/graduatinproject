@@ -89,7 +89,7 @@ Widget build(BuildContext context) {
         right: 16.h,
         child: ButtonAndIndicators(position: currentPage, onNextPressed: () { 
           if (currentPage == 2) {
-             Navigator.pushNamed(context, Routes.login);
+             Navigator.pushReplacementNamed(context, Routes.login);
           }
           _pageController.nextPage(
             duration: const Duration(milliseconds: 300),

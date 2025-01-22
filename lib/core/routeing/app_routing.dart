@@ -12,6 +12,7 @@ import 'package:gradution/featrues/checkout/presentation/views/checkout_view.dar
 import 'package:gradution/featrues/home/presentation/views/home_view.dart';
 import 'package:gradution/featrues/onbording/presentation/views/auth_buttons_view.dart';
 import 'package:gradution/featrues/onbording/presentation/views/onboarding_view.dart';
+import 'package:gradution/featrues/onbording/presentation/views/splash_view.dart';
 import 'package:gradution/featrues/order-success/presentation/views/order_success_view.dart';
 import 'package:gradution/featrues/products/presentation/view/product_details_view.dart';
 import 'package:gradution/featrues/products/presentation/view/product_view.dart';
@@ -21,6 +22,10 @@ import 'package:gradution/featrues/refall/presentation/views/refall_view.dart';
 class AppRouting {
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
+       case Routes.splash:
+        return MaterialPageRoute(
+          builder: (_) => SplashView(),
+        );
       case Routes.onBoarding:
         return MaterialPageRoute(
           builder: (_) => OnboardingView(),

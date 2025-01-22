@@ -10,6 +10,7 @@ import 'package:gradution/featrues/cart/presentation/views/cart_view.dart';
 import 'package:gradution/featrues/categories/presentation/views/categories_view.dart';
 import 'package:gradution/featrues/checkout/presentation/views/checkout_view.dart';
 import 'package:gradution/featrues/home/presentation/views/home_view.dart';
+import 'package:gradution/featrues/onbording/presentation/views/auth_buttons_view.dart';
 import 'package:gradution/featrues/onbording/presentation/views/onboarding_view.dart';
 import 'package:gradution/featrues/order-success/presentation/views/order_success_view.dart';
 import 'package:gradution/featrues/products/presentation/view/product_details_view.dart';
@@ -83,6 +84,10 @@ class AppRouting {
         case Routes.additionlNotes:
         return MaterialPageRoute(
           builder: (_) => const AdditionlNotesView(),
+        );
+        case Routes.authbuttonsview:
+        return MaterialPageRoute(
+          builder: (_) => const AuthButtonsView(),
         );
       default:
     }

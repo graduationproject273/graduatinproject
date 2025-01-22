@@ -14,4 +14,15 @@ class Textstyles {
     fontSize: 14. sp,
     color: textcolorinonboarding
   );
+
+  static final text3Inonboarding = TextStyle( 
+    fontSize: 40. sp,
+    fontWeight: FontWeight.w900,
+    color: Color(0xff000000)
+  );
+
+  static final text4Inonboarding = TextStyle(
+    fontSize: 16. sp,
+    color: textcolorinauthpagebuttons
+  );
 }

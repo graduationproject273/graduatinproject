@@ -15,4 +15,5 @@ class Routes {
   static const String refall = '/refall';
   static const String adminDashboard = '/adminDashboard';
   static const String additionlNotes = '/additionlNotes';
+  static const String authbuttonsview = '/authbuttonsview';
 }

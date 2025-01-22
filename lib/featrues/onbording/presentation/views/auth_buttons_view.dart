@@ -6,6 +6,8 @@ class AuthButtonsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: SafeArea(child: AuthButtonsViewBody()),);
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: SafeArea(child: AuthButtonsViewBody()),);
   }
 }

@@ -4,14 +4,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gradution/core/routeing/app_routing.dart';
 import 'package:gradution/core/routeing/routes.dart';
 
+/// The entry point of the application.
 void main() {
-  runApp(DevicePreview(
-    enabled: true,
-    builder: (context) => 
-    EZhome(
-      appRouting: AppRouting(),
+  runApp(
+    DevicePreview(
+      enabled: false, // Disable device preview
+      builder: (context) => 
+      EZhome(
+        appRouting: AppRouting(), // Initialize app routing
+      ),
     ),
-  ));
+  );
 }
 
 class EZhome extends StatelessWidget {

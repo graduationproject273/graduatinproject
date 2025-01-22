@@ -47,8 +47,8 @@ class ButtonAndIndicators extends StatelessWidget {
               onTap: onNextPressed, // استدعاء الوظيفة
               splashColor: Colors.white.withOpacity(0.2), // تأثير النقر
               child:  SizedBox(
-                width: 56.h, // العرض
-                height: 56.h, // الارتفاع
+                width: 52.h, // العرض
+                height: 52.h, // الارتفاع
                 child: Icon(
                   Icons.arrow_forward_ios,
                   color: Colors.white,

@@ -33,11 +33,14 @@ class _SplashViewState extends State<SplashView>
     // بدء الانتقال بعد مدة
     Future.delayed(Duration(seconds: 5), () {
       // الانتقال إلى الصفحة التالية
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacementNamed(context, Routes.onBoarding);
     });
   }
 
   @override
+/// Disposes the animation controller to free up resources when the widget is removed from the widget tree.
+
   void dispose() {
     _controller.dispose();
     super.dispose();
@@ -61,6 +64,7 @@ class _SplashViewState extends State<SplashView>
                     height: _animation.value,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
+                      // ignore: deprecated_member_use
                       color: Colors.blue.withOpacity(0.2),
                     ),
                   ),
@@ -70,6 +74,7 @@ class _SplashViewState extends State<SplashView>
                     height: _animation.value * 0.7,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
+                      // ignore: deprecated_member_use
                       color: Colors.blue.withOpacity(0.4),
                     ),
                   ),
@@ -79,6 +84,7 @@ class _SplashViewState extends State<SplashView>
                     height: _animation.value * 0.4,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
+                      // ignore: deprecated_member_use
                       color: Colors.blue.withOpacity(0.6),
                     ),
                   ),

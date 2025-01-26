@@ -2,11 +2,13 @@
 class Assets {
   Assets._();
   
-
   /// Assets for imagesAuthbuttonsimage
   /// assets/images/authbuttonsimage.png
   static const String imagesAuthbuttonsimage = "assets/images/authbuttonsimage.png";
 
+  /// Assets for imagesLandingvideo
+  /// assets/images/landingvideo.mp4
+  static const String imagesLandingvideo = "assets/images/landingvideo.mp4";
 
   /// Assets for imagesOnboardingimagefirst
   /// assets/images/onboardingimagefirst.jpg
@@ -20,7 +22,6 @@ class Assets {
   /// assets/images/onboardingimagethird.jpg
   static const String imagesOnboardingimagethird = "assets/images/onboardingimagethird.jpg";
 
-
   /// Assets for imagesSplahimage
   /// assets/images/splahimage.jpg
   static const String imagesSplahimage = "assets/images/splahimage.jpg";
@@ -32,6 +33,5 @@ class Assets {
   /// Assets for imagesSplash
   /// assets/images/splash.svg
   static const String imagesSplash = "assets/images/splash.svg";
-
 }
 

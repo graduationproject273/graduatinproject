@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gradution/core/styles/extention.dart';
+
 import 'package:gradution/featrues/onbording/presentation/views/widgets/color_onboarding.dart';
 
 class BodyOnboarding extends StatelessWidget {

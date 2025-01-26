@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gradution/core/routeing/routes.dart';
+
+import 'package:gradution/featrues/home/presentation/views/wedgets/landing_video.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -8,42 +9,19 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+        title: Text('Homeeeeeeeeeeeeeeeeeeeeeeeeeeeee'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Center(
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, Routes.categories);
-              },
-              child: Text('Categories'),
-            ),
-          ),
-          Center(
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, Routes.blog);
-              },
-              child: Text('Blog'),
-            ),
-          ),
-          Center(
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, Routes.products);
-              },
-              child: Text('Products'),
-            ),
-          ),
-          Center(
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, Routes.profile);
-              },
-              child: Text('Profile'),
-            ),
+        children: <Widget>[
+          /// The landing video.
+          ///
+          /// The video is displayed in a [SizedBox] with a height and width of
+          /// 300 pixels.
+          SizedBox(
+            height: 300,
+            width: 300,
+            child: LandingVideoScreen(),
           ),
         ],
       ),

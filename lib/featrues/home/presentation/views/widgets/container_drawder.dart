@@ -69,6 +69,7 @@ class Containerindrawer extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
+          // ignore: deprecated_member_use
           colors: [maincolor, maincolor.withOpacity(0.5)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,

@@ -10,9 +10,21 @@ class Assets {
   /// assets/images/Avatar.png
   static const String imagesAvatar = "assets/images/Avatar.png";
 
+  /// Assets for imagesCameres
+  /// assets/images/cameres.png
+  static const String imagesCameres = "assets/images/cameres.png";
+
+  /// Assets for imagesHomesecurity
+  /// assets/images/homesecurity.png
+  static const String imagesHomesecurity = "assets/images/homesecurity.png";
+
   /// Assets for imagesLandingvideo
   /// assets/images/landingvideo.mp4
   static const String imagesLandingvideo = "assets/images/landingvideo.mp4";
+
+  /// Assets for imagesNetwork
+  /// assets/images/network.png
+  static const String imagesNetwork = "assets/images/network.png";
 
   /// Assets for imagesOnboardingimagefirst
   /// assets/images/onboardingimagefirst.jpg
@@ -26,16 +38,20 @@ class Assets {
   /// assets/images/onboardingimagethird.jpg
   static const String imagesOnboardingimagethird = "assets/images/onboardingimagethird.jpg";
 
-  /// Assets for imagesSplahimage
-  /// assets/images/splahimage.jpg
-  static const String imagesSplahimage = "assets/images/splahimage.jpg";
+  /// Assets for imagesSmar centeralcontrolpanels
+  /// assets/images/smar centeralcontrolpanels.png
+  static const String imagesSmartcenteralcontrolpanels = "assets/images/smar centeralcontrolpanels.png";
+
+  /// Assets for imagesSmartlighting
+  /// assets/images/smartlighting.png
+  static const String imagesSmartlighting = "assets/images/smartlighting.png";
 
   /// Assets for imagesSplahimagee
   /// assets/images/splahimagee.png
   static const String imagesSplahimagee = "assets/images/splahimagee.png";
 
-  /// Assets for imagesSplash
-  /// assets/images/splash.svg
-  static const String imagesSplash = "assets/images/splash.svg";
+  /// Assets for imagesThermostat
+  /// assets/images/Thermostat.png
+  static const String imagesThermostat = "assets/images/Thermostat.png";
 }
 

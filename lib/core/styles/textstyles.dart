@@ -25,4 +25,10 @@ class Textstyles {
     fontSize: 16. sp,
     color: textcolorinauthpagebuttons
   );
+
+static final textitemcat = TextStyle(
+      color: Colors.black,
+      fontSize: 15.sp,
+     // fontWeight: FontWeight.bold,
+    );
 }

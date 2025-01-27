@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/featrues/additionlNotes/presentation/view/additionl_notes_view.dart';
 import 'package:gradution/featrues/adminDashboard/presentation/views/admin_dashboard_view.dart';
@@ -20,9 +21,12 @@ import 'package:gradution/featrues/profile/presentation/views/profile_view.dart'
 import 'package:gradution/featrues/refall/presentation/views/refall_view.dart';
 
 class AppRouting {
+  // إنشاء GlobalKey<SliderDrawerState> هنا
+  final GlobalKey<SliderDrawerState> sliderKey = GlobalKey<SliderDrawerState>();
+
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
-       case Routes.splash:
+      case Routes.splash:
         return MaterialPageRoute(
           builder: (_) => SplashView(),
         );
@@ -32,70 +36,70 @@ class AppRouting {
         );
       case Routes.home:
         return MaterialPageRoute(
-          builder: (_) => const HomeView(),
+          builder: (_) => HomeView(sliderKey: sliderKey), // تمرير sliderKey هنا
         );
-        case Routes.register:
+      case Routes.register:
         return MaterialPageRoute(
           builder: (_) => const RegisterView(),
         );
-        case Routes.login:
+      case Routes.login:
         return MaterialPageRoute(
           builder: (_) => const LoginView(),
         );
-        case Routes.products:
+      case Routes.products:
         return MaterialPageRoute(
           builder: (_) => const ProductView(),
         );
-        case Routes.productDetails:
+      case Routes.productDetails:
         return MaterialPageRoute(
           builder: (_) => const ProductDetailesView(),
         );
-        case Routes.categories:
+      case Routes.categories:
         return MaterialPageRoute(
           builder: (_) => const CategoriesView(),
         );
-        case Routes.blog:
+      case Routes.blog:
         return MaterialPageRoute(
           builder: (_) => const BlogView(),
         );
-        case Routes.blogDetails:
+      case Routes.blogDetails:
         return MaterialPageRoute(
           builder: (_) => const BlogDetailsView(),
         );
-        case Routes.cart:
+      case Routes.cart:
         return MaterialPageRoute(
           builder: (_) => const CartView(),
         );
-        case Routes.checkout:
+      case Routes.checkout:
         return MaterialPageRoute(
           builder: (_) => const CheckoutView(),
         );
-        case Routes.orderSuccess:
+      case Routes.orderSuccess:
         return MaterialPageRoute(
           builder: (_) => const OrderSuccessView(),
         );
-        case Routes.profile:
+      case Routes.profile:
         return MaterialPageRoute(
           builder: (_) => const ProfileView(),
         );
-        case Routes.refall:
+      case Routes.refall:
         return MaterialPageRoute(
           builder: (_) => const RefillView(),
         );
-        case Routes.adminDashboard:
+      case Routes.adminDashboard:
         return MaterialPageRoute(
           builder: (_) => const AdminDashboardView(),
         );
-        case Routes.additionlNotes:
+      case Routes.additionlNotes:
         return MaterialPageRoute(
           builder: (_) => const AdditionlNotesView(),
         );
-        case Routes.authbuttonsview:
+      case Routes.authbuttonsview:
         return MaterialPageRoute(
           builder: (_) => const AuthButtonsView(),
         );
       default:
+        return null;
     }
-    return null;
   }
 }

@@ -28,7 +28,7 @@ class Textstyles {
 
 static final textitemcat = TextStyle(
       color: Colors.black,
-      fontSize: 15.sp,
+      fontSize: 12.sp,
      // fontWeight: FontWeight.bold,
     );
 }

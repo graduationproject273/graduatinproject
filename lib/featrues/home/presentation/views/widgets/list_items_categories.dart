@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gradution/constants/images.dart';
 import 'package:gradution/core/styles/colors.dart';
 import 'package:gradution/core/styles/extention.dart';
 import 'package:gradution/featrues/home/presentation/views/widgets/categories_item.dart';
+
+import '../wedgets/data/models/categories_model.dart';
 
 class ListItemsCategories extends StatefulWidget {
   const ListItemsCategories({super.key});
@@ -12,6 +15,15 @@ class ListItemsCategories extends StatefulWidget {
 }
 
 class _ListItemsCategoriesState extends State<ListItemsCategories> {
+  final List<CategoriesModel> categories = [
+    CategoriesModel(name: 'Cameres', imageUrl: Assets.imagesCameres),
+    CategoriesModel(name: ' Security', imageUrl: Assets.imagesHomesecurity),
+    CategoriesModel(name: 'Network', imageUrl: Assets.imagesNetwork),
+    CategoriesModel(name: ' lighting', imageUrl: Assets.imagesSmartlighting),
+    CategoriesModel(name: 'Thermostat', imageUrl: Assets.imagesThermostat),
+    CategoriesModel(name: 'panels', imageUrl: Assets.imagesSmartcenteralcontrolpanels),
+   // CategoriesModel(name: 'Category 7', imageUrl: Assets.imagesThermostat),
+  ];
      final ScrollController _scrollController = ScrollController();
 void _scrollToEnd() {
     _scrollController.animateTo(
@@ -31,11 +43,11 @@ void _scrollToEnd() {
             child: ListView.builder(
               controller: _scrollController,
               scrollDirection: Axis.horizontal,
-              itemCount: 5,
+              itemCount: categories.length,
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child:Categoriesitem()
+                  child: Categoriesitem(image: categories[index].imageUrl,text:  categories[index].name)
                 );
               },
             ),

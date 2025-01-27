@@ -9,7 +9,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Homeeeeeeeeeeeeeeeeeeeeeeeeeeeee'),
+        title: Text('Home'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

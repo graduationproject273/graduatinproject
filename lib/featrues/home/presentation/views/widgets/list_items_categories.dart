@@ -5,7 +5,7 @@ import 'package:gradution/core/styles/colors.dart';
 import 'package:gradution/core/styles/extention.dart';
 import 'package:gradution/featrues/home/presentation/views/widgets/categories_item.dart';
 
-import '../wedgets/data/models/categories_model.dart';
+import '../../../data/models/categories_model.dart';
 
 class ListItemsCategories extends StatefulWidget {
   const ListItemsCategories({super.key});

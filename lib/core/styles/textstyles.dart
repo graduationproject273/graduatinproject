@@ -17,9 +17,27 @@ class Textstyles {
   static final text4Inonboarding =
       TextStyle(fontSize: 16.sp, color: textcolorinauthpagebuttons);
 
-static final textitemcat = TextStyle(
-      color: Colors.black,
-      fontSize: 12.sp,
-     // fontWeight: FontWeight.bold,
+  static final textitemcat = TextStyle(
+    color: Colors.black,
+    fontSize: 12.sp,
+    // fontWeight: FontWeight.bold,
+  );
+  static final textitemcart =
+      TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold);
+      static final textitemtotal =
+      TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold);
+
+
+
+  static final namereview = TextStyle(
+      color: Color(0xff1D1E20),
+      fontSize: 17.sp,
+      fontWeight: FontWeight.w700,
     );
+
+  static final descrpcolorinreviews = TextStyle(
+      color: Color(0xff8F959E),
+      fontSize: 13.sp,
+    );
+
 }

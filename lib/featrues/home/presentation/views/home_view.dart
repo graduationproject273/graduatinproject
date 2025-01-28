@@ -36,11 +36,11 @@ class _HomeViewState extends State<HomeView> {
             ///
             /// The video is displayed in a [SizedBox] with a height and width of
             /// 300 pixels.
-            SizedBox(
+         /*   SizedBox(
               height: 300,
               width: double.infinity,
               child: LandingVideoScreen(),
-            ),
+            ),*/
 ListItemsCategories()
           ],
         ),

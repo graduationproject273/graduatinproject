@@ -5,3 +5,4 @@ const textcolorinonboarding = Color(0xffFEFEFE);
 const textcolorinauthpagebuttons = Color(0xff70797E);
 const colortotalincart = Color(0xff95989A);
 const coloritemcat = Color(0xffF5F4F4);
+const colortextfieldreveiw = Color(0xffF5F6FA);

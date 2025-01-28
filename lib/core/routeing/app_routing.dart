@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:gradution/core/routeing/routes.dart';
-import 'package:gradution/featrues/additionlNotes/presentation/view/additionl_notes_view.dart';
 import 'package:gradution/featrues/adminDashboard/presentation/views/admin_dashboard_view.dart';
 import 'package:gradution/featrues/authintication/presentation/views/login_view.dart';
 import 'package:gradution/featrues/authintication/presentation/views/register_view.dart';
@@ -19,6 +18,8 @@ import 'package:gradution/featrues/products/presentation/view/product_details_vi
 import 'package:gradution/featrues/products/presentation/view/product_view.dart';
 import 'package:gradution/featrues/profile/presentation/views/profile_view.dart';
 import 'package:gradution/featrues/refall/presentation/views/refall_view.dart';
+import 'package:gradution/featrues/reviews/presentation/view/reviews_view.dart';
+import 'package:gradution/featrues/reviews/presentation/view/widgets/reviews_view_body.dart';
 
 class AppRouting {
   // إنشاء GlobalKey<SliderDrawerState> هنا
@@ -90,9 +91,13 @@ class AppRouting {
         return MaterialPageRoute(
           builder: (_) => const AdminDashboardView(),
         );
-      case Routes.additionlNotes:
+      case Routes.reviews:
         return MaterialPageRoute(
-          builder: (_) => const AdditionlNotesView(),
+          builder: (_) => const ReviewsView(),
+        );
+      case Routes.addReview:
+        return MaterialPageRoute(
+          builder: (_) => const ReviewsViewBody(),
         );
       case Routes.authbuttonsview:
         return MaterialPageRoute(

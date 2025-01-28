@@ -4,6 +4,7 @@ import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 
 import 'package:gradution/featrues/home/presentation/views/widgets/container_drawder.dart';
 import 'package:gradution/featrues/home/presentation/views/widgets/custom_appbar_inhome.dart';
+import 'package:gradution/featrues/home/presentation/views/widgets/landing_video.dart';
 import 'package:gradution/featrues/home/presentation/views/widgets/list_items_categories.dart';
 
 
@@ -35,11 +36,11 @@ class _HomeViewState extends State<HomeView> {
             ///
             /// The video is displayed in a [SizedBox] with a height and width of
             /// 300 pixels.
-         /*   SizedBox(
+            SizedBox(
               height: 300,
               width: double.infinity,
               child: LandingVideoScreen(),
-            ),*/ 
+            ),
 ListItemsCategories()
           ],
         ),

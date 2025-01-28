@@ -2,6 +2,10 @@
 class Assets {
   Assets._();
   
+  /// Assets for images41
+  /// assets/images/41.png
+  static const String images41 = "assets/images/41.png";
+
   /// Assets for imagesAuthbuttonsimage
   /// assets/images/authbuttonsimage.png
   static const String imagesAuthbuttonsimage = "assets/images/authbuttonsimage.png";
@@ -40,7 +44,7 @@ class Assets {
 
   /// Assets for imagesSmar centeralcontrolpanels
   /// assets/images/smar centeralcontrolpanels.png
-  static const String imagesSmartcenteralcontrolpanels = "assets/images/smar centeralcontrolpanels.png";
+  static const String imagesSmarcenteralcontrolpanels = "assets/images/smar centeralcontrolpanels.png";
 
   /// Assets for imagesSmartlighting
   /// assets/images/smartlighting.png

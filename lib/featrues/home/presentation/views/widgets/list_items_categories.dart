@@ -21,7 +21,7 @@ class _ListItemsCategoriesState extends State<ListItemsCategories> {
     CategoriesModel(name: 'Network', imageUrl: Assets.imagesNetwork),
     CategoriesModel(name: ' lighting', imageUrl: Assets.imagesSmartlighting),
     CategoriesModel(name: 'Thermostat', imageUrl: Assets.imagesThermostat),
-    CategoriesModel(name: 'panels', imageUrl: Assets.imagesSmartcenteralcontrolpanels),
+    CategoriesModel(name: 'panels', imageUrl: Assets.imagesSmarcenteralcontrolpanels),
    // CategoriesModel(name: 'Category 7', imageUrl: Assets.imagesThermostat),
   ];
      final ScrollController _scrollController = ScrollController();

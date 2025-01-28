@@ -4,7 +4,7 @@ import 'package:gradution/core/styles/colors.dart';
 import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/core/widgets/custom_button.dart';
 import 'package:gradution/core/widgets/custom_textfield.dart';
-import 'package:gradution/featrues/reviews/presentation/view/widgets/custom_appbar.dart';
+import 'package:gradution/core/widgets/custom_appbar.dart';
 
 class ReviewsViewBody extends StatefulWidget {
   const ReviewsViewBody({super.key});

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/core/widgets/custom_button.dart';
 import 'package:gradution/core/widgets/custom_textfield.dart';
+import 'package:gradution/featrues/checkout/presentation/views/widgets/drop_down_in_checkout.dart';
 
 class CheckoutViewBody extends StatelessWidget {
   const CheckoutViewBody({super.key});
@@ -25,6 +26,8 @@ class CheckoutViewBody extends StatelessWidget {
                 CustomTextformfield(hintText: '+20 123 456 7890', 
               keyboardType: TextInputType.text, hintStyle: TextStyle(color: Color(0xff8F959E)),  
               ),
+              SizedBox(height: 20.h,),
+             const DropDownInCheckout(),
               SizedBox(height: 10.h,),
                Text('Street Address*', style: Textstyles.namereview),
               SizedBox(height: 10.h),

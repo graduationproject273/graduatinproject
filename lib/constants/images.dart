@@ -42,9 +42,13 @@ class Assets {
   /// assets/images/onboardingimagethird.jpg
   static const String imagesOnboardingimagethird = "assets/images/onboardingimagethird.jpg";
 
+  /// Assets for imagesPaypal
+  /// assets/images/paypal.png
+  static const String imagesPaypal = "assets/images/paypal.png";
+
   /// Assets for imagesSmar centeralcontrolpanels
   /// assets/images/smar centeralcontrolpanels.png
-  static const String imagesSmarcenteralcontrolpanels = "assets/images/smar centeralcontrolpanels.png";
+  static const String imagesSmar  = "assets/images/smar centeralcontrolpanels.png";
 
   /// Assets for imagesSmartlighting
   /// assets/images/smartlighting.png
@@ -53,6 +57,10 @@ class Assets {
   /// Assets for imagesSplahimagee
   /// assets/images/splahimagee.png
   static const String imagesSplahimagee = "assets/images/splahimagee.png";
+
+  /// Assets for imagesStripe
+  /// assets/images/stripe.png
+  static const String imagesStripe = "assets/images/stripe.png";
 
   /// Assets for imagesThermostat
   /// assets/images/Thermostat.png

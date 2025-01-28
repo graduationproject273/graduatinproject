@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gradution/constants/images.dart';
 import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/core/widgets/custom_button.dart';
 import 'package:gradution/core/widgets/custom_textfield.dart';
@@ -7,6 +8,51 @@ import 'package:gradution/featrues/checkout/presentation/views/widgets/drop_down
 
 class CheckoutViewBody extends StatelessWidget {
   const CheckoutViewBody({super.key});
+  _showBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      backgroundColor: Colors.grey[200],
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Select a Payment Method',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 10),
+              ListTile(
+                leading: Image.asset(Assets.imagesStripe),
+                title: const Text('Stripe'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                 leading: Image.asset(Assets.imagesPaypal),
+                title: const Text('Paypal'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(Icons.cancel),
+                title: const Text('Cancel'),
+                onTap: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -16,31 +62,54 @@ class CheckoutViewBody extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-              Text('Name', style: Textstyles.namereview),
-              SizedBox(height: 10.h),
-              CustomTextformfield(hintText: 'Enter Full Name', 
-              keyboardType: TextInputType.text, hintStyle: TextStyle(color: Color(0xff8F959E)),  
-              ),
-              SizedBox(height: 10.h,),
-              Text('Phone Number*', style: Textstyles.namereview),
-                CustomTextformfield(hintText: '+20 123 456 7890', 
-              keyboardType: TextInputType.text, hintStyle: TextStyle(color: Color(0xff8F959E)),  
-              ),
-              SizedBox(height: 20.h,),
-             const DropDownInCheckout(),
-              SizedBox(height: 10.h,),
-               Text('Street Address*', style: Textstyles.namereview),
-              SizedBox(height: 10.h),
-              CustomTextformfield(hintText: 'Enter street address', 
-              keyboardType: TextInputType.text, hintStyle: TextStyle(color: Color(0xff8F959E)),  
-              ),
-              SizedBox(height: 10.h,),
-              Text('Postal Code*', style: Textstyles.namereview),
-                CustomTextformfield(hintText: 'Enter postal code', 
-              keyboardType: TextInputType.text, hintStyle: TextStyle(color: Color(0xff8F959E)),  
-              ),
-              SizedBox(height: 40.h,),
-              CustomButton(text: 'Confirm'),
+            Text('Name', style: Textstyles.namereview),
+            SizedBox(height: 10.h),
+            CustomTextformfield(
+              hintText: 'Enter Full Name',
+              keyboardType: TextInputType.text,
+              hintStyle: TextStyle(color: Color(0xff8F959E)),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Text('Phone Number*', style: Textstyles.namereview),
+            CustomTextformfield(
+              hintText: '+20 123 456 7890',
+              keyboardType: TextInputType.text,
+              hintStyle: TextStyle(color: Color(0xff8F959E)),
+            ),
+            SizedBox(
+              height: 20.h,
+            ),
+            const DropDownInCheckout(),
+            SizedBox(
+              height: 10.h,
+            ),
+            Text('Street Address*', style: Textstyles.namereview),
+            SizedBox(height: 10.h),
+            CustomTextformfield(
+              hintText: 'Enter street address',
+              keyboardType: TextInputType.text,
+              hintStyle: TextStyle(color: Color(0xff8F959E)),
+            ),
+            SizedBox(
+              height: 10.h,
+            ),
+            Text('Postal Code*', style: Textstyles.namereview),
+            CustomTextformfield(
+              hintText: 'Enter postal code',
+              keyboardType: TextInputType.text,
+              hintStyle: TextStyle(color: Color(0xff8F959E)),
+            ),
+            SizedBox(
+              height: 40.h,
+            ),
+            CustomButton(
+              text: 'Confirm',
+              onTap: () {
+                _showBottomSheet(context);
+              },
+            ),
           ],
         ),
       ),

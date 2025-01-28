@@ -1,6 +1,7 @@
 // ignore: camel_case_types
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/core/styles/colors.dart';
 import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/core/widgets/custom_button.dart';
@@ -20,19 +21,27 @@ class containerTotalPrice extends StatelessWidget {
         child: Padding(
             padding: const EdgeInsets.all(16.0), // إضافة حشوة داخل الحاوية
             child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly, // توزيع المساحة بالتساوي بين الأطفال
+                mainAxisAlignment: MainAxisAlignment
+                    .spaceEvenly, // توزيع المساحة بالتساوي بين الأطفال
                 children: [
                   Row(
-                    crossAxisAlignment: CrossAxisAlignment.center, // محاذاة الأطفال إلى المركز عموديًا
+                    crossAxisAlignment: CrossAxisAlignment
+                        .center, // محاذاة الأطفال إلى المركز عموديًا
                     children: [
-                      Text('Total', style: Textstyles.textitemtotal), // عرض النص 'Total' بنمط معين
-                      Text(' \$64.95', style: Textstyles.textitemcart), // عرض السعر الإجمالي بنمط معين
+                      Text('Total',
+                          style: Textstyles
+                              .textitemtotal), // عرض النص 'Total' بنمط معين
+                      Text(' \$64.95',
+                          style: Textstyles
+                              .textitemcart), // عرض السعر الإجمالي بنمط معين
                       Spacer(), // إضافة مسافة لدفع الزر إلى اليمين
                       SizedBox(
                           width: 150.w, // ضبط عرض الزر
                           child: CustomButton(
                             text: 'Checkout', // نص الزر
-                            onTap: () {}, // رد نقر الزر
+                            onTap: () {
+                              Navigator.pushNamed(context, Routes.checkout);
+                            }, // رد نقر الزر
                             buttonbodycolor: maincolor, // لون خلفية الزر
                             textcolor: Colors.white, // لون نص الزر
                           ))

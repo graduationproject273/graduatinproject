@@ -15,6 +15,7 @@ class Routes {
   static const String profile = '/profile';
   static const String refall = '/refall';
   static const String adminDashboard = '/adminDashboard';
-  static const String additionlNotes = '/additionlNotes';
+  static const String reviews = '/reviews';
   static const String authbuttonsview = '/authbuttonsview';
+  static const String addReview = '/add-review';
 }

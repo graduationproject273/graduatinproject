@@ -21,27 +21,28 @@ class CheckoutViewBody extends StatelessWidget {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
+               Text(
                 'Select a Payment Method',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 10),
               ListTile(
-                leading: Image.asset(Assets.imagesStripe),
-                title: const Text('Stripe'),
+                leading: SizedBox(width: 50.w ,child: Image.asset(Assets.imagesStripe)),
+                title:  Text('Stripe',style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),),
                 onTap: () {
                   Navigator.pop(context);
                 },
               ),
               ListTile(
-                 leading: Image.asset(Assets.imagesPaypal),
-                title: const Text('Paypal'),
+                 leading: SizedBox(width: 50.w, child: Image.asset(Assets.imagesPaypal)),
+                title:  Text('Paypal',style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),),
                 onTap: () {
                   Navigator.pop(context);
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.cancel),
+               
+                leading: const Icon(Icons.cancel,),
                 title: const Text('Cancel'),
                 onTap: () {
                   Navigator.pop(context);

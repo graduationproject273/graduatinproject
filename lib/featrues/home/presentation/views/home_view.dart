@@ -4,7 +4,6 @@ import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 
 import 'package:gradution/featrues/home/presentation/views/widgets/container_drawder.dart';
 import 'package:gradution/featrues/home/presentation/views/widgets/custom_appbar_inhome.dart';
-import 'package:gradution/featrues/home/presentation/views/widgets/landing_video.dart';
 import 'package:gradution/featrues/home/presentation/views/widgets/list_items_categories.dart';
 
 

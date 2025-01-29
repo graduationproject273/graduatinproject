@@ -16,14 +16,16 @@ class ProductItem extends StatelessWidget {
           color: Colors.white,
           boxShadow: [
             BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 2,
-              blurRadius: 5,
+              //blurStyle: BlurStyle.normal,
+              color: Colors.black,
+              spreadRadius: 3,
+              blurRadius: 3,
+
               offset: const Offset(0, 3),
             ),
           ]),
         child: AspectRatio(
-          aspectRatio: 270 / 158,
+          aspectRatio: 270 / 150,
           child: Stack(
             children: [
               Positioned(

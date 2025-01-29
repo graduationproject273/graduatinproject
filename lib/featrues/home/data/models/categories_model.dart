@@ -1,11 +1,11 @@
 class CategoriesModel {
  // رقم العنصر
   final String name; // اسم العنصر
-  final String imageUrl; // رابط الصورة
+   String? imageUrl; // رابط الصورة
 
-  CategoriesModel({
+  CategoriesModel( this.imageUrl,{
   
-    required this.name,
-    required this.imageUrl,
-  });
+    required this.name,}
+    
+  );
 }

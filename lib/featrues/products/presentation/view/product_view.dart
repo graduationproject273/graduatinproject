@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gradution/core/routeing/routes.dart';
+
+import 'package:gradution/featrues/products/presentation/view/widgets/appber_in_product.dart';
+import 'package:gradution/featrues/products/presentation/view/widgets/products_view_body.dart';
 
 class ProductView extends StatelessWidget {
   const ProductView({super.key});
@@ -7,29 +9,15 @@ class ProductView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Product'),
-      ),
-      body: Column(
-        children: [
-          Center(
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, Routes.productDetails);
-              },
-              child: Text('Product Details'),
-            ),
+      backgroundColor: Colors.white,
+        appBar: AppberInProduct(
+          icon: const Icon(
+            Icons.shopping_cart,
+            color: Colors.black,
           ),
-            Center(
-            child: GestureDetector(
-              onTap: () {
-                Navigator.pushNamed(context, Routes.cart);
-              },
-              child: Text('cart'),
-            ),
-          ),
-        ],
-      ),
-    );
+          title: 'EZhome',
+          context: context,
+        ),
+        body: ProductsViewBody());
   }
 }

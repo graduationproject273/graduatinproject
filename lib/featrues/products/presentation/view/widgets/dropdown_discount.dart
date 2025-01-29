@@ -17,6 +17,7 @@ class _DropdownDiscountState extends State<DropdownDiscount> {
     return Column(
       children: [
         Material(
+          color: Colors.white,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

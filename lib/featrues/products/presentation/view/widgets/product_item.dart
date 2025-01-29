@@ -11,7 +11,17 @@ class ProductItem extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(8),
       child: Container(
-        color: Colors.white, 
+       decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(8),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: const Offset(0, 3),
+            ),
+          ]),
         child: AspectRatio(
           aspectRatio: 270 / 158,
           child: Stack(

@@ -39,7 +39,7 @@ class Containerindrawer extends StatelessWidget {
         Navigator.pushNamed(context, Routes.home);
         break;
       case 1:
-        Navigator.pushNamed(context, Routes.categories);
+        Navigator.pushNamed(context, Routes.products);
         break;
       case 2:
         Navigator.pushNamed(context, Routes.cart);

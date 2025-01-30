@@ -22,6 +22,11 @@ class Textstyles {
     fontSize: 12.sp,
     // fontWeight: FontWeight.bold,
   );
+  static final textitemcat2 = TextStyle(
+    color: Colors.black,
+    fontSize: 15.sp,
+    // fontWeight: FontWeight.bold,
+  );
   static final textitemcart =
       TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold);
       static final textitemtotal =

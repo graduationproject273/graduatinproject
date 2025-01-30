@@ -25,13 +25,13 @@ class _DropdownDiscountState extends State<DropdownDiscount> {
               Container(
                 width: 100.w,
                 decoration: BoxDecoration(
-                  color: Color(0xff8F959E), // لون الخلفية
+                  color: Color(0xffF5F6FA), // لون الخلفية
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: DropdownButtonHideUnderline(
                   child: Theme(
                     data: Theme.of(context).copyWith(
-                      canvasColor: Color(0xff8F959E), // لون خلفية القائمة
+                      canvasColor: Color(0xffF5F6FA), // لون خلفية القائمة
                     ),
                     child: DropdownButton<String>(
                       isExpanded: true, // توسيع العنصر لجعل القيمة في المنتصف
@@ -59,7 +59,7 @@ class _DropdownDiscountState extends State<DropdownDiscount> {
                               padding: EdgeInsets.zero, // منع تحريك النص عشوائيًا
                               child: Text(
                                 value,
-                                style: const TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.black),
                               ),
                             ),
                           ),

@@ -25,7 +25,7 @@ final Color color;
       child: Center(
         child: Text(
          text,
-          style: Textstyles.textitemcat2,
+          style: Textstyles.textitemcat2.copyWith(color: Colors.black),
           textAlign: TextAlign.center,
         ),
       ),

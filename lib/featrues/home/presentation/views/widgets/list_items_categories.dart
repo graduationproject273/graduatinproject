@@ -16,12 +16,12 @@ class ListItemsCategories extends StatefulWidget {
 
 class _ListItemsCategoriesState extends State<ListItemsCategories> {
   final List<CategoriesModel> categories = [
-    CategoriesModel(name: 'Cameres', imageUrl: Assets.imagesCameres),
-    CategoriesModel(name: ' Security', imageUrl: Assets.imagesHomesecurity),
-    CategoriesModel(name: 'Network', imageUrl: Assets.imagesNetwork),
-    CategoriesModel(name: ' lighting', imageUrl: Assets.imagesSmartlighting),
-    CategoriesModel(name: 'Thermostat', imageUrl: Assets.imagesThermostat),
-    CategoriesModel(name: 'panels', imageUrl: Assets.imagesSmar),
+    CategoriesModel(name: 'Cameres',  Assets.imagesCameres),
+    CategoriesModel(name: ' Security', Assets.imagesHomesecurity),
+    CategoriesModel(name: 'Network', Assets.imagesNetwork),
+    CategoriesModel(name: ' lighting',  Assets.imagesSmartlighting),
+    CategoriesModel(name: 'Thermostat', Assets.imagesThermostat),
+    CategoriesModel(name: 'panels',  Assets.imagesSmar),
    // CategoriesModel(name: 'Category 7', imageUrl: Assets.imagesThermostat),
   ];
      final ScrollController _scrollController = ScrollController();
@@ -47,7 +47,7 @@ void _scrollToEnd() {
               itemBuilder: (context, index) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                  child: Categoriesitem(image: categories[index].imageUrl,text:  categories[index].name)
+                  child: Categoriesitem(image: categories[index].imageUrl!,text:  categories[index].name)
                 );
               },
             ),

@@ -24,7 +24,7 @@ class ProductsDetailsViewBody extends StatelessWidget {
           const SizedBox(height: 8),
           const NumberReviews(),
            const SizedBox(height: 8),
-           Text('Minimal Sofa is made of by natural wood. The design' 
+            Text('Minimal Sofa is made of by natural wood. The design' 
            'that is very simple and minimal. This is truly one of '
            'the best furnitures in any family for now. With 3 '
            'different colors, you can easily select the best match '

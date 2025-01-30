@@ -11,9 +11,9 @@ class ProductDetailesView extends StatelessWidget {
       appBar: AppBar(
         leading: IconButton(onPressed: (){
           Navigator.pop(context);
-        }, icon: Icon(Icons.arrow_back_ios),),
+        }, icon: const Icon(Icons.arrow_back_ios),),
       ),
-      body: ProductsDetailsViewBody(),
+      body: const ProductsDetailsViewBody(),
     );
   }
 }

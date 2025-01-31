@@ -12,8 +12,8 @@ class Categoriesitem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 82.h,
-      height: 82.h,
+      width: 88.h,
+      height: 88.h,
       decoration: BoxDecoration(
         color: coloritemcat, // لون الخلفية
         borderRadius: BorderRadius.circular(8), // زوايا دائرية

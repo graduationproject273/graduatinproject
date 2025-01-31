@@ -9,8 +9,8 @@ class BestSelling extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisSize: MainAxisSize.min, // يجعل الـ Column يأخذ حجم محتوياته فقط
-      crossAxisAlignment: CrossAxisAlignment.start, // محاذاة العنوان مع اليسار
+      mainAxisSize: MainAxisSize.min, 
+      crossAxisAlignment: CrossAxisAlignment.start,  
       children: [
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w), // إضافة هامش للعناصر
@@ -24,16 +24,16 @@ class BestSelling extends StatelessWidget {
           height: 240.h, // تحديد ارتفاع مناسب
           child: ListView.builder(
             scrollDirection: Axis.horizontal,
-            shrinkWrap: true, // تصغير الـ ListView ليأخذ مساحة العناصر فقط
+            shrinkWrap: true, 
             padding: EdgeInsets.symmetric(horizontal: 16.w), // إضافة هامش جانبي
             itemBuilder: (context, index) {
               return Padding(
-                padding: EdgeInsets.only(right: 10.w), // تباعد بين المنتجات
+                padding: EdgeInsets.only(right: 10.w), 
                 child: SizedBox(
-                  width: 140.w, // تصغير عرض المنتج
+                  width: 140.w, 
                   child: Container(
                     margin: EdgeInsets.symmetric(vertical: 10.h),
-                    child: ProductItem()), // يأخذ ارتفاعه تلقائيًا
+                    child: ProductItem()), 
                 ),
               );
             },

@@ -12,7 +12,7 @@ class Categoriesitem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 88.h,
+      width: 83.h,
       height: 88.h,
       decoration: BoxDecoration(
         color: coloritemcat, // لون الخلفية

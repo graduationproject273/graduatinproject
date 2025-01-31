@@ -37,7 +37,7 @@ void _scrollToEnd() {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      spacing: 10,
+      spacing: 10.h,
       children: [
         Text('Categories',style:Textstyles.namereview.copyWith(color: Color(0xff9A9A9A))),
    
@@ -46,7 +46,7 @@ void _scrollToEnd() {
               // ListView أفقية
               SizedBox(
               height: 80.h,
-              width: context.width*.84,
+              width: context.width*.80,
                 child: ListView.builder(
                   controller: _scrollController,
                   scrollDirection: Axis.horizontal,

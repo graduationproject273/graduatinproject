@@ -19,10 +19,10 @@ class PricesInDetailsProduct extends StatelessWidget {
             color: Colors.black,
           ),
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: 4),
         // السعر القديم
         Text(
-          '\$ $oldPrice',
+          '\$$oldPrice',
           style: TextStyle(
             fontSize: 15.sp,
             color: colortotalincart,

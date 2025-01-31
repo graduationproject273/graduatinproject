@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/featrues/products/presentation/view/widgets/product_item.dart';
 
 // ignore: camel_case_types
@@ -20,7 +21,11 @@ class listItemsProducts extends StatelessWidget {
             mainAxisSpacing: 20,
           ),
           itemBuilder: (context, index) {
-            return const ProductItem();
+            return  InkWell(onTap: (){
+              Navigator.pushNamed(context, Routes.productDetails);
+            },
+            
+            child: ProductItem());
           },
           itemCount: 10,
           shrinkWrap: true,

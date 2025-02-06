@@ -26,7 +26,10 @@ class _LandingVideoScreenState extends State<LandingVideoScreen> {
 
        
 
-        setState(() {});
+        setState(() {
+
+         
+        });
       });
   }
 
@@ -35,7 +38,11 @@ class _LandingVideoScreenState extends State<LandingVideoScreen> {
   @override
   void dispose() {
     _controller.dispose();
+    _controller.pause();
     super.dispose();
+    
+     
+
   }
 
   @override

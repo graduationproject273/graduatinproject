@@ -11,7 +11,7 @@ class BestSelling extends StatelessWidget {
     return Column(
       //spacing: 10.h,
       //mainAxisSize: MainAxisSize.min, 
-      crossAxisAlignment: CrossAxisAlignment.start,  
+      crossAxisAlignment: CrossAxisAlignment.start, 
       children: [
         Text(
           'Best Selling',

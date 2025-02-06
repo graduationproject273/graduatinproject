@@ -19,7 +19,7 @@ import 'package:gradution/featrues/products/presentation/view/product_view.dart'
 import 'package:gradution/featrues/profile/presentation/views/profile_view.dart';
 import 'package:gradution/featrues/refall/presentation/views/refall_view.dart';
 import 'package:gradution/featrues/reviews/presentation/view/reviews_view.dart';
-import 'package:gradution/featrues/reviews/presentation/view/widgets/reviews_view_body.dart';
+import 'package:gradution/featrues/reviews/presentation/view/add_reviews_view.dart';
 
 class AppRouting {
   // إنشاء GlobalKey<SliderDrawerState> هنا

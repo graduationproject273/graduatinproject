@@ -1,5 +1,4 @@
 // ignore_for_file: file_names
-
 import 'package:dartz/dartz.dart';
 import 'package:gradution/core/errors/failure.dart';
 import 'package:gradution/featrues/products/domain/entities/categories_entity.dart';

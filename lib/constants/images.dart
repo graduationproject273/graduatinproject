@@ -18,9 +18,17 @@ class Assets {
   /// assets/images/cameres.png
   static const String imagesCameres = "assets/images/cameres.png";
 
+  /// Assets for imagesEmail
+  /// assets/images/email.png
+  static const String imagesEmail = "assets/images/email.png";
+
   /// Assets for imagesHomesecurity
   /// assets/images/homesecurity.png
   static const String imagesHomesecurity = "assets/images/homesecurity.png";
+
+  /// Assets for imagesInsta
+  /// assets/images/insta.png
+  static const String imagesInsta = "assets/images/insta.png";
 
   /// Assets for imagesLandingvideo
   /// assets/images/landingvideo.mp4
@@ -46,9 +54,13 @@ class Assets {
   /// assets/images/paypal.png
   static const String imagesPaypal = "assets/images/paypal.png";
 
-  /// Assets for imagesSmar centeralcontrolpanels
-  /// assets/images/smar centeralcontrolpanels.png
-  static const String imagesSmar  = "assets/images/smar centeralcontrolpanels.png";
+  /// Assets for imagesPhone
+  /// assets/images/phone.png
+  static const String imagesPhone = "assets/images/phone.png";
+
+  /// Assets for imagesSmarcenteralcontrolpanels
+  /// assets/images/smarcenteralcontrolpanels.png
+  static const String imagesSmarcenteralcontrolpanels = "assets/images/smarcenteralcontrolpanels.png";
 
   /// Assets for imagesSmartlighting
   /// assets/images/smartlighting.png
@@ -65,5 +77,9 @@ class Assets {
   /// Assets for imagesThermostat
   /// assets/images/Thermostat.png
   static const String imagesThermostat = "assets/images/Thermostat.png";
+
+  /// Assets for imagesVector
+  /// assets/images/Vector.png
+  static const String imagesVector = "assets/images/Vector.png";
 }
 

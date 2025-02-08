@@ -25,7 +25,7 @@ class _listItemsCategoriesState extends State<listItemsCategories> {
     CategoriesModel(name: 'Network', Assets.imagesNetwork),
     CategoriesModel(name: 'Smart lighting', Assets.imagesSmartlighting),
     CategoriesModel(name: 'Thermostat', Assets.imagesThermostat),
-    CategoriesModel(name: 'Smart Centeral Control Panels', Assets.imagesSmar),
+    CategoriesModel(name: 'Smart Centeral Control Panels', Assets.imagesSmarcenteralcontrolpanels),
     // CategoriesModel(name: 'Category 7', imageUrl: Assets.imagesThermostat),
   ];
 

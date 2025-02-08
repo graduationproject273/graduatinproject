@@ -9,6 +9,7 @@ import 'package:gradution/featrues/blog/presentation/view/blog_view.dart';
 import 'package:gradution/featrues/cart/presentation/views/cart_view.dart';
 import 'package:gradution/featrues/categories/presentation/views/categories_view.dart';
 import 'package:gradution/featrues/checkout/presentation/views/checkout_view.dart';
+import 'package:gradution/featrues/contactus/presentation/view/contactus_view.dart';
 import 'package:gradution/featrues/home/presentation/views/home_view.dart';
 import 'package:gradution/featrues/onbording/presentation/views/auth_buttons_view.dart';
 import 'package:gradution/featrues/onbording/presentation/views/onboarding_view.dart';
@@ -43,7 +44,12 @@ class AppRouting {
         return MaterialPageRoute(
           builder: (_) => const RegisterView(),
         );
+         case Routes.contactus:
+        return MaterialPageRoute(
+          builder: (_) => const ContactusView(), // تمرير sliderKey هنا
+        );
       case Routes.login:
+      
         return MaterialPageRoute(
           builder: (_) => const LoginView(),
         );

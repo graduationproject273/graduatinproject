@@ -8,13 +8,11 @@ import 'package:gradution/featrues/products/domain/repositries/products_repositr
 class ProductsRepositryImpl extends ProductsRepositry{
   @override
   Future<Either<Failure, ProductsEntity>> getProducts() {
-    // TODO: implement getProducts
-    throw UnimplementedError();
+   throw UnimplementedError();
   }
 
   @override
   Future<Either<Failure, CategoriesEntity>> getCategories() {
-    // TODO: implement getCategories
     throw UnimplementedError();
   }
 }

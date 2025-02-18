@@ -6,6 +6,10 @@ class Assets {
   /// assets/images/41.png
   static const String images41 = "assets/images/41.png";
 
+  /// Assets for images96f45ec46c3f43e470052afdd3c8c147
+  /// assets/images/96f45ec46c3f43e470052afdd3c8c147.jpg
+  static const String images96f45ec46c3f43e470052afdd3c8c147 = "assets/images/96f45ec46c3f43e470052afdd3c8c147.jpg";
+
   /// Assets for imagesAuthbuttonsimage
   /// assets/images/authbuttonsimage.png
   static const String imagesAuthbuttonsimage = "assets/images/authbuttonsimage.png";

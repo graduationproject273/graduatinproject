@@ -39,6 +39,7 @@ class AuthButtonsViewBody extends StatelessWidget {
           bottomRight: Radius.circular(40.r),
         ),
         child: Container(
+          // ignore: deprecated_member_use
           color: Colors.black.withOpacity(0.5), // تعديل الشفافية حسب الحاجة
         ),
       ),

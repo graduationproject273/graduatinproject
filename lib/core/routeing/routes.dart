@@ -18,5 +18,4 @@ class Routes {
   static const String reviews = '/reviews';
   static const String authbuttonsview = '/authbuttonsview';
   static const String addReview = '/add-review';
-   static const String contactus = '/contactus';
 }

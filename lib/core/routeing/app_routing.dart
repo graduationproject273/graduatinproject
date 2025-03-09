@@ -109,6 +109,10 @@ class AppRouting {
         return MaterialPageRoute(
           builder: (_) => const AuthButtonsView(),
         );
+      case Routes.contactus:
+        //return MaterialPageRoute(
+         // builder: (_) => const contac(),
+      //  );
       default:
         return null;
     }

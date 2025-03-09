@@ -65,7 +65,7 @@ class _CustomAppbarInhomeState extends State<CustomAppbarInhome>
                 size: 30.sp, // حجم الأيقونة متجاوب
               ),
             ),
-            Text('EZhome', style: TextStyle(fontSize: 25.sp,color: maincolor,fontWeight:FontWeight.bold ),),
+            Text('EZhome', style: TextStyle(fontSize: 16.sp,color: maincolor,fontWeight:FontWeight.w800 ),),
             CircleAvatar(
           radius: 30,
           child: Image.asset(Assets.imagesAvatar))

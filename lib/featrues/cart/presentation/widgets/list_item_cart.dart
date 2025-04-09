@@ -17,7 +17,7 @@ class listItemsCarts extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return  Padding(
             padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: itemCart(),
+            child: ItemCart(),
           );
         },
       ),

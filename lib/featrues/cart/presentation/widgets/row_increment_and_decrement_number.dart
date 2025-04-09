@@ -17,10 +17,10 @@ class rowIncrementAndDecrementNumber extends StatelessWidget {
         // زر (-) داخل دائرة
         CircleAvatar(
           backgroundColor: maincolor,
-          radius: 15,
+          radius: 15.sp,
           child: IconButton(
             icon: Icon(
-              size: 14.sp,
+              size: 15.sp,
               Icons.remove,
               color: Colors.white,
             ),
@@ -31,16 +31,16 @@ class rowIncrementAndDecrementNumber extends StatelessWidget {
         // الرقم في المنتصف
         Text(
           '1',
-          style: Textstyles.textitemcart,
+          style: Textstyles.textitemcartnumber,
         ),
         const SizedBox(width: 16),
         // زر (+) داخل دائرة
         CircleAvatar(
           backgroundColor: maincolor,
-          radius: 15,
+          radius: 15.sp,
           child: IconButton(
             icon: Icon(
-              size: 14.sp,
+              size: 15.sp,
               Icons.add,
               color: Colors.white,
             ),

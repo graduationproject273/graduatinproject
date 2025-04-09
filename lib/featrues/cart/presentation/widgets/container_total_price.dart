@@ -16,7 +16,7 @@ class containerTotalPrice extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: double.infinity, // ضبط عرض الحاوية لملء الحاوية الأم
-        height: 0.14.sh, // ضبط ارتفاع الحاوية ليكون 14% من ارتفاع الشاشة
+        height: 0.15.sh, // ضبط ارتفاع الحاوية ليكون 15% من ارتفاع الشاشة
         color: colortotalincart, // ضبط لون خلفية الحاوية
         child: Padding(
             padding: const EdgeInsets.all(16.0), // إضافة حشوة داخل الحاوية
@@ -28,12 +28,12 @@ class containerTotalPrice extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment
                         .center, // محاذاة الأطفال إلى المركز عموديًا
                     children: [
-                      Text('Total',
+                      Text('Total  ',
                           style: Textstyles
                               .textitemtotal), // عرض النص 'Total' بنمط معين
                       Text(' \$64.95',
                           style: Textstyles
-                              .textitemcart), // عرض السعر الإجمالي بنمط معين
+                              .texttotalprice), // عرض السعر الإجمالي بنمط معين
                       Spacer(), // إضافة مسافة لدفع الزر إلى اليمين
                       SizedBox(
                           width: 150.w, // ضبط عرض الزر

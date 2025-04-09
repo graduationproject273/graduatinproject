@@ -9,8 +9,8 @@ import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/featrues/cart/presentation/widgets/row_increment_and_decrement_number.dart';
 
 // ignore: camel_case_types
-class itemCart extends StatelessWidget {
-  const itemCart({
+class ItemCart extends StatelessWidget {
+  const ItemCart({
     super.key,
   });
 
@@ -22,7 +22,7 @@ class itemCart extends StatelessWidget {
       elevation: 5, // ارتفاع الظل
       child: Container(
           width: double.infinity, // عرض الحاوية
-          height:  0.15.sh, // ارتفاع الحاوية
+          height:  context.height * .16, // ارتفاع الحاوية
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20), // حواف دائرية
               color: Colors.white), // لون الخلفية
@@ -37,7 +37,7 @@ class itemCart extends StatelessWidget {
                       height: context.height * .15, // ارتفاع الصورة
                     ),
                     Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween, // توزيع العناصر بالتساوي
+                        mainAxisAlignment: MainAxisAlignment.spaceAround, // توزيع العناصر بالتساوي
                         crossAxisAlignment: CrossAxisAlignment.start, // محاذاة العناصر إلى اليسار
                         children: [
                           Text('Nike Club Max', style: Textstyles.textitemcart), // اسم المنتج
@@ -47,7 +47,7 @@ class itemCart extends StatelessWidget {
                     IconButton(
                         onPressed: () {}, // حدث عند الضغط على الزر
                         icon: Icon(
-                            size: 30.sp,
+                            size: 25.sp,
                             CupertinoIcons.delete, // أيقونة الحذف
                             color: Colors.red)) // لون الأيقونة
                   ]))),

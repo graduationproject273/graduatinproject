@@ -27,10 +27,14 @@ class Textstyles {
     fontSize: 15.sp,
     // fontWeight: FontWeight.bold,
   );
-  static final textitemcart =
+   static final textitemcart =
       TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold);
+       static final texttotalprice =
+      TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400);
+       static final textitemcartnumber =
+      TextStyle(fontSize: 16.sp,);
       static final textitemtotal =
-      TextStyle(fontSize: 20.sp, fontWeight: FontWeight.bold);
+      TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold);
 
 
 

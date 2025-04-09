@@ -12,22 +12,25 @@ class RowItemPhoneEmailInContactus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: context.height * .45,  
+      height: context.width * .45,  
       child:  ListView.builder(
+        physics: const NeverScrollableScrollPhysics(),
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
-        padding: EdgeInsets.symmetric(horizontal: 20.w),
-        itemCount: 2,
+     itemCount: 2,
         itemBuilder: (BuildContext context, int index) {
-          return ItemPhoneAndEmailInConactus(
-          text1: index == 0 ? 'Call us' : 'Email us',
-          text2: index == 0
-              ? 'Our team is on the line \nMon-Fri  •  9-17'
-              : 'Our team is online \nMon-Fri  •  9-17',
-          icon: index == 0
-              ?  Icon(CupertinoIcons.phone,color: Colors.white,size: 30.sp,)
-              : Icon(CupertinoIcons.mail,color: Colors.white,size: 30.sp,),
-        ) ;
+          return Padding(
+            padding:  EdgeInsets.only(right: 20.w),
+            child: ItemPhoneAndEmailInConactus(
+            text1: index == 0 ? 'Call us' : 'Email us',
+            text2: index == 0
+                ? 'Our team is on the line \nMon-Fri  •  9-17'
+                : 'Our team is online \nMon-Fri  •  9-17',
+            icon: index == 0
+                ?  Icon(CupertinoIcons.phone,color: Colors.white,size: 30.sp,)
+                : Icon(CupertinoIcons.mail,color: Colors.white,size: 30.sp,),
+                    ),
+          ) ;
         },
       ),
     );

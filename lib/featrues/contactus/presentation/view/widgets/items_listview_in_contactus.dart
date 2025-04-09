@@ -1,16 +1,18 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:gradution/constants/images.dart';
-import 'package:gradution/featrues/contactus/presentation/widgets/item_in_contactus.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gradution/core/styles/extention.dart';
+import 'package:gradution/featrues/contactus/presentation/view/widgets/item_in_contactus.dart';
 
 class ItemsListviewInContactus extends StatelessWidget {
    ItemsListviewInContactus({super.key});
-  final List<String> images =[
-    Assets.imagesInsta,
-    Assets.imagesEmail,
-    Assets.imagesPhone
+  final List<Widget> icon =[
+   Icon(Icons.facebook_sharp,color: Colors.white,size: 30.sp,),
+   Icon(CupertinoIcons.mail,color: Colors.white,size: 30.sp,),
+    Icon(CupertinoIcons.phone,color: Colors.white,size: 30.sp,)
   ];
   final List<String> text1 =[
-    'Instagram',
+    'Facebook',
     'Email',
     'Phone'
   ];
@@ -21,22 +23,19 @@ class ItemsListviewInContactus extends StatelessWidget {
   ];
   @override
   Widget build(BuildContext context) {
-    final screenheight= MediaQuery.of(context).size.height;
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: SizedBox(
-        height: screenheight*.7,
+   return  SizedBox(
+        height: context.height*.4,
         child: ListView.builder(
           itemBuilder: (context, index) => Padding(
             padding: const EdgeInsets.only(bottom: 11.0),
             child: ItemInContactus(
-              image: images[index],
+              icon: icon[index],
               text1: text1[index],
               text2: text2[index],
             ),
           ),
            itemCount: 3,),
-      ),
+    
     );
   }
 }

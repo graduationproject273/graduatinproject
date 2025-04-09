@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gradution/core/routeing/routes.dart';
 
 class BlogView extends StatelessWidget {
@@ -15,7 +16,7 @@ class BlogView extends StatelessWidget {
           Center(
             child:GestureDetector(
               onTap: () {
-                Navigator.pushNamed(context, Routes.blogDetails);
+                GoRouter.of(context).push(Routes.blogDetails);
             })
           ),
         ],

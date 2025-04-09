@@ -54,5 +54,3 @@ class ItemCart extends StatelessWidget {
     );
   }
 }
-
-// ignore: camel_case_types

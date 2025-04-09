@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gradution/constants/images.dart';
 import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/core/styles/colors.dart';
@@ -36,31 +37,31 @@ class Containerindrawer extends StatelessWidget {
   void navigateToPage(BuildContext context, int index) {
     switch (index) {
       case 0:
-        Navigator.pushNamed(context, Routes.home);
+        GoRouter.of(context).go(Routes.home);
         break;
       case 1:
-        Navigator.pushNamed(context, Routes.products);
+       GoRouter.of(context).go(Routes.home);
         break;
       case 2:
-        Navigator.pushNamed(context, Routes.cart);
+        GoRouter.of(context).go(Routes.home);
         break;
       case 3:
-        Navigator.pushNamed(context, Routes.blog);
+         GoRouter.of(context).go(Routes.home);
         break;
       case 4:
-        Navigator.pushNamed(context, Routes.blog);
+        GoRouter.of(context).go(Routes.home);
         break;
       case 5:
-        Navigator.pushNamed(context, Routes.checkout);
+      GoRouter.of(context).go(Routes.home);
         break;
       case 6:
-        Navigator.pushNamed(context, Routes.refall);
+         GoRouter.of(context).go(Routes.home);
         break;
       case 7:
-        Navigator.pushNamed(context, Routes.profile);
+        GoRouter.of(context).go(Routes.home);
         break;
       default:
-        Navigator.pushNamed(context, Routes.home);
+         GoRouter.of(context).go(Routes.home);
     }
   }
 

@@ -1,7 +1,10 @@
 // ignore: camel_case_types
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/core/styles/colors.dart';
+import 'package:gradution/core/styles/textstyles.dart';
 
 class NumberReviews extends StatelessWidget {
   const NumberReviews({
@@ -11,21 +14,31 @@ class NumberReviews extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Icon(Icons.star, color: Colors.yellow, size: 24.sp),
-        Text(
-          ' 4.5',
-          style: TextStyle(
-            fontSize: 16.sp,
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(Icons.star, color: Colors.yellow, size: 24.sp),
+            Text(
+              ' 4.5',
+              style: TextStyle(
+                fontSize: 16.sp,
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            Text(
+              ' (500 Reviews)',
+              style: TextStyle(fontSize: 14.sp, color: colortotalincart),
+            ),
+          ],
         ),
-        Text(
-          '  (500 Reviews)',
-          style: TextStyle(fontSize: 14.sp, color: colortotalincart),
-        ),
+        const Spacer(),
+        GestureDetector(
+          onTap: () {
+            GoRouter.of(context).push(Routes.reviews);
+          },
+          child: Text('See All', style: Textstyles.namereview.copyWith(color: Colors.grey, fontSize: 15),))
       ],
     );
   }

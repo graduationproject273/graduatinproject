@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/core/styles/extention.dart';
 import 'package:gradution/featrues/onbording/presentation/views/widgets/texts_in_onboarding.dart';
@@ -43,7 +44,7 @@ class coloronboarding extends StatelessWidget {
                                   visible: isVisible,
                                   child: GestureDetector(
                                     onTap: () {
-                                      Navigator.pushNamed(context, Routes.login);
+                                    GoRouter.of(context).push(Routes.login);
                                     },
                                     child: Padding(
                                       padding: const EdgeInsets.only(right: 16, top: 16),

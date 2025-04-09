@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gradution/constants/images.dart';
 import 'package:gradution/core/routeing/routes.dart';
 
@@ -34,7 +35,7 @@ class _SplashViewState extends State<SplashView>
     Future.delayed(Duration(seconds: 5), () {
       // الانتقال إلى الصفحة التالية
       // ignore: use_build_context_synchronously
-      Navigator.pushReplacementNamed(context, Routes.onBoarding);
+     GoRouter.of(context).push(Routes.onBoarding);
     });
   }
 

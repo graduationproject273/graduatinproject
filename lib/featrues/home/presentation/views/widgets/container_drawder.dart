@@ -48,7 +48,7 @@ class Containerindrawer extends StatelessWidget {
         Navigator.pushNamed(context, Routes.blog);
         break;
       case 4:
-        Navigator.pushNamed(context, Routes.contactus);
+        Navigator.pushNamed(context, Routes.blog);
         break;
       case 5:
         Navigator.pushNamed(context, Routes.checkout);

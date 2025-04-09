@@ -44,7 +44,7 @@ class AppRouting {
         return MaterialPageRoute(
           builder: (_) => const RegisterView(),
         );
-         case Routes.contactus:
+         case Routes.blog:
         return MaterialPageRoute(
           builder: (_) => const ContactusView(), // تمرير sliderKey هنا
         );
@@ -109,7 +109,7 @@ class AppRouting {
         return MaterialPageRoute(
           builder: (_) => const AuthButtonsView(),
         );
-      case Routes.contactus:
+      //case Routes.contactus:
         //return MaterialPageRoute(
          // builder: (_) => const contac(),
       //  );

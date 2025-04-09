@@ -1,6 +1,8 @@
 // ignore: camel_case_types
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/core/styles/colors.dart';
 import 'package:gradution/core/styles/textstyles.dart';
 
@@ -34,7 +36,7 @@ class NumberReviews extends StatelessWidget {
         const Spacer(),
         GestureDetector(
           onTap: () {
-            
+            GoRouter.of(context).push(Routes.reviews);
           },
           child: Text('See All', style: Textstyles.namereview.copyWith(color: Colors.grey, fontSize: 15),))
       ],

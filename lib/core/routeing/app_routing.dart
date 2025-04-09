@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:gradution/core/routeing/routes.dart';
-import 'package:gradution/featrues/adminDashboard/presentation/views/admin_dashboard_view.dart';
+import 'package:gradution/featrues/adminDashboard/features/admindashboard/presentation/pages/admindashboard_view.dart';
 import 'package:gradution/featrues/authintication/presentation/views/login_view.dart';
 import 'package:gradution/featrues/authintication/presentation/views/register_view.dart';
 import 'package:gradution/featrues/blog/presentation/view/blog_details_view.dart';
@@ -88,7 +88,7 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: Routes.adminDashboard,
-      builder: (context, state) => const AdminDashboardView(),
+      builder: (context, state) => const AdmindashboardView(),
     ),
     GoRoute(
       path: Routes.reviews,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gradution/core/routeing/routes.dart';
 
 class ProductItem extends StatelessWidget {
@@ -11,7 +12,7 @@ class ProductItem extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, Routes.productDetails);
+        GoRouter.of(context).push(Routes.productDetails);
       },
       child: Material(
         elevation: 5,

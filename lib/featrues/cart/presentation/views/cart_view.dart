@@ -1,9 +1,6 @@
 
 import 'package:flutter/material.dart';
-
 import 'package:gradution/featrues/cart/presentation/widgets/body_in_cart_view.dart';
-
-
 import '../widgets/row_appbar_in_cart.dart';
 
 class CartView extends StatelessWidget {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/featrues/adminDashboard/presentation/views/admin_dashboard_view.dart';
@@ -21,94 +22,89 @@ import 'package:gradution/featrues/refall/presentation/views/refall_view.dart';
 import 'package:gradution/featrues/reviews/presentation/view/reviews_view.dart';
 import 'package:gradution/featrues/reviews/presentation/view/add_reviews_view.dart';
 
-class AppRouting {
-  // إنشاء GlobalKey<SliderDrawerState> هنا
-  final GlobalKey<SliderDrawerState> sliderKey = GlobalKey<SliderDrawerState>();
+final GlobalKey<SliderDrawerState> sliderKey = GlobalKey<SliderDrawerState>();
 
-  Route? generateRoute(RouteSettings settings) {
-    switch (settings.name) {
-      case Routes.splash:
-        return MaterialPageRoute(
-          builder: (_) => SplashView(),
-        );
-      case Routes.onBoarding:
-        return MaterialPageRoute(
-          builder: (_) => OnboardingView(),
-        );
-      case Routes.home:
-        return MaterialPageRoute(
-          builder: (_) => HomeView(sliderKey: sliderKey), // تمرير sliderKey هنا
-        );
-      case Routes.register:
-        return MaterialPageRoute(
-          builder: (_) => const RegisterView(),
-        );
-      case Routes.login:
-        return MaterialPageRoute(
-          builder: (_) => const LoginView(),
-        );
-      case Routes.products:
-        return MaterialPageRoute(
-          builder: (_) => const ProductView(),
-        );
-      case Routes.productDetails:
-        return MaterialPageRoute(
-          builder: (_) => const ProductDetailesView(),
-        );
-      case Routes.categories:
-        return MaterialPageRoute(
-          builder: (_) => const CategoriesView(),
-        );
-      case Routes.blog:
-        return MaterialPageRoute(
-          builder: (_) => const BlogView(),
-        );
-      case Routes.blogDetails:
-        return MaterialPageRoute(
-          builder: (_) => const BlogDetailsView(),
-        );
-      case Routes.cart:
-        return MaterialPageRoute(
-          builder: (_) => const CartView(),
-        );
-      case Routes.checkout:
-        return MaterialPageRoute(
-          builder: (_) => const CheckoutView(),
-        );
-      case Routes.orderSuccess:
-        return MaterialPageRoute(
-          builder: (_) => const OrderSuccessView(),
-        );
-      case Routes.profile:
-        return MaterialPageRoute(
-          builder: (_) => const ProfileView(),
-        );
-      case Routes.refall:
-        return MaterialPageRoute(
-          builder: (_) => const RefillView(),
-        );
-      case Routes.adminDashboard:
-        return MaterialPageRoute(
-          builder: (_) => const AdminDashboardView(),
-        );
-      case Routes.reviews:
-        return MaterialPageRoute(
-          builder: (_) => const ReviewsView(),
-        );
-      case Routes.addReview:
-        return MaterialPageRoute(
-          builder: (_) => const ReviewsViewBody(),
-        );
-      case Routes.authbuttonsview:
-        return MaterialPageRoute(
-          builder: (_) => const AuthButtonsView(),
-        );
-      case Routes.contactus:
-        //return MaterialPageRoute(
-         // builder: (_) => const contac(),
-      //  );
-      default:
-        return null;
-    }
-  }
-}
+final GoRouter router = GoRouter(
+  routes: [
+    GoRoute(
+      path: Routes.splash,
+      builder: (context, state) => SplashView(),
+    ),
+    GoRoute(
+      path: Routes.onBoarding,
+      builder: (context, state) => OnboardingView(),
+    ),
+    GoRoute(
+      path: Routes.home,
+      builder: (context, state) => HomeView(sliderKey: sliderKey),
+    ),
+    GoRoute(
+      path: Routes.register,
+      builder: (context, state) => const RegisterView(),
+    ),
+    GoRoute(
+      path: Routes.login,
+      builder: (context, state) => const LoginView(),
+    ),
+    GoRoute(
+      path: Routes.products,
+      builder: (context, state) => const ProductView(),
+    ),
+    GoRoute(
+      path: Routes.productDetails,
+      builder: (context, state) => const ProductDetailesView(),
+    ),
+    GoRoute(
+      path: Routes.categories,
+      builder: (context, state) => const CategoriesView(),
+    ),
+    GoRoute(
+      path: Routes.blog,
+      builder: (context, state) => const BlogView(),
+    ),
+    GoRoute(
+      path: Routes.blogDetails,
+      builder: (context, state) => const BlogDetailsView(),
+    ),
+    GoRoute(
+      path: Routes.cart,
+      builder: (context, state) => const CartView(),
+    ),
+    GoRoute(
+      path: Routes.checkout,
+      builder: (context, state) => const CheckoutView(),
+    ),
+    GoRoute(
+      path: Routes.orderSuccess,
+      builder: (context, state) => const OrderSuccessView(),
+    ),
+    GoRoute(
+      path: Routes.profile,
+      builder: (context, state) => const ProfileView(),
+    ),
+    GoRoute(
+      path: Routes.refall,
+      builder: (context, state) => const RefillView(),
+    ),
+    GoRoute(
+      path: Routes.adminDashboard,
+      builder: (context, state) => const AdminDashboardView(),
+    ),
+    GoRoute(
+      path: Routes.reviews,
+      builder: (context, state) => const ReviewsView(),
+    ),
+    GoRoute(
+      path: Routes.addReview,
+      builder: (context, state) => const ReviewsViewBody(),
+    ),
+    GoRoute(
+      path: Routes.authbuttonsview,
+      builder: (context, state) => const AuthButtonsView(),
+    ),
+    // أضف هنا أي Routes إضافية
+  ],
+  errorBuilder: (context, state) => const Scaffold(
+    body: Center(child: Text('Page not found')),
+  ),
+);

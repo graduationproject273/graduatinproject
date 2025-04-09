@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gradution/core/routeing/routes.dart';
 
 class AppberInProduct extends AppBar {
@@ -11,7 +12,7 @@ class AppberInProduct extends AppBar {
           actions: [
             IconButton(
               onPressed: () {
-               Navigator.pushNamed(context, Routes.cart);
+GoRouter.of(context).push(Routes.cart); 
               },
               icon:  icon,
             ),

@@ -52,4 +52,3 @@ class rowIncrementAndDecrementNumber extends StatelessWidget {
   }
 }
 
-// ignore: camel_case_types

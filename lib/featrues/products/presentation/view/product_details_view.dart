@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gradution/featrues/products/presentation/view/widgets/products_details_view_body.dart';
 
 class ProductDetailesView extends StatelessWidget {
@@ -12,7 +13,7 @@ class ProductDetailesView extends StatelessWidget {
         backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+           GoRouter.of(context).pop();
           },
           icon: const Icon(Icons.arrow_back_ios),
         ),

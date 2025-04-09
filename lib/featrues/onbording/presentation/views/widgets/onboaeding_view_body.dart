@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gradution/constants/images.dart';
 import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/featrues/onbording/presentation/views/widgets/body_onboarding.dart';
@@ -88,7 +89,7 @@ Widget build(BuildContext context) {
         right: 16,
         child: ButtonAndIndicators(position: currentPage, onNextPressed: () { 
           if (currentPage == 2) {
-             Navigator.pushNamed(context, Routes.authbuttonsview);
+            GoRouter.of(context).push(Routes.authbuttonsview);
           }
           _pageController.nextPage(
             duration: const Duration(milliseconds: 300),

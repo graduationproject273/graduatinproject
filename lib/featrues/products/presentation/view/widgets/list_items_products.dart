@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/featrues/products/presentation/view/widgets/product_item.dart';
 
@@ -22,7 +23,7 @@ class listItemsProducts extends StatelessWidget {
           ),
           itemBuilder: (context, index) {
             return  InkWell(onTap: (){
-              Navigator.pushNamed(context, Routes.productDetails);
+             GoRouter.of(context).push(Routes.productDetails);
             },
             
             child: ProductItem());

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gradution/constants/images.dart';
 import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/core/styles/colors.dart';
@@ -61,11 +62,11 @@ class AuthButtonsViewBody extends StatelessWidget {
                   ),
                 SizedBox(height: 20.h),
                 CustomButton(text: 'Create a account',onTap: (){
-                  Navigator.pushNamed(context, Routes.register);
+                  GoRouter.of(context).push(Routes.register);
                 }),
                 SizedBox(height: 10.h),
                 CustomButton(text: 'Sign In',onTap: (){
-                  Navigator.pushNamed(context, Routes.login);
+                  GoRouter.of(context).push(Routes.login);
                 },buttonbodycolor: Colors.white,textcolor: maincolor,bordercolor: maincolor,),
               ],
             ),

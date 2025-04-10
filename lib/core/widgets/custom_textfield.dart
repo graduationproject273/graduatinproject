@@ -12,6 +12,8 @@ class CustomTextformfield extends StatelessWidget {
   final int? maxLines;
   final double? cursorHeight;
   final TextStyle? hintStyle;
+  final Color? color ;
+  final Color? colorborder;
   const CustomTextformfield({
     super.key,
     required this.hintText,
@@ -19,7 +21,7 @@ class CustomTextformfield extends StatelessWidget {
     this.obscureText,
     this.suffixIcon,
     this.validator,
-    this.onSaved, this.maxLines, this.cursorHeight, this.hintStyle,
+    this.onSaved, this.maxLines, this.cursorHeight, this.hintStyle, this.color, this.colorborder,
   });
 
   @override
@@ -38,7 +40,7 @@ class CustomTextformfield extends StatelessWidget {
         suffixIconColor: Color(0xFFC9CECF),
         hintText: hintText,
         filled: true,
-        fillColor: colortextfieldreveiw,
+        fillColor:color ,
         border: buildBorder(),
         enabledBorder: buildBorder(),
         focusedBorder: buildBorder(),
@@ -47,8 +49,8 @@ class CustomTextformfield extends StatelessWidget {
 
   OutlineInputBorder buildBorder() {
     return OutlineInputBorder(
-        borderSide: BorderSide(width: 2, color: Color(0xFFF9FAFA)),
-        borderRadius: BorderRadius.circular(4),
+        borderSide: BorderSide(width: 1.5, color: colorborder ?? Color(0xFFC9CECF)),
+        borderRadius: BorderRadius.circular(10),
       );
   }
 }

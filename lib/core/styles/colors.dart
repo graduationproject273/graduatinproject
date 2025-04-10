@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-const maincolor = Color(0xFF397AFF);
+const maincolor = Color(0xFF00917c);
 const textcolorinonboarding = Color(0xffFEFEFE);
 const textcolorinauthpagebuttons = Color(0xff70797E);
 const colortotalincart = Color(0xff95989A);

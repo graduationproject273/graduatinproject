@@ -4,6 +4,7 @@ import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/featrues/adminDashboard/features/admindashboard/presentation/pages/admindashboard_view.dart';
 import 'package:gradution/featrues/authintication/login/presentation/pages/login_view.dart';
+import 'package:gradution/featrues/authintication/login/presentation/widgets/otp_widget.dart';
 import 'package:gradution/featrues/authintication/sinup/presentation/pages/sinup_view.dart';
 import 'package:gradution/featrues/authintication/typeUser/presentation/views/usertype_view.dart';
 import 'package:gradution/featrues/blog/presentation/view/blog_details_view.dart';
@@ -105,7 +106,10 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(path: Routes.usertype,
     builder: (context, state) => const UsertypeView(),
-    )
+    ),
+    GoRoute(path: Routes.otpwidget,
+    builder: (context, state) => const OtpWidget(),
+    ),
     // أضف هنا أي Routes إضافية
   ],
   errorBuilder: (context, state) => const Scaffold(

@@ -38,6 +38,10 @@ class Assets {
   /// assets/images/landingvideo.mp4
   static const String imagesLandingvideo = "assets/images/landingvideo.mp4";
 
+  /// Assets for imagesModifylogo
+  /// assets/images/modifylogo.png
+  static const String imagesModifylogo = "assets/images/modifylogo.png";
+
   /// Assets for imagesNetwork
   /// assets/images/network.png
   static const String imagesNetwork = "assets/images/network.png";

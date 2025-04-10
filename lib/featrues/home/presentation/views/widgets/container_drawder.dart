@@ -40,16 +40,16 @@ class Containerindrawer extends StatelessWidget {
         GoRouter.of(context).go(Routes.home);
         break;
       case 1:
-       GoRouter.of(context).go(Routes.home);
+       GoRouter.of(context).push(Routes.categories);
         break;
       case 2:
-        GoRouter.of(context).go(Routes.home);
+        GoRouter.of(context).push(Routes.cart);
         break;
       case 3:
-         GoRouter.of(context).go(Routes.home);
+         GoRouter.of(context).push(Routes.reviews);
         break;
       case 4:
-        GoRouter.of(context).go(Routes.home);
+        GoRouter.of(context).go(Routes.checkout);
         break;
       case 5:
       GoRouter.of(context).go(Routes.home);

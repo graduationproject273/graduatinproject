@@ -30,9 +30,9 @@ class Textstyles {
    static final textitemcart =
       TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold);
        static final texttotalprice =
-      TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400);
+      TextStyle(fontSize: 17.sp, fontWeight: FontWeight.w500);
        static final textitemcartnumber =
-      TextStyle(fontSize: 16.sp,);
+      TextStyle(fontSize: 18.sp,fontWeight:FontWeight.w500);
       static final textitemtotal =
       TextStyle(fontSize: 24.sp, fontWeight: FontWeight.bold);
 

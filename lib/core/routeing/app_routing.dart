@@ -3,8 +3,8 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/featrues/adminDashboard/features/admindashboard/presentation/pages/admindashboard_view.dart';
-import 'package:gradution/featrues/authintication/presentation/views/login_view.dart';
-import 'package:gradution/featrues/authintication/presentation/views/register_view.dart';
+import 'package:gradution/featrues/authintication/login/presentation/pages/login_view.dart';
+import 'package:gradution/featrues/authintication/sinup/presentation/pages/sinup_view.dart';
 import 'package:gradution/featrues/blog/presentation/view/blog_details_view.dart';
 import 'package:gradution/featrues/blog/presentation/view/blog_view.dart';
 import 'package:gradution/featrues/cart/presentation/views/cart_view.dart';
@@ -40,7 +40,7 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: Routes.register,
-      builder: (context, state) => const RegisterView(),
+      builder: (context, state) => const SinupView(),
     ),
     GoRoute(
       path: Routes.login,

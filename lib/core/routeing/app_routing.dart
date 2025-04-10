@@ -5,6 +5,7 @@ import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/featrues/adminDashboard/features/admindashboard/presentation/pages/admindashboard_view.dart';
 import 'package:gradution/featrues/authintication/login/presentation/pages/login_view.dart';
 import 'package:gradution/featrues/authintication/sinup/presentation/pages/sinup_view.dart';
+import 'package:gradution/featrues/authintication/typeUser/presentation/views/usertype_view.dart';
 import 'package:gradution/featrues/blog/presentation/view/blog_details_view.dart';
 import 'package:gradution/featrues/blog/presentation/view/blog_view.dart';
 import 'package:gradution/featrues/cart/presentation/views/cart_view.dart';
@@ -102,6 +103,9 @@ final GoRouter router = GoRouter(
       path: Routes.authbuttonsview,
       builder: (context, state) => const AuthButtonsView(),
     ),
+    GoRoute(path: Routes.usertype,
+    builder: (context, state) => const UsertypeView(),
+    )
     // أضف هنا أي Routes إضافية
   ],
   errorBuilder: (context, state) => const Scaffold(

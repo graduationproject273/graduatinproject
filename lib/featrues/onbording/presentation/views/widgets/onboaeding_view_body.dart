@@ -89,7 +89,7 @@ Widget build(BuildContext context) {
         right: 16,
         child: ButtonAndIndicators(position: currentPage, onNextPressed: () { 
           if (currentPage == 2) {
-            GoRouter.of(context).push(Routes.otpwidget);
+            GoRouter.of(context).push(Routes.signupseller);
           }
           _pageController.nextPage(
             duration: const Duration(milliseconds: 300),

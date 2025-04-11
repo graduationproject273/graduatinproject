@@ -20,4 +20,5 @@ class Routes {
   static const String addReview = '/add-review';
   static const String usertype = '/usertype';
   static const String otpwidget = '/otpwidget';
+  static const String signupseller = '/signupseller';
 }

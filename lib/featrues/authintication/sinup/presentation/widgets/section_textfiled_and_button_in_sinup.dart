@@ -58,7 +58,7 @@ class _SectionTextFiledAndButtoninSinupState
         CustomButton(
             text: 'Sign Up',
             onTap: () {
-              GoRouter.of(context).push(Routes.register);
+              GoRouter.of(context).push(Routes.service);
             }),
       ],
     );

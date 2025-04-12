@@ -6,6 +6,7 @@ import 'package:gradution/featrues/adminDashboard/features/admindashboard/presen
 import 'package:gradution/featrues/authintication/login/presentation/pages/login_view.dart';
 import 'package:gradution/featrues/authintication/login/presentation/widgets/otp_widget.dart';
 import 'package:gradution/featrues/authintication/sinup/presentation/pages/sinup_view.dart';
+import 'package:gradution/featrues/authintication/sinup/presentation/pages/widgets/signup_seller_view_body.dart';
 import 'package:gradution/featrues/authintication/typeUser/presentation/views/usertype_view.dart';
 import 'package:gradution/featrues/blog/presentation/view/blog_details_view.dart';
 import 'package:gradution/featrues/blog/presentation/view/blog_view.dart';
@@ -109,6 +110,9 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(path: Routes.otpwidget,
     builder: (context, state) => const OtpWidget(),
+    ),
+    GoRoute(path: Routes.signupseller,
+    builder: (context, state) => const SellerStepsPage(),
     ),
     // أضف هنا أي Routes إضافية
   ],

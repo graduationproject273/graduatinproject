@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gradution/core/styles/colors.dart';
 import 'package:gradution/core/widgets/custom_textfield.dart';
 import 'package:gradution/featrues/services/presentation/widgets/drop_down_date.dart';
 import 'package:gradution/featrues/services/presentation/widgets/drowp_down_home_type.dart';
@@ -46,7 +47,15 @@ class BodyAboutYourHome extends StatelessWidget {
               style: TextStyle(fontSize: 16.sp, color: Colors.black),
             ),
             CustomTextformfield(
-                hintText: 'i.e 2 floors', keyboardType: TextInputType.number),
+              hintText: 'i.e 2 floors',
+              keyboardType: TextInputType.number,
+              border: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  width: 2,
+                  color: maincolor,
+                ),
+              ),
+            ),
             SizedBox(
               height: 30.h,
             ),
@@ -55,7 +64,15 @@ class BodyAboutYourHome extends StatelessWidget {
               style: TextStyle(fontSize: 16.sp, color: Colors.black),
             ),
             CustomTextformfield(
-                hintText: 'i.e 2 rooms', keyboardType: TextInputType.number),
+              hintText: 'i.e 2 rooms',
+              keyboardType: TextInputType.number,
+              border: UnderlineInputBorder(
+                borderSide: BorderSide(
+                  width: 2,
+                  color: maincolor,
+                ),
+              ),
+            ),
             SizedBox(
               height: 30.h,
             ),

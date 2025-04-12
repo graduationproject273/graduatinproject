@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gradution/core/styles/textstyles.dart';
 
 class ServicesView extends StatelessWidget {
   const ServicesView({super.key});

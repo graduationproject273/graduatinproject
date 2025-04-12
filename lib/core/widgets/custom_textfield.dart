@@ -27,6 +27,7 @@ class CustomTextformfield extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      
       obscureText: obscureText ?? false,
       onSaved: onSaved,
       keyboardType: keyboardType,
@@ -40,7 +41,7 @@ class CustomTextformfield extends StatelessWidget {
         suffixIconColor: Color(0xFFC9CECF),
         hintText: hintText,
         filled: true,
-        fillColor:color ,
+        fillColor:color ?? Colors.white,
         border: buildBorder(),
         enabledBorder: buildBorder(),
         focusedBorder: buildBorder(),

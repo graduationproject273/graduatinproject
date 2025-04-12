@@ -2,6 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:gradution/core/styles/colors.dart';
 import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/core/widgets/custom_button.dart';
+import 'package:gradution/featrues/authintication/sinup/presentation/pages/widgets/already_have_account_widgget.dart';
+import 'package:gradution/featrues/authintication/sinup/presentation/pages/widgets/details_in_seller_signup_widget.dart';
+import 'package:gradution/featrues/authintication/sinup/presentation/pages/widgets/pickup_address_widget.dart';
+import 'package:gradution/featrues/authintication/sinup/presentation/pages/widgets/supplier_details_in_seller_signup.dart';
+import 'package:gradution/featrues/authintication/sinup/presentation/pages/widgets/tax_details_in_seller_signup_details.dart';
 import 'package:im_stepper/stepper.dart';
 
 class SellerStepsPage extends StatefulWidget {
@@ -37,7 +42,8 @@ class _SellerStepsPageState extends State<SellerStepsPage> {
         elevation: 0,
       ),
       body: SafeArea(
-        child: Column(
+        child: ListView(
+          padding: const EdgeInsets.only(bottom: 20),
           children: [
             const SizedBox(height: 20),
             Padding(
@@ -61,57 +67,58 @@ class _SellerStepsPageState extends State<SellerStepsPage> {
               ),
             ),
             const SizedBox(height: 10),
-            SizedBox(
-              width: screenWidth,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: Row(
-                  children: steps.map((title) {
-                    double itemWidth = (screenWidth - 32) / steps.length;
-                    return SizedBox(
-                      width: itemWidth,
-                      child: Text(
-                        title,
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 12),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    );
-                  }).toList(),
-                ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Row(
+                children: steps.map((title) {
+                  double itemWidth = (screenWidth - 32) / steps.length;
+                  return SizedBox(
+                    width: itemWidth,
+                    child: Text(
+                      title,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontSize: 12),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  );
+                }).toList(),
               ),
             ),
             const SizedBox(height: 30),
-            Expanded(
-              child: Center(
-                child: _buildStepContent(activeStep),
-              ),
-            ),
+
+            // محتوى كل خطوة
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: _buildStepContent(activeStep),
+            ),
+
+            const SizedBox(height: 30),
+
+            // أزرار التالي والسابق
+            Padding(
+              padding: const EdgeInsets.only(left: 16.0, right: 16.0,top: 25),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
                     width: 120,
-                    child:ElevatedButton(
-  onPressed: activeStep > 0
-      ? () {
-          setState(() {
-            activeStep--;
-          });
-        }
-      : null,
-  style: ElevatedButton.styleFrom(
-    backgroundColor: Colors.white,
-    foregroundColor: maincolor,
-    side: BorderSide(color: maincolor),
-    elevation: 0,
-  ),
-  child: const Text("Previous"),
-),
-
+                    child: ElevatedButton(
+                      onPressed: activeStep > 0
+                          ? () {
+                              setState(() {
+                                activeStep--;
+                              });
+                            }
+                          : null,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.white,
+                        foregroundColor: maincolor,
+                        side: BorderSide(color: maincolor),
+                        elevation: 0,
+                      ),
+                      child: const Text("Previous"),
+                    ),
                   ),
                   SizedBox(
                     width: 120,
@@ -130,6 +137,8 @@ class _SellerStepsPageState extends State<SellerStepsPage> {
                 ],
               ),
             ),
+            const SizedBox(height: 20),
+            AlreadyHaveAccountWidgget()
           ],
         ),
       ),
@@ -139,13 +148,13 @@ class _SellerStepsPageState extends State<SellerStepsPage> {
   Widget _buildStepContent(int step) {
     switch (step) {
       case 0:
-        return const Text("Step 1: Tax Details & Mobile");
+        return const TaxDetailsInSellerSignupDetails();
       case 1:
-        return const Text("Step 2: Pickup Address");
+        return const PickupAddressWidget();
       case 2:
-        return const Text("Step 3: Bank Details");
+        return const DetailsInSellerSignupWidget();
       case 3:
-        return const Text("Step 4: Supplier Details");
+        return const SupplierDetailsInSellerSignup();
       default:
         return const Text("Invalid Step");
     }

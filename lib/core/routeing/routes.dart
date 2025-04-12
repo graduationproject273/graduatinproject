@@ -21,4 +21,5 @@ class Routes {
   static const String usertype = '/usertype';
   static const String otpwidget = '/otpwidget';
   static const String signupseller = '/signupseller';
+  static const String service = '/service';
 }

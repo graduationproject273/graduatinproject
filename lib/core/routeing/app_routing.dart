@@ -24,6 +24,7 @@ import 'package:gradution/featrues/refall/presentation/views/refall_view.dart';
 import 'package:gradution/featrues/reviews/presentation/view/reviews_view.dart';
 import 'package:gradution/featrues/reviews/presentation/view/add_reviews_view.dart';
 import 'package:gradution/featrues/sellerDashboard/presentation/pages/seller_dashboard_view.dart';
+import 'package:gradution/featrues/services/presentation/pages/services_view.dart';
 
 final GlobalKey<SliderDrawerState> sliderKey = GlobalKey<SliderDrawerState>();
 
@@ -56,6 +57,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: Routes.productDetails,
       builder: (context, state) => const ProductDetailesView(),
+    ),
+      GoRoute(
+      path: Routes.service,
+      builder: (context, state) => const ServicesView(),
     ),
     GoRoute(
       path: Routes.categories,

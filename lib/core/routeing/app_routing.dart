@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:gradution/core/routeing/routes.dart';
-import 'package:gradution/featrues/adminDashboard/features/admindashboard/presentation/pages/admindashboard_view.dart';
+import 'package:gradution/featrues/admindashboard/presentation/pages/admindashboard_view.dart';
 import 'package:gradution/featrues/authintication/login/presentation/pages/login_view.dart';
 import 'package:gradution/featrues/authintication/login/presentation/widgets/otp_widget.dart';
 import 'package:gradution/featrues/authintication/sinup/presentation/pages/sinup_view.dart';

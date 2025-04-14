@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gradution/featrues/services/presentation/widgets/SmartCurtainWidget.dart';
-import 'package:gradution/featrues/services/presentation/widgets/SmartLightingWidget.dart';
-import 'package:gradution/featrues/services/presentation/widgets/SmartShutterWidget.dart';
+import 'package:gradution/featrues/services/presentation/widgets/smart_curtain_widget.dart';
+import 'package:gradution/featrues/services/presentation/widgets/smart_lighting_widget.dart';
+import 'package:gradution/featrues/services/presentation/widgets/smart_shutter_widget.dart';
 
 class ServicesForSaleWidget extends StatelessWidget {
   const ServicesForSaleWidget({super.key});

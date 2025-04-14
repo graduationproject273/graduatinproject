@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gradution/core/styles/colors.dart';
-import 'package:gradution/core/styles/textstyles.dart';
 
 class DrowpDownHomeType extends StatefulWidget {
   const DrowpDownHomeType({super.key, required this.options});

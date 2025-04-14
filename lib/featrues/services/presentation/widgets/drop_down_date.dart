@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class DropdownDatePicker extends StatefulWidget {
+  const DropdownDatePicker({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _DropdownDatePickerState createState() => _DropdownDatePickerState();
 }
 

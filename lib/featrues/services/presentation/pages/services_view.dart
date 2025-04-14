@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gradution/core/styles/textstyles.dart';
-import 'package:gradution/featrues/services/presentation/widgets/appointment_widget.dart';
 
 class ServicesView extends StatelessWidget {
   const ServicesView({super.key});
@@ -14,11 +13,9 @@ class ServicesView extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
       backgroundColor: Colors.white,
-      body: AppointmentDialog() 
+      body: const Center(
+        child: Text('Welcome to the Services Page!'),
+      ),
     );
   }
 }
-
-/*const Center(
-        child: Text('Welcome to the Services Page!'),
-      ),*/

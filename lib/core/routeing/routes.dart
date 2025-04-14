@@ -22,4 +22,5 @@ class Routes {
   static const String otpwidget = '/otpwidget';
   static const String signupseller = '/signupseller';
   static const String service = '/service';
+  static const String apponimentwidget = '/apponimentwidget';
 }

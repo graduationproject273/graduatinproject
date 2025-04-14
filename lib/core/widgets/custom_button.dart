@@ -8,7 +8,8 @@ class CustomButton extends StatelessWidget {
   final Color? textcolor;
   final Color? buttonbodycolor;
   final void Function()? onTap;
-  const CustomButton({super.key, required this.text, this.onTap, this.bordercolor, this.textcolor, this.buttonbodycolor,});
+  final FontWeight? fontWeight;
+  const CustomButton({super.key, required this.text, this.onTap, this.bordercolor, this.textcolor, this.buttonbodycolor, this.fontWeight,});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +29,7 @@ class CustomButton extends StatelessWidget {
             style: TextStyle(
               color: textcolor ?? Colors.white,
               fontSize: 16.sp,
-              fontWeight: FontWeight.bold,
+              fontWeight:fontWeight?? FontWeight.bold,
             ),
           ),
         ),

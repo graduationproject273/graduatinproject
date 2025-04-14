@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gradution/core/styles/colors.dart';
 import 'package:gradution/featrues/services/presentation/widgets/build_checkbox.dart';
 import 'package:gradution/featrues/services/presentation/widgets/indoor_camera_system.dart';
 import 'package:gradution/featrues/services/presentation/widgets/smart_door_lock.dart';

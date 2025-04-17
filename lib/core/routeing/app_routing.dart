@@ -59,6 +59,10 @@ final GoRouter router = GoRouter(
       path: Routes.productDetails,
       builder: (context, state) => const ProductDetailesView(),
     ),
+     GoRoute(
+      path: Routes.dashboardseller,
+      builder: (context, state) => const ProductDetailesView(),
+    ),
       GoRoute(
       path: Routes.service,
       builder: (context, state) => const ServicesView(),
@@ -95,10 +99,7 @@ final GoRouter router = GoRouter(
       path: Routes.refall,
       builder: (context, state) => const RefillView(),
     ),
-    GoRoute(
-      path: Routes.adminDashboard,
-      builder: (context, state) => const SellerDashboardView(),
-    ),
+    
     GoRoute(
       path: Routes.reviews,
       builder: (context, state) => const ReviewsView(),

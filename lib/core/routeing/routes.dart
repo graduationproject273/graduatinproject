@@ -14,7 +14,7 @@ class Routes {
   static const String orderSuccess = '/order-success';
   static const String profile = '/profile';
   static const String refall = '/refall';
-  static const String adminDashboard = '/adminDashboard';
+  
   static const String reviews = '/reviews';
   static const String authbuttonsview = '/authbuttonsview';
   static const String addReview = '/add-review';
@@ -23,4 +23,5 @@ class Routes {
   static const String signupseller = '/signupseller';
   static const String service = '/service';
   static const String apponimentwidget = '/apponimentwidget';
+   static const String dashboardseller = '/apponimentwidget';
 }

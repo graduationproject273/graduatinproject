@@ -67,7 +67,7 @@ class AuthButtonsViewBody extends StatelessWidget {
                 }),
                 SizedBox(height: 10.h),
                 CustomButton(text: 'Sign In',onTap: (){
-                  GoRouter.of(context).push(Routes.login);
+                  GoRouter.of(context).push(Routes.home);
                 },buttonbodycolor: Colors.white,textcolor: maincolor,bordercolor: maincolor,),
               ],
             ),

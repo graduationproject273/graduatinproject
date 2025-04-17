@@ -3,13 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gradution/core/styles/colors.dart';
 
 class CustomButton extends StatelessWidget {
-  final String text;
+  final String? text;
   final Color? bordercolor;
   final Color? textcolor;
   final Color? buttonbodycolor;
   final void Function()? onTap;
+  final Widget? child;
   final FontWeight? fontWeight;
-  const CustomButton({super.key, required this.text, this.onTap, this.bordercolor, this.textcolor, this.buttonbodycolor, this.fontWeight,});
+  const CustomButton({super.key,  this.text, this.onTap, this.bordercolor, this.textcolor, this.buttonbodycolor, this.fontWeight, this.child,});
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +24,9 @@ class CustomButton extends StatelessWidget {
           color: buttonbodycolor ?? maincolor,
           borderRadius: BorderRadius.circular(16),
         ),
-        child: Center(
+        child:child?? Center(
           child: Text(
-            text,
+            text??'',
             style: TextStyle(
               color: textcolor ?? Colors.white,
               fontSize: 16.sp,

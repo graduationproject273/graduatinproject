@@ -24,4 +24,6 @@ class Routes {
   static const String service = '/service';
   static const String apponimentwidget = '/apponimentwidget';
    static const String dashboardseller = '/apponimentwidget';
+  static const String sellerProducts = '/seller-products';
+  static const String addsellerProducts = '/add-seller-products';
 }

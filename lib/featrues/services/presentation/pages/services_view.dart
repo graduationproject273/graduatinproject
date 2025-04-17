@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gradution/core/styles/textstyles.dart';
+import 'package:gradution/featrues/services/presentation/widgets/body_view_service.dart';
 
 class ServicesView extends StatelessWidget {
   const ServicesView({super.key});
@@ -13,9 +14,7 @@ class ServicesView extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
       backgroundColor: Colors.white,
-      body: const Center(
-        child: Text('Welcome to the Services Page!'),
-      ),
+      body:const BodyViewService(),
     );
   }
 }

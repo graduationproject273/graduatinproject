@@ -23,6 +23,9 @@ import 'package:gradution/featrues/profile/presentation/views/profile_view.dart'
 import 'package:gradution/featrues/refall/presentation/views/refall_view.dart';
 import 'package:gradution/featrues/reviews/presentation/view/reviews_view.dart';
 import 'package:gradution/featrues/reviews/presentation/view/add_reviews_view.dart';
+import 'package:gradution/featrues/sellerDashboard/presentation/pages/add_product_seller_view.dart';
+import 'package:gradution/featrues/sellerDashboard/presentation/pages/order_view.dart';
+import 'package:gradution/featrues/sellerDashboard/presentation/pages/products_seller_view.dart';
 import 'package:gradution/featrues/sellerDashboard/presentation/pages/seller_dashboard_view.dart';
 import 'package:gradution/featrues/services/presentation/pages/services_view.dart';
 import 'package:gradution/featrues/services/presentation/widgets/appointment_widget.dart';

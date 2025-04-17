@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gradution/featrues/sellerDashboard/presentation/widgets/seller_dashboard_drawer.dart';
 import 'package:gradution/featrues/sellerDashboard/presentation/widgets/seller_dashboard_view_body.dart';
 
 class SellerDashboardView extends StatelessWidget {
@@ -7,7 +8,7 @@ class SellerDashboardView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return  Scaffold(
-      // drawer: const Drawer(),
+       drawer: SellerDashboardDrawer(),
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Seller Dashboard'),

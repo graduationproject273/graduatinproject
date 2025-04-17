@@ -61,7 +61,7 @@ final GoRouter router = GoRouter(
     ),
      GoRoute(
       path: Routes.dashboardseller,
-      builder: (context, state) => const ProductDetailesView(),
+      builder: (context, state) => const SellerDashboardView(),
     ),
       GoRoute(
       path: Routes.service,

@@ -13,6 +13,7 @@ class SellerStepsPage extends StatefulWidget {
   const SellerStepsPage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SellerStepsPageState createState() => _SellerStepsPageState();
 }
 

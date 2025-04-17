@@ -10,7 +10,7 @@ class ServicesView extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title:  Text('Services',style: Textstyles.texttitlelogin,),
+        title:  Text('Let\'s Discuss \n Your Requirements!',style: Textstyles.texttitlelogin,),
         backgroundColor: Colors.white,
       ),
       backgroundColor: Colors.white,

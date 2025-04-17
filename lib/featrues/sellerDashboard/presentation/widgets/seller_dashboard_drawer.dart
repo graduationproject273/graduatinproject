@@ -37,10 +37,10 @@ void navigateToPage(BuildContext context, int index) {
         GoRouter.of(context).go(Routes.order);
         break;
       case 1:
-       GoRouter.of(context).push(Routes.categories);
+       GoRouter.of(context).push(Routes.sellerProducts);
         break;
       case 2:
-        GoRouter.of(context).push(Routes.cart);
+        GoRouter.of(context).push(Routes.addsellerProducts);
         break;
       case 3:
          GoRouter.of(context).push(Routes.reviews);

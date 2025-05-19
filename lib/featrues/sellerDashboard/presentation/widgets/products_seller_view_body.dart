@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/featrues/products/presentation/view/widgets/product_item.dart';
+import 'package:gradution/featrues/sellerDashboard/presentation/widgets/seller_dashboard_drawer.dart';
 
 class ProductsSellerViewBody extends StatelessWidget {
   const ProductsSellerViewBody({super.key});
@@ -10,13 +11,23 @@ class ProductsSellerViewBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.black),
+        title: Text(
+          'Products For Seller',
+          style: Textstyles.namereview,
+        ),
+        centerTitle: true,
+      ),
+      drawer: const SellerDashboardDrawer(),
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 15),
           child: Column(
             children: [
-              Text('Products For Seller',style: Textstyles.namereview,),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),

@@ -20,13 +20,15 @@ import 'package:gradution/featrues/order-success/presentation/views/order_succes
 import 'package:gradution/featrues/products/presentation/view/product_details_view.dart';
 import 'package:gradution/featrues/products/presentation/view/product_view.dart';
 import 'package:gradution/featrues/profile/presentation/views/profile_view.dart';
-import 'package:gradution/featrues/refall/presentation/views/refall_view.dart';
 import 'package:gradution/featrues/reviews/presentation/view/reviews_view.dart';
 import 'package:gradution/featrues/reviews/presentation/view/add_reviews_view.dart';
 import 'package:gradution/featrues/sellerDashboard/presentation/pages/add_product_seller_view.dart';
 import 'package:gradution/featrues/sellerDashboard/presentation/pages/order_view.dart';
 import 'package:gradution/featrues/sellerDashboard/presentation/pages/products_seller_view.dart';
 import 'package:gradution/featrues/sellerDashboard/presentation/pages/seller_dashboard_view.dart';
+import 'package:gradution/featrues/sellerDashboard/presentation/widgets/dasboard_widet.dart';
+import 'package:gradution/featrues/sellerDashboard/presentation/widgets/payments_widets.dart';
+import 'package:gradution/featrues/sellerDashboard/presentation/widgets/transaction_widet.dart';
 import 'package:gradution/featrues/services/presentation/pages/services_view.dart';
 import 'package:gradution/featrues/services/presentation/widgets/appointment_widget.dart';
 
@@ -134,7 +136,12 @@ final GoRouter router = GoRouter(
     GoRoute(path: Routes.addsellerProducts,
     builder: (context, state) => const AddProductSellerView(),),
     
-    // أضف هنا أي Routes إضافية
+       GoRoute(path: Routes.payments,
+    builder: (context, state) => const PaymentsWidets(),),
+       GoRoute(path: Routes.transactions,
+    builder: (context, state) => const TransactionWidet(),),
+    GoRoute(path: Routes.dashboardhome,
+    builder: (context, state) => const DasboardWidet(),),
   ],
   errorBuilder: (context, state) => const Scaffold(
     body: Center(child: Text('Page not found')),

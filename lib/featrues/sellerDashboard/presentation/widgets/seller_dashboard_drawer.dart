@@ -51,14 +51,14 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
         GoRouter.of(context).push(Routes.addsellerProducts);
         break;
       case 3:
-        GoRouter.of(context).push(Routes.reviews);
+        GoRouter.of(context).push(Routes.payments);
         break;
       case 4:
-        GoRouter.of(context).push(Routes.reviews);
+        GoRouter.of(context).push(Routes.transactions);
         break;
 
       default:
-        GoRouter.of(context).go(Routes.home);
+        GoRouter.of(context).go(Routes.dashboardseller);
     }
   }
 

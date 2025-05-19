@@ -27,4 +27,7 @@ class Routes {
   static const String sellerProducts = '/sellerProducts';
   static const String addsellerProducts = '/addsellerProducts';
   static const String order = '/order';
+  static const String payments= '/payments';
+  static const String transactions= '/transactions';
+  static const String dashboardhome= '/dashboardhome';
 }

@@ -77,7 +77,7 @@ class _SmartLightingWidgetState extends State<SmartLightingWidget> {
                     ],
                   ),
                 );
-              }).toList(),
+              }),
               if (selectedLightingOptions.contains('Other'))
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),

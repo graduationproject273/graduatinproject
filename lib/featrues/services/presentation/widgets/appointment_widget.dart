@@ -12,6 +12,7 @@ class AppointmentDialog extends StatelessWidget {
     return Dialog(
       backgroundColor: Colors.white,
       elevation: 10, 
+      // ignore: deprecated_member_use
       shadowColor: Colors.black.withOpacity(0.3),
       insetPadding: const EdgeInsets.all(20),
       shape: RoundedRectangleBorder(

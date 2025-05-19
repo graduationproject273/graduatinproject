@@ -9,6 +9,7 @@ class BodySmartApplication extends StatefulWidget {
   const BodySmartApplication({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _BodySmartApplicationState createState() => _BodySmartApplicationState();
 }
 

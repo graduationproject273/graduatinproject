@@ -34,7 +34,7 @@ final List<String> titles = [
 void navigateToPage(BuildContext context, int index) {
     switch (index) {
       case 0:
-        GoRouter.of(context).go(Routes.dashboardseller);
+        GoRouter.of(context).go(Routes.order);
         break;
       case 1:
        GoRouter.of(context).push(Routes.sellerProducts);

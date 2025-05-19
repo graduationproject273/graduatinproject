@@ -24,6 +24,7 @@ import 'package:gradution/featrues/refall/presentation/views/refall_view.dart';
 import 'package:gradution/featrues/reviews/presentation/view/reviews_view.dart';
 import 'package:gradution/featrues/reviews/presentation/view/add_reviews_view.dart';
 import 'package:gradution/featrues/sellerDashboard/presentation/pages/add_product_seller_view.dart';
+import 'package:gradution/featrues/sellerDashboard/presentation/pages/order_view.dart';
 import 'package:gradution/featrues/sellerDashboard/presentation/pages/products_seller_view.dart';
 import 'package:gradution/featrues/sellerDashboard/presentation/pages/seller_dashboard_view.dart';
 import 'package:gradution/featrues/services/presentation/pages/services_view.dart';
@@ -72,6 +73,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: Routes.categories,
       builder: (context, state) => const CategoriesView(),
+    ),
+    GoRoute(
+      path: Routes.order,
+      builder: (context, state) => const OrderView(),
     ),
     GoRoute(
       path: Routes.blog,

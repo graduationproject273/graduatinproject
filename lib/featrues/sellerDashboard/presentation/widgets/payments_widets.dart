@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/core/widgets/custom_button.dart';
 import 'package:gradution/featrues/sellerDashboard/presentation/widgets/seller_dashboard_drawer.dart';
+import 'package:gradution/featrues/sellerDashboard/presentation/widgets/table_payment_and_transaction.dart';
 
 class PaymentsWidets extends StatelessWidget {
   const PaymentsWidets({super.key});
@@ -112,6 +113,8 @@ class PaymentsWidets extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               CustomButton(text: 'Transactions'),
+              const SizedBox(height: 30),
+             TablePaymentAndTransaction(columns: 5,rows: 5,),
             ],
           ),
         ),

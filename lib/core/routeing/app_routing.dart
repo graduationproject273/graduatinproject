@@ -102,10 +102,7 @@ final GoRouter router = GoRouter(
       path: Routes.profile,
       builder: (context, state) => const ProfileView(),
     ),
-    GoRoute(
-      path: Routes.refall,
-      builder: (context, state) => const RefillView(),
-    ),
+   
     
     GoRoute(
       path: Routes.reviews,
@@ -135,7 +132,8 @@ final GoRouter router = GoRouter(
     builder: (context, state) => const ProductsSellerView(),),
     
     GoRoute(path: Routes.addsellerProducts,
-    builder: (context, state) => const AddProductSellerView(),)
+    builder: (context, state) => const AddProductSellerView(),),
+    
     // أضف هنا أي Routes إضافية
   ],
   errorBuilder: (context, state) => const Scaffold(

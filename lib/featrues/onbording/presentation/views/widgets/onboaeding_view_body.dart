@@ -89,7 +89,7 @@ Widget build(BuildContext context) {
         right: 16,
         child: ButtonAndIndicators(position: currentPage, onNextPressed: () { 
           if (currentPage == 2) {
-            GoRouter.of(context).push(Routes.home);
+            GoRouter.of(context).push(Routes.dashboardseller);
           }
           _pageController.nextPage(
             duration: const Duration(milliseconds: 300),

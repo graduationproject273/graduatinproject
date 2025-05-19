@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -67,72 +69,74 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
     return Drawer(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          //padding: EdgeInsets.zero,
-          children: <Widget>[
-            SizedBox(
-              height: 30.h,
-            ),
-            ListTile(
-              title: Text(
-                'Dashboard',
-                style: Textstyles.texttitlelogin.copyWith(color: Colors.black),
+        child: SingleChildScrollView(
+          child: Column(
+            //padding: EdgeInsets.zero,
+            children: <Widget>[
+              SizedBox(
+                height: 30.h,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                children: [
-                  Column(
-                      children: List.generate(
-                    iconss.length,
-                    (index) {
-                      return ListTile(
-                        leading: Icon(
-                          iconss[index],
-                          size: 24,
-                          color: maincolor,
-                        ),
-                        title: Text(
-                          titles[index],
-                          style:
-                              Textstyles.namereview.copyWith(color: maincolor),
-                        ),
-                        onTap: () {
-                          navigateToPage(context, index);
-                        },
-                      );
-                    },
-                  )),
-                 SizedBox(
-                  height: context.height*.3,
-                 ),
-                  Divider(
-                    thickness: 1,
-                    height: 1,
-
-                    color: Colors.grey.shade700,
-                  ), SizedBox(
-                  height: 20.h,
-                 ),
-                  Column(
-                      children: List.generate(
-                          2,
-                          (index) => ListTile(
-                              leading: Icon(
-                                icons2[index],
-                                size: 24,
-                                color: maincolor,
-                              ),
-                              title: Text(
-                                titles2[index],
-                                style: Textstyles.namereview
-                                    .copyWith(color: maincolor),
-                              ))))
-                ],
+              ListTile(
+                title: Text(
+                  'Dashboard',
+                  style: Textstyles.texttitlelogin.copyWith(color: Colors.black),
+                ),
               ),
-            )
-          ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Column(
+                        children: List.generate(
+                      iconss.length,
+                      (index) {
+                        return ListTile(
+                          leading: Icon(
+                            iconss[index],
+                            size: 24,
+                            color: maincolor,
+                          ),
+                          title: Text(
+                            titles[index],
+                            style:
+                                Textstyles.namereview.copyWith(color: maincolor),
+                          ),
+                          onTap: () {
+                            navigateToPage(context, index);
+                          },
+                        );
+                      },
+                    )),
+                     SizedBox(
+                    height: context.height * 0.25,
+                   ),
+                    Divider(
+                      thickness: 1,
+                      height: 1,
+          
+                      color: Colors.grey.shade700,
+                    ), SizedBox(
+                    height: 20.h,
+                   ),
+                    Column(
+                        children: List.generate(
+                            2,
+                            (index) => ListTile(
+                                leading: Icon(
+                                  icons2[index],
+                                  size: 24,
+                                  color: maincolor,
+                                ),
+                                title: Text(
+                                  titles2[index],
+                                  style: Textstyles.namereview
+                                      .copyWith(color: maincolor),
+                                ))))
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );

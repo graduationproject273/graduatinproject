@@ -53,6 +53,7 @@ dependencies:
   im_stepper: ^1.0.1
   intl_phone_field: ^3.2.0
   flutter_launcher_icons: ^0.14.3
+  fl_chart: ^1.0.0
 
 dev_dependencies:
   flutter_test:

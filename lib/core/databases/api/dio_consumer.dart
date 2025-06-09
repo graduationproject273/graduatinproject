@@ -1,13 +1,32 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
+import 'package:dio/io.dart';
 import 'package:gradution/core/databases/api/api_consumer.dart';
 import 'package:gradution/core/databases/api/end_points.dart';
+import 'package:gradution/core/databases/api/interceptors.dart';
+import 'package:gradution/core/databases/api/status_codes.dart';
 import 'package:gradution/core/errors/expentions.dart';
 
 class DioConsumer extends ApiConsumer {
   final Dio dio;
 
   DioConsumer({required this.dio}) {
-    dio.options.baseUrl = EndPoints.baserUrl;
+    // ignore: deprecated_member_use
+    (dio.httpClientAdapter as IOHttpClientAdapter).onHttpClientCreate =
+        (HttpClient client) {
+      client.badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+      return client;
+    };
+    dio.options
+      ..baseUrl = EndPoints.baserUrl
+      ..responseType = ResponseType.json
+      ..followRedirects = false
+      ..validateStatus = (status) => status! < StatusCodes.serverError;
+
+    dio.interceptors.add(LoggerInterceptor());
+    //dio.interceptors.add(di.sl<LogInterceptor>());
   }
 
 //!POST
@@ -20,10 +39,7 @@ class DioConsumer extends ApiConsumer {
     try {
       dio.post(
         path,
-        options: Options(
-          headers: headers,
-          contentType: isFormData ? 'multipart/form-data' : 'application/json',
-        ),
+        
         data: isFormData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
       );
@@ -38,12 +54,11 @@ class DioConsumer extends ApiConsumer {
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
-    Map<String, dynamic>? headers,
   }) async {
     try {
       var res =
           await dio.get(path, data: data, queryParameters: queryParameters,
-              options: Options(headers: headers));
+           );
       return res.data;
     } on DioException catch (e) {
       handleDioException(e);

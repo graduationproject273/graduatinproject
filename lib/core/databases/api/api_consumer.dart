@@ -3,7 +3,6 @@ abstract class ApiConsumer {
     String path, {
     Object? data,
     Map<String, dynamic>? queryParameters,
-          Map<String, dynamic>? headers,
 
   });
   Future<dynamic> post(
@@ -12,7 +11,6 @@ abstract class ApiConsumer {
 
     dynamic data,
     Map<String, dynamic>? queryParameters,
-      Map<String, dynamic>? headers,
 
     bool isFormData = false,
   });

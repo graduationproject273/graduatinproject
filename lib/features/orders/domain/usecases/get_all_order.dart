@@ -3,8 +3,8 @@ import 'package:gradution/features/orders/domain/repositories/order_repositry.da
 class GetAllOrder {
   final OrderRepositry orderRepositry;
   GetAllOrder(this.orderRepositry);
-  Future<void> call(String token) async {
-    await orderRepositry.getAllOrders(token);
+  Future<void> call() async {
+    await orderRepositry.getAllOrders();
   }
   
 }

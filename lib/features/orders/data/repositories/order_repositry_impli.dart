@@ -20,18 +20,18 @@ class OrderRepositoryImpl implements OrderRepositry {
   });
 
   @override
-  Future<Either<Failure, List<OrderModel>>> getAllOrders(String token) async {
+  Future<Either<Failure, List<OrderModel>>> getAllOrders() async {
     if (await networkInfo.isConnected!) {
       try {
-        final orders = await remoteDataSource.getAllOrders(token);
-        localDataSource.cachedOrder(orders, token);
+        final orders = await remoteDataSource.getAllOrders();
+        localDataSource.cachedOrder(orders,'');
         return Right(orders);
       } on ServerException catch (e) {
         return Left(Failure(errMessage: e.errorModel.errorMessage));
       }
     } else {
       try {
-        final cachedOrders = await localDataSource.getLastOrder(token);
+        final cachedOrders = await localDataSource.getLastOrder('');
         return Right(cachedOrders);
       } on CacheExeption catch (e) {
         return Left(Failure(errMessage: e.errorMessage));

@@ -10,9 +10,7 @@ class OrderDataSourseRemote {
     OrderParams order,
   ) async {
     await apiConsumer.post(
-        headers: {
-          'Authorization': order.token,
-        },
+      
         EndPoints.baserUrl + EndPoints.orders,
         data: {
           "shippingAddress": order.shippingAddress,
@@ -21,14 +19,12 @@ class OrderDataSourseRemote {
         });
   }
 
-  Future<List<OrderModel>> getAllOrders(String token) async {
+  Future<List<OrderModel>> getAllOrders() async {
     // Fetch all orders from the API
     List<OrderModel> orders = [];
     final response = await apiConsumer.get(
       EndPoints.baserUrl + EndPoints.orders,
-      headers: {
-        'Authorization': token,
-      },
+     
     );
     for (var orderData in response) {
       orders.add(OrderModel.fromJson(orderData));

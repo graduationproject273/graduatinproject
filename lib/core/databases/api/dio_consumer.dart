@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:gradution/core/databases/api/api_consumer.dart';
 import 'package:gradution/core/databases/api/end_points.dart';
@@ -15,11 +14,16 @@ class DioConsumer extends ApiConsumer {
   @override
   Future post(String path,
       {dynamic data,
+      Map<String, dynamic>? headers,
       Map<String, dynamic>? queryParameters,
       bool isFormData = false}) async {
     try {
       dio.post(
         path,
+        options: Options(
+          headers: headers,
+          contentType: isFormData ? 'multipart/form-data' : 'application/json',
+        ),
         data: isFormData ? FormData.fromMap(data) : data,
         queryParameters: queryParameters,
       );
@@ -30,11 +34,16 @@ class DioConsumer extends ApiConsumer {
 
 //!GET
   @override
-  Future get(String path,
-      {Object? data, Map<String, dynamic>? queryParameters}) async {
+  Future get(
+    String path, {
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? headers,
+  }) async {
     try {
       var res =
-          await dio.get(path, data: data, queryParameters: queryParameters);
+          await dio.get(path, data: data, queryParameters: queryParameters,
+              options: Options(headers: headers));
       return res.data;
     } on DioException catch (e) {
       handleDioException(e);

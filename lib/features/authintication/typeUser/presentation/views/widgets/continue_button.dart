@@ -19,7 +19,7 @@ class ContinueButton extends StatelessWidget {
       onTap: () {
         if (selectedUserType != null) {
           if (selectedUserType == UserType.regular) {
-            GoRouter.of(context).push(Routes.login);
+            GoRouter.of(context).push(Routes.register);
           } else {
             GoRouter.of(context).push(Routes.register);
           }

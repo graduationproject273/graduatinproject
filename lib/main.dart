@@ -2,21 +2,20 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gradution/core/routeing/app_routing.dart';
+import 'package:gradution/depency_injection.dart';
 
 /// The entry point of the application.
-void main() {
+void main() async {
+  setup();
   runApp(
     DevicePreview(
       enabled: false, // Disable device preview
-      builder: (context) => 
-      EZhome(  
-      ),
+      builder: (context) => EZhome(),
     ),
   );
 }
 
 class EZhome extends StatelessWidget {
-  
   const EZhome({super.key});
 
   @override
@@ -32,7 +31,7 @@ class EZhome extends StatelessWidget {
             ),
             title: 'EZhome',
             debugShowCheckedModeBanner: false,
-             routerConfig: router,
+            routerConfig: router,
           );
         });
   }

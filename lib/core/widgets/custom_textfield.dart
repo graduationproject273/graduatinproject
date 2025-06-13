@@ -11,6 +11,7 @@ class CustomTextformfield extends StatelessWidget {
   final int? maxLines;
   final double? cursorHeight;
   final TextStyle? hintStyle;
+  final TextEditingController? controller;
   final Color? color;
   final Color? colorborder;
   final InputBorder? border;
@@ -18,6 +19,7 @@ class CustomTextformfield extends StatelessWidget {
     super.key,
     required this.hintText,
     required this.keyboardType,
+    this.controller,
     this.obscureText,
     this.suffixIcon,
     this.validator,
@@ -35,6 +37,7 @@ class CustomTextformfield extends StatelessWidget {
     final inputBorder = border ?? buildBorder();
 
     return TextFormField(
+      controller: controller,
       obscureText: obscureText ?? false,
       onSaved: onSaved,
       keyboardType: keyboardType,
@@ -58,7 +61,8 @@ class CustomTextformfield extends StatelessWidget {
 
   OutlineInputBorder buildBorder() {
     return OutlineInputBorder(
-      borderSide: BorderSide(width: 1.5, color: colorborder ?? const Color(0xFFC9CECF)),
+      borderSide:
+          BorderSide(width: 1.5, color: colorborder ?? const Color(0xFFC9CECF)),
       borderRadius: BorderRadius.circular(10),
     );
   }

@@ -8,3 +8,15 @@ abstract class SinupState extends Equatable {
 }
 
 class SinupInitial extends SinupState {}
+
+class SinupLoading extends SinupState {}
+
+class SinupError extends SinupState {
+  final String message;
+  SinupError(this.message);
+}
+
+class SinupSuccess extends SinupState {
+  final UserEntity user;
+  SinupSuccess(this.user);
+}

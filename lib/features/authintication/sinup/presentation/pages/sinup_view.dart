@@ -20,7 +20,7 @@ class SinupView extends StatelessWidget {
           backgroundColor: Colors.white,
         ),
         backgroundColor: Colors.white,
-        body: BlocProvider(
+        body: BlocProvider<SinupCubit>(
           create: (context) => sl<SinupCubit>(),
           child: SinupBodyView(),
         ));

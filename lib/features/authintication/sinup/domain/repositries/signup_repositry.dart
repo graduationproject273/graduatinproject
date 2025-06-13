@@ -4,4 +4,5 @@ import 'package:gradution/features/authintication/sinup/domain/entities/user_ent
 
 abstract class SignupRepositry {
   Future<Either<Failure, UserEntity>> signupUser(UserEntity user);
+  Future<Either<Failure, UserEntity>> loginUser(UserEntity user);
 }

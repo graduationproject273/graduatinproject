@@ -1,12 +1,15 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gradution/core/databases/cache/cache_helper.dart';
 import 'package:gradution/core/routeing/app_routing.dart';
 import 'package:gradution/depency_injection.dart';
 
 /// The entry point of the application.
 void main() async {
   setup();
+    WidgetsFlutterBinding.ensureInitialized(); 
+   CacheHelper().init(); 
   runApp(
     DevicePreview(
       enabled: false, // Disable device preview

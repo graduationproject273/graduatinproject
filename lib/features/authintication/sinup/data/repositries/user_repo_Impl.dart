@@ -30,4 +30,26 @@ class UserRepoImpl extends SignupRepositry {
       return Left(Failure(errMessage: e.toString()));
     }
   }
-}
+
+  @override
+  Future<Either<Failure, UserEntity>> loginUser(UserEntity user)async {
+    
+      try {
+        final response = await dioConsumer.post(
+          EndPoints.loginUser,
+          data: UserModel(
+                  email: user.email,
+                  password: user.password,
+                  token: '' /* مبدئيًا */)
+              .toJson(),
+        );
+
+        final userModel =
+            UserModel.fromJson(response); // استخراج التوكن من الريسبونس
+        return Right(userModel); // ✅ رجّع اليوزر مع التوكن
+      } catch (e) {
+        return Left(Failure(errMessage: e.toString()));
+      }
+    }
+  }
+

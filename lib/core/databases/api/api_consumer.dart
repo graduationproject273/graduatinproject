@@ -1,28 +1,31 @@
+import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
+
 abstract class ApiConsumer {
-  Future<dynamic> get(
-    String path, {
+ Future<Either<String, Response>> get({
+    String? path,
+    Map<String, dynamic>? queryParameters,
+  });
+
+  Future<Either<String, Response>> post({
+    String? path,
     Object? data,
-    Map<String, dynamic>? queryParameters,
-
-  });
-  Future<dynamic> post(
-    
-    String path, {
-
-    dynamic data,
-    Map<String, dynamic>? queryParameters,
-
-    bool isFormData = false,
-  });
-  Future<dynamic> patch(
-    String path, {
-    dynamic data,
     Map<String, dynamic>? queryParameters,
     bool isFormData = false,
   });
-  Future<dynamic> delete(
-    String path, {
+
+
+  Future<Either<String, Response>> put({
+    String? path,
     Object? data,
     Map<String, dynamic>? queryParameters,
+    bool isFormData = false,
+  });
+
+  Future<Either<String, Response>> delete({
+    String? path,
+    Object? data,
+    Map<String, dynamic>? queryParameters,
+    bool isFormData = false,
   });
 }

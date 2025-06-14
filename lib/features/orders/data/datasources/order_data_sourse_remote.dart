@@ -11,7 +11,7 @@ class OrderDataSourseRemote {
   ) async {
     await apiConsumer.post(
       
-        EndPoints.baserUrl + EndPoints.orders,
+       path:  EndPoints.baserUrl + EndPoints.orders,
         data: {
           "shippingAddress": order.shippingAddress,
           "paymentMethod": order.paymentMethod,
@@ -23,7 +23,7 @@ class OrderDataSourseRemote {
     // Fetch all orders from the API
     List<OrderModel> orders = [];
     final response = await apiConsumer.get(
-      EndPoints.baserUrl + EndPoints.orders,
+ path:      EndPoints.baserUrl + EndPoints.orders,
      
     );
     for (var orderData in response) {

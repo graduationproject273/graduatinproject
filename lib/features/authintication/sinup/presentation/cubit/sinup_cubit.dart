@@ -21,8 +21,8 @@ class SinupCubit extends Cubit<SinupState> {
     result.fold(
       (l) => emit(SinupError(l.errMessage)),
       (r) {
-        CacheHelper().saveData(key: 'token', value: r.token); // 👈 حفظ التوكن
-        emit(SinupSuccess(r));
+        CacheHelper().saveData(key: 'token', value: r); // 👈 حفظ التوكن
+        emit(SinupSuccess());
       },
     );
   }

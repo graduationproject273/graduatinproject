@@ -25,7 +25,7 @@ class SellerRepositryImpl extends SellerRepositry {
     );
 
     await dioConsumer.post(
-      EndPoints.sellerUrl,
+      path: EndPoints.sellerUrl,
       data: sellerModel.toJson(),
     );
   }

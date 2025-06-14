@@ -8,11 +8,20 @@ class ReviewDataSourseRemote {
   ReviewDataSourseRemote({required this.apiConsumer});
 
   Future<List<ReviewModel>> getReview() async {
-    final response = await apiConsumer.get(EndPoints.baserUrl);
-    List<ReviewModel> data =[];
-    for (var i = 0; i < response.length; i++) {
-      data.add(ReviewModel.fromJson(response[i]));
-    }
+    final result = await apiConsumer.get(path: EndPoints.baserUrl);
+    List<ReviewModel> data = [];
+    result.fold(
+      (error) {
+        // Handle error as needed, e.g., throw or return empty list
+        throw Exception(error);
+      },
+      (response) {
+        // Assuming response.data is a List of JSON objects
+        for (var item in response.data) {
+          data.add(ReviewModel.fromJson(item));
+        }
+      },
+    );
     return data;
   }
 }

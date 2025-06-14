@@ -7,10 +7,18 @@ class ProductDataSourseRemote {
   ProductDataSourseRemote({required this.apiConsumer});
  Future <List<ProductModel>> getAllProducts() async {
   final List<ProductModel> productsList = [];
-    final response = await apiConsumer.get(EndPoints.baserUrl + EndPoints.products);
-   for (var item in response.data) {
-      productsList.add(ProductModel.fromJson(item));
-    }
+    final response = await apiConsumer.get(path: EndPoints.baserUrl + EndPoints.products);
+    response.fold(
+      (error) {
+        // Handle the error as needed, e.g., throw or log
+        throw Exception(error);
+      },
+      (res) {
+        for (var item in res.data) {
+          productsList.add(ProductModel.fromJson(item));
+        }
+      },
+    );
     return productsList;
   }
 }

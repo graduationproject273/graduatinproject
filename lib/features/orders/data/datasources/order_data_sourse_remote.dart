@@ -19,16 +19,20 @@ class OrderDataSourseRemote {
         });
   }
 
-  Future<List<OrderModel>> getAllOrders() async {
-    // Fetch all orders from the API
-    List<OrderModel> orders = [];
-    final response = await apiConsumer.get(
- path:      EndPoints.baserUrl + EndPoints.orders,
-     
-    );
-    for (var orderData in response) {
-      orders.add(OrderModel.fromJson(orderData));
-    }
-    return orders;
-  }
+Future<List<OrderModel>> getAllOrders() async {
+  // Fetch all orders from the API
+  List<OrderModel> orders = [];
+  final result = await apiConsumer.get(
+    path: EndPoints.baserUrl + EndPoints.orders,
+  );
+
+  // Assuming Either is from dartz package
+  return result.fold(
+    (failure) => throw Exception(failure),
+    (response) {
+      final data = response.data as List<dynamic>;
+      return data.map((orderData) => OrderModel.fromJson(orderData)).toList();
+    },
+  );
+}
 }

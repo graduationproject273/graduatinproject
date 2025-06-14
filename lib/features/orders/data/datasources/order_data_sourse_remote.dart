@@ -21,7 +21,6 @@ class OrderDataSourseRemote {
 
 Future<List<OrderModel>> getAllOrders() async {
   // Fetch all orders from the API
-  List<OrderModel> orders = [];
   final result = await apiConsumer.get(
     path: EndPoints.baserUrl + EndPoints.orders,
   );

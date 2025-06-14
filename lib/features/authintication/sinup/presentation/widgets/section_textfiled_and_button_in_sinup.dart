@@ -5,11 +5,9 @@ import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/core/widgets/custom_button.dart';
 import 'package:gradution/core/widgets/custom_textfield.dart';
 import 'package:gradution/features/authintication/sinup/data/models/user_model.dart';
-import 'package:gradution/features/authintication/sinup/domain/entities/user_entity.dart';
 import 'package:gradution/features/authintication/sinup/presentation/cubit/sinup_cubit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gradution/core/routeing/routes.dart';
-import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 
 class SectionTextFiledAndButtoninSinup extends StatefulWidget {
   const SectionTextFiledAndButtoninSinup({super.key});

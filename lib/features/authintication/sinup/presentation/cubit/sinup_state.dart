@@ -17,6 +17,5 @@ class SinupError extends SinupState {
 }
 
 class SinupSuccess extends SinupState {
-  final UserEntity user;
-  SinupSuccess(this.user);
+
 }

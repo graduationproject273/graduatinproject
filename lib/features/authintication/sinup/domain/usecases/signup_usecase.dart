@@ -7,7 +7,7 @@ class SignupUsecase {
   final SignupRepositry signupRepositry;
   SignupUsecase(this.signupRepositry);
 
-  Future<Either<Failure, UserEntity>> call(UserEntity user) async {
+  Future<Either<Failure, String>> call(UserEntity user) async {
     return await signupRepositry.signupUser(user);
   }
 }

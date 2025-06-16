@@ -1,3 +1,4 @@
+import 'package:cloudinary/cloudinary.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +8,7 @@ import 'package:gradution/depency_injection.dart';
 
 /// The entry point of the application.
 void main() async {
+
   setup();
     WidgetsFlutterBinding.ensureInitialized(); 
    CacheHelper().init(); 

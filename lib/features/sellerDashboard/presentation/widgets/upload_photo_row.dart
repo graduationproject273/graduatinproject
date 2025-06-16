@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/core/widgets/custom_button.dart';
+import 'package:gradution/features/sellerDashboard/presentation/cubit/sellerdashboard_cubit.dart';
 
 class UploadPhotoRow extends StatelessWidget {
   const UploadPhotoRow({super.key});
@@ -10,7 +12,9 @@ class UploadPhotoRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text('Add a photo', style: Textstyles.namereview.copyWith(fontSize: 19)),
+        InkWell(
+          onTap: () => context.read<SellerdashboardCubit>().pickAndUploadImage(),
+          child: Text('Add a photo', style: Textstyles.namereview.copyWith(fontSize: 19))),
         const SizedBox(width: 60),
         SizedBox(
           width: 150,

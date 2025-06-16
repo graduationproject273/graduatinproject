@@ -12,7 +12,7 @@ class Containerindrawer extends StatelessWidget {
   });
 
   final List<IconData> iconss = [
-    Icons.dashboard_outlined,
+    Icons.man_outlined,
     CupertinoIcons.list_bullet,
     CupertinoIcons.cart_fill,
     CupertinoIcons.gift_fill,
@@ -23,7 +23,7 @@ class Containerindrawer extends StatelessWidget {
   ];
 
   final List<String> titles = [
-    'Dashbaord',
+    'Add Seller',
     'Categories',
     'Carts',
     'Rewards',
@@ -37,7 +37,7 @@ class Containerindrawer extends StatelessWidget {
   void navigateToPage(BuildContext context, int index) {
     switch (index) {
       case 0:
-        GoRouter.of(context).go(Routes.dashboardseller);
+        GoRouter.of(context).go(Routes.signupseller);
         break;
       case 1:
        GoRouter.of(context).push(Routes.categories);

@@ -5,7 +5,7 @@ import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/core/widgets/custom_button.dart';
 import 'package:gradution/core/widgets/custom_textfield.dart';
 import 'package:gradution/features/authintication/sinup/data/models/user_model.dart';
-import 'package:gradution/features/authintication/sinup/presentation/cubit/sinup_cubit.dart';
+import 'package:gradution/features/authintication/sinup/presentation/cubit/user_cubit/sinup_cubit.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gradution/core/routeing/routes.dart';
 

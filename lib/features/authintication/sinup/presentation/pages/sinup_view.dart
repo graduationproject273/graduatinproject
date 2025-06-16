@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/depency_injection.dart';
-import 'package:gradution/features/authintication/sinup/presentation/cubit/sinup_cubit.dart';
+import 'package:gradution/features/authintication/sinup/presentation/cubit/user_cubit/sinup_cubit.dart';
 import 'package:gradution/features/authintication/sinup/presentation/widgets/sinup_body_view.dart';
 
 class SinupView extends StatelessWidget {

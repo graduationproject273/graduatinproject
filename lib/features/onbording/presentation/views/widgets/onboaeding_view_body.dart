@@ -91,7 +91,7 @@ class _OnboaedingViewBodyState extends State<OnboaedingViewBody>
             position: currentPage,
             onNextPressed: () {
               if (currentPage == 2) {
-                GoRouter.of(context).push(Routes.usertype);
+                GoRouter.of(context).push(Routes.register);
               }
               _pageController.nextPage(
                 duration: const Duration(milliseconds: 300),

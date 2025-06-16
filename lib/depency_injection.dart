@@ -6,6 +6,7 @@ import 'package:gradution/features/authintication/sinup/domain/repositries/signu
 import 'package:gradution/features/authintication/sinup/domain/usecases/login_usecase.dart';
 import 'package:gradution/features/authintication/sinup/domain/usecases/seller_usecase.dart';
 import 'package:gradution/features/authintication/sinup/domain/usecases/signup_seller.dart';
+import 'package:gradution/features/authintication/sinup/presentation/cubit/seller_cubit/cubit/seller_cubit.dart';
 import 'package:gradution/features/authintication/sinup/presentation/cubit/user_cubit/sinup_cubit.dart'; // تأكد من مسار DioConsumer
 
 final sl = GetIt.instance;
@@ -25,4 +26,5 @@ void setup() {
 
   // Cubit
   sl.registerLazySingleton(() => SinupCubit(sl() , sl()));
+  sl.registerLazySingleton(() => SellerCubit(sl()));
 }

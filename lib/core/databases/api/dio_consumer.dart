@@ -7,6 +7,7 @@ import 'package:gradution/core/databases/api/api_consumer.dart';
 import 'package:gradution/core/databases/api/end_points.dart';
 import 'package:gradution/core/databases/api/interceptors.dart';
 import 'package:gradution/core/databases/api/status_codes.dart';
+import 'package:gradution/core/databases/cache/cache_helper.dart';
 
 
 class DioConsumer extends ApiConsumer {
@@ -40,15 +41,67 @@ class DioConsumer extends ApiConsumer {
     }
   }
 
-  @override
-  Future<Either<String, Response>> post({String? path, Object? data, Map<String, dynamic>? queryParameters, bool isFormData = false}) async {
-    try {
-      final response = await dio.post(path!, data: data, queryParameters: queryParameters,options: isFormData ? Options(contentType: 'application/x-www-form-urlencoded') : null);
+@override
+Future<Either<String, Response>> post({
+  Object? data,
+  Map<String, String>? headers,
+  bool isFormData = false,
+  String? path,
+  Map<String, dynamic>? queryParameters,
+}) async {
+  try {
+    // ✅ استرجاع التوكن من الكاش
+    final token = CacheHelper().getData(key: 'token');
+
+    // ✅ بناء الهيدر النهائي
+    final requestHeaders = {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json',
+      if (token != null && token.isNotEmpty)
+        'Authorization': 'Bearer $token',
+      ...?headers, // ← دي لو فيها Authorization هتغطي اللي فوق، وده ميزة لو عايز تبدل التوكن
+    };
+
+    print('Sending POST request to: $path');
+    print('Request data: $data');
+    print('Request headers: $requestHeaders');
+
+    final response = await dio.post(
+      path!,
+      data: data,
+      queryParameters: queryParameters,
+      options: Options(
+        headers: requestHeaders,
+        responseType: ResponseType.json,
+        validateStatus: (status) => status! < 500,
+      ),
+    );
+
+    print('Response status: ${response.statusCode}');
+    print('Response data: ${response.data}');
+    print('Response headers: ${response.headers}');
+
+    if (response.statusCode! >= 200 && response.statusCode! < 300) {
       return Right(response);
-    } catch (e) {
-      return Left(e.toString());
+    } else {
+      return Left('HTTP Error: ${response.statusCode} - ${response.statusMessage}');
     }
+
+  } on DioException catch (e) {
+    print('DioException: ${e.type}');
+    print('DioException message: ${e.message}');
+    print('DioException response: ${e.response?.data}');
+    if (e.response != null) {
+      return Left('Server Error: ${e.response!.statusCode} - ${e.response!.data}');
+    } else {
+      return Left('Network Error: ${e.message}');
+    }
+  } catch (e) {
+    print('Unexpected error: $e');
+    return Left('Unexpected Error: $e');
   }
+}
+
 
   @override
   Future<Either<String, Response>> put({String? path, Object? data, Map<String, dynamic>? queryParameters, bool isFormData = false}) async {

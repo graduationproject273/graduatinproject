@@ -1,4 +1,4 @@
-import 'package:gradution/core/databases/api/dio_consumer.dart';
+/*import 'package:gradution/core/databases/api/dio_consumer.dart';
 import 'package:gradution/core/databases/api/end_points.dart';
 import 'package:gradution/features/sellerDashboard/data/models/seller_model.dart';
 import 'package:gradution/features/sellerDashboard/domain/entities/seller_entity.dart';
@@ -26,7 +26,7 @@ class SellerRepositryImpl extends SellerRepositry {
 
     await dioConsumer.post(
       path: EndPoints.sellerUrl,
-      data: sellerModel.toJson(),
+      data: sellerModel.toJson(), 
     );
   }
-}
+}*/

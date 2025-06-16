@@ -1,5 +1,5 @@
 
-import 'package:gradution/features/products/data/model/sub_model/seller_entity.dart';
+import 'package:gradution/features/products/data/model/sub_model/Seller_model.dart';
 import 'package:gradution/features/products/domain/entities/product_entity.dart';
 import 'package:gradution/features/products/domain/entities/sub_entities/category_entity.dart';
 

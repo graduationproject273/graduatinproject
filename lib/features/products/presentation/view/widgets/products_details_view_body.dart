@@ -58,7 +58,7 @@ class ProductsDetailsViewBody extends StatelessWidget {
            Positioned(
             right: 0,
             bottom: 0,
-            child: const ButtonsInDetailsPage()),
+            child: ButtonsInDetailsPage(productentity: productEntity,)),
         ],
       ),
     );

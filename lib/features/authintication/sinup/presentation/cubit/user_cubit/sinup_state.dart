@@ -17,5 +17,9 @@ class SinupError extends SinupState {
 }
 
 class SinupSuccess extends SinupState {
+  final List<String> roles;
+  const SinupSuccess(this.roles);
 
+  @override
+  List<Object> get props => [roles];
 }

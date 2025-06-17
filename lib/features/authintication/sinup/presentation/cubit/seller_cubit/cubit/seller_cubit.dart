@@ -22,6 +22,7 @@ class SellerCubit extends Cubit<SellerState> {
   final stateController = TextEditingController();
   final streetController = TextEditingController();
   final bussinessNameController = TextEditingController();
+  final zipCodeController = TextEditingController();
   final formkey = GlobalKey<FormState>();
 
   Future<void> signupSeller(SellerEntity seller) async {

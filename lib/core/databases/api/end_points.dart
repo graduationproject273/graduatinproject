@@ -3,8 +3,8 @@ class EndPoints {
   static const String products = "";
   static const String orders = "";
   static const String createOrder = "";
-  static const String sellerUrl = "http://10.0.2.2:8080/api/sellers";
-  static const String signupUser = "v1/auth/register";
+  static const String sellerUrl = "sellers";
+  
   static const String loginUser = "v1/auth/authenticate";
   static const String sellersignup = "sellers";
   static const String addProduct = "products/seller";

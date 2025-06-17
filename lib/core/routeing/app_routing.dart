@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:gradution/core/routeing/routes.dart';
+import 'package:gradution/depency_injection.dart';
 import 'package:gradution/features/authintication/login/presentation/pages/login_view.dart';
 import 'package:gradution/features/authintication/login/presentation/widgets/otp_widget.dart';
+import 'package:gradution/features/authintication/sinup/presentation/cubit/seller_cubit/cubit/seller_cubit.dart';
+import 'package:gradution/features/authintication/sinup/presentation/pages/seller_sinup.dart';
 import 'package:gradution/features/authintication/sinup/presentation/pages/sinup_view.dart';
-import 'package:gradution/features/authintication/sinup/presentation/pages/widgets/signup_seller_view_body.dart';
 import 'package:gradution/features/authintication/typeUser/presentation/views/usertype_view.dart';
 import 'package:gradution/features/blog/presentation/view/blog_details_view.dart';
 import 'package:gradution/features/blog/presentation/view/blog_view.dart';
@@ -124,9 +127,14 @@ final GoRouter router = GoRouter(
     GoRoute(path: Routes.otpwidget,
     builder: (context, state) => const OtpWidget(),
     ),
-    GoRoute(path: Routes.signupseller,
-    builder: (context, state) => const SellerStepsPage(),
-    ),
+    GoRoute(
+  path: Routes.signupseller,
+  builder: (context, state) => BlocProvider(
+    create: (context) => sl<SellerCubit>(), // أو SellerCubit() لو مش بتستخدم GetIt
+    child: const SellerSignup(),
+  ),
+),
+
     GoRoute(path: Routes.apponimentwidget,
     builder: (context, state) => const AppointmentDialog(),
     ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gradution/constants/images.dart';
 import 'package:gradution/core/styles/extention.dart';
 import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/features/products/domain/entities/product_entity.dart';

@@ -13,7 +13,7 @@ final ProductEntity productEntity;
 
     return GestureDetector(
       onTap: () {
-        GoRouter.of(context).push(Routes.productDetails);
+        GoRouter.of(context).push(Routes.productDetails,extra: productEntity);
       },
       child: Material(
         elevation: 5,
@@ -37,36 +37,28 @@ final ProductEntity productEntity;
               aspectRatio: 270 / 150,
               child: Stack(
                 children: [
-                  Positioned(
-                    top: 0,
-                    right: itemWidth * 0.05,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.favorite_border,
-                        size: 25.sp,
-                        color: Colors.black54,
-                      ),
-                    ),
-                  ),
+               
                   // صورة المنتج في المنتصف
                   Center(
-                    child: Container(
+                    child: SizedBox(
                       width: itemWidth * 0.5,
-                      decoration: BoxDecoration(
-                        image: DecorationImage(
-                          image: NetworkImage(productEntity.image??'http://res.cloudinary.com/doilrq33o/image/upload/v1750089972/de9vl2f9lwdnkzdc6ed3.png',),
-                          fit: BoxFit.fill, // تأكيد تغطية الصورة للمساحة
-                        ),
-                      ),
+                     
+                     
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                             vertical: 12.h, horizontal: 12.w), // المسافات باستخدام ScreenUtil
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // اسم المنتج
+                            SizedBox(
+                              height: itemWidth * 0.05,
+                            ),
+                           Image.network(productEntity.image!,
+                              width: itemWidth * 0.4,
+                              height: itemWidth * 0.3,
+                              fit: BoxFit.fill,
+                            ),
                             Text(
                               productEntity.name ,
                               style: TextStyle(
@@ -89,6 +81,17 @@ final ProductEntity productEntity;
                             ),
                           ],
                         ),
+                      ),
+                    ),
+                  ),   Positioned(
+                    top: 0,
+                    right: itemWidth * 0.05,
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        Icons.favorite_border,
+                        size: 25.sp,
+                        color: Colors.black54,
                       ),
                     ),
                   ),

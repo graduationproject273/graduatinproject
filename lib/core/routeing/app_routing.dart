@@ -20,6 +20,7 @@ import 'package:gradution/features/onbording/presentation/views/auth_buttons_vie
 import 'package:gradution/features/onbording/presentation/views/onboarding_view.dart';
 import 'package:gradution/features/onbording/presentation/views/splash_view.dart';
 import 'package:gradution/features/order-success/presentation/views/order_success_view.dart';
+import 'package:gradution/features/products/domain/entities/product_entity.dart';
 import 'package:gradution/features/products/presentation/view/product_details_view.dart';
 import 'package:gradution/features/products/presentation/view/product_view.dart';
 import 'package:gradution/features/profile/presentation/views/profile_view.dart';
@@ -65,7 +66,7 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: Routes.productDetails,
-      builder: (context, state) => const ProductDetailesView(),
+      builder: (context, state) =>  ProductDetailesView(productEntity: state.extra as ProductEntity,),
     ),
      GoRoute(
       path: Routes.dashboardseller,

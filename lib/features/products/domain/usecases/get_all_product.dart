@@ -6,7 +6,7 @@ import 'package:gradution/features/products/domain/repositries/products_repositr
 class GetAllProduct {
   final ProductsRepositry repository;
   GetAllProduct({required this.repository});
-  Future<Either<Failure, List<ProductEntity>>> call() async {
-    return await repository.getAllProducts();
+  Future<Either<Failure, List<ProductEntity>>> call(String endPoint) async {
+    return await repository.getAllProducts(endPoint);
   }
 }

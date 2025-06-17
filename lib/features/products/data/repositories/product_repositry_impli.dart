@@ -17,11 +17,11 @@ class ProductRepositryImpli implements ProductsRepositry {
     required this.productDataSourseRemote,
   });
   @override
-  Future<Either<Failure, List<ProductModel>>> getAllProducts() async {
+  Future<Either<Failure, List<ProductModel>>> getAllProducts(String endPoint) async {
     if (await networkInfo.isConnected!) {
       try {
-        final products = await productDataSourseRemote.getAllProducts();
-        await productDataSourseLocal.cacheproduct(products, '');
+        final products = await productDataSourseRemote.getAllProducts(endPoint);
+        await productDataSourseLocal.cacheproduct(products, endPoint);
         return Right(products);
       } on  ServerException catch (e) {
         return Left(Failure(errMessage: e.errorModel.errorMessage));
@@ -29,7 +29,7 @@ class ProductRepositryImpli implements ProductsRepositry {
     } else {
       // Handle the offline case, e.g., return cached products or a failure
       try {
-        final products = await productDataSourseLocal.getLastProduct('');
+        final products = await productDataSourseLocal.getLastProduct(endPoint);
         return Right(products);
       }on ServerException catch (e) {
         return Left(Failure(errMessage: e.errorModel.errorMessage));

@@ -11,6 +11,7 @@ import 'package:gradution/features/products/data/datasource/product_data_sourse_
 import 'package:gradution/features/products/data/repositories/product_repositry_impli.dart';
 import 'package:gradution/features/products/domain/repositries/products_repositry.dart';
 import 'package:gradution/features/products/domain/usecases/get_all_product.dart';
+import 'package:gradution/features/products/presentation/cubits/products_cubit/cubit/products_cubit.dart';
 import 'package:gradution/features/sellerDashboard/data/datasources/get_all_category_datasourse_local.dart';
 import 'package:gradution/features/sellerDashboard/data/datasources/get_all_category_datasourse_remote.dart';
 import 'package:gradution/features/sellerDashboard/data/repositries/seller_repositry_Impl.dart';
@@ -76,4 +77,6 @@ void setup() {
   sl.registerLazySingleton(() => GetProductSellerCubit(sl()));
   sl.registerFactory(() => SinupCubit(sl(), sl()));
   sl.registerFactory(() => SellerCubit(sl()));
+    sl.registerLazySingleton(() => ProductsCubit(sl()));
+
 }

@@ -30,11 +30,12 @@ class SellerRepositryImpl extends SellerRepositry {
   final response = await dioConsumer.post(
       path: EndPoints.addProduct,
       data: add.toJson(),
-    );  return response.fold(
+    ); 
+     return response.fold(
     (l) => Left(Failure(errMessage: l)),
     (r) => Right(AddProductModel.fromJson(r.data)),
   ); 
-}  catch (e) {
+} on ServerException catch  (e) {
   return Left(Failure(errMessage: e.toString()));}
 
    }

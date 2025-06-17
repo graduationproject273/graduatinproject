@@ -32,6 +32,11 @@ class AddProductForm extends StatelessWidget {
           context.read<AddProductCubit>().nameController.clear();
           GoRouter.of(context).push(Routes.sellerProducts);
         }
+        else if (state is AddProductFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.error)),
+          );
+        }
       },
       child: SingleChildScrollView(
         child: Form(
@@ -141,8 +146,7 @@ class AddProductForm extends StatelessWidget {
               CustomButton(
                 text: 'Add Product',
                 onTap: () {
-                  print(context.read<AddProductCubit>().imageUrl);
-                  print(catid);
+                 
                   if (context
                           .read<AddProductCubit>()
                           .formKey2
@@ -151,9 +155,15 @@ class AddProductForm extends StatelessWidget {
                       catid != 0 &&
                       context.read<AddProductCubit>().imageUrl.isNotEmpty) {
                     context.read<AddProductCubit>().addProduct(AddProductModel(
+                      discountPrice:double.tryParse(
+                            context
+                            .read<AddProductCubit>()
+                            .discountController
+                            .text) ?? 0,
+                     
                         name: context
                             .read<AddProductCubit>()
-                            .descriptionController
+                            .nameController
                             .text,
                         image: context.read<AddProductCubit>().imageUrl,
                         price: double.parse(context
@@ -164,11 +174,7 @@ class AddProductForm extends StatelessWidget {
                             .read<AddProductCubit>()
                             .descriptionController
                             .text,
-                        categoryId: catid,
-                        quantityAvailable: double.parse(context
-                            .read<AddProductCubit>()
-                            .quantityController
-                            .text),
+                      category: CategoryModel(id: catid,),
                         specialOffer: (double.tryParse(context
                                     .read<AddProductCubit>()
                                     .discountController
@@ -183,9 +189,9 @@ class AddProductForm extends StatelessWidget {
                             .read<AddProductCubit>()
                             .sellingPriceController
                             .text),
-                        discount: double.parse(context
+                      quantityAvailable: int.parse(context
                             .read<AddProductCubit>()
-                            .discountController
+                            .quantityController
                             .text)));
                   }
                 },

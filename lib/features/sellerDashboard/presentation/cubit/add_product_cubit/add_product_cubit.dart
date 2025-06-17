@@ -59,17 +59,17 @@ class AddProductCubit extends Cubit<AddProductState> {
     emit(AddProductLoading());
     try {
       final result = await addproductUsecase.call(add);
+      print(result);
       result.fold(
         (failure) => emit(AddProductFailure(
-            "❗ Please make sure all fields are filled out correctly or internt")),
+            "❗ ${failure.errMessage}")),
         (success) {
           emit(AddProductSuccess(success));
-          print(success);
         },
       );
     } catch (e) {
       emit(AddProductFailure(
-          '❗ Please make sure all fields are filled out correctly '));
+          '❗$e '));
     }
   }
 }

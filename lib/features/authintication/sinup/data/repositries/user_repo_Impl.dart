@@ -29,7 +29,7 @@ class UserRepoImpl extends SignupRepositry {
   (l) => Left(Failure(errMessage: l)),
   (r) => Right(r.data['token'] as String), // ✅ رجّع التوكن
 );// ✅ رجّع اليوزر مع التوكن
-    } on ServerException catch (e) {
+    }  catch (e) {
       return Left(Failure(errMessage: e.toString()));
     }
   }

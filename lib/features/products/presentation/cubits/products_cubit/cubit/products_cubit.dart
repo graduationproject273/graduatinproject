@@ -1,10 +1,30 @@
 // ignore: depend_on_referenced_packages
 import 'package:bloc/bloc.dart';
+import 'package:gradution/core/databases/api/end_points.dart';
+import 'package:gradution/features/products/domain/entities/product_entity.dart';
+import 'package:gradution/features/products/domain/usecases/get_all_product.dart';
 // ignore: depend_on_referenced_packages
 import 'package:meta/meta.dart';
 
 part 'products_state.dart';
 
 class ProductsCubit extends Cubit<ProductsState> {
-  ProductsCubit() : super(ProductsInitial());
+  final GetAllProduct getAllProduct;  
+  ProductsCubit(this.getAllProduct) : super(ProductsInitial());
+
+
+  Future<void> getProduct ()async{
+  try {
+    emit(ProductsLoading());
+      final result = await getAllProduct.call(EndPoints.products);
+      result.fold(
+        (C) => emit(ProductsError(
+            "❗$C ")),
+        (success) => emit(ProductsLoaded(success)),
+      );
+    } catch (e) {
+      emit(ProductsError(
+          '❗ $e '));
+    }
+  }
 }

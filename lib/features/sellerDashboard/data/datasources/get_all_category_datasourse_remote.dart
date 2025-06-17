@@ -1,7 +1,6 @@
 import 'package:gradution/core/databases/api/dio_consumer.dart';
 import 'package:gradution/core/databases/api/end_points.dart';
-import 'package:gradution/core/errors/error_model.dart';
-import 'package:gradution/core/errors/expentions.dart';
+
 import 'package:gradution/features/sellerDashboard/data/models/get_all_category_model.dart';
 
 class GetAllCategoryDatasourseRemote {

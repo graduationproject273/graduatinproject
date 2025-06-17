@@ -11,10 +11,11 @@ class ProductsSellerView extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          sl<GetProductSellerCubit>()..getAllcategoryfunction(),
+          sl<GetProductSellerCubit>()..getAllProductfun(),
       child: ProductsSellerViewBody(
       
       ),
+ 
     );
   }
 }

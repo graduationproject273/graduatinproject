@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:gradution/core/databases/api/dio_consumer.dart';
 import 'package:gradution/core/databases/api/end_points.dart';
-import 'package:gradution/core/databases/cache/cache_helper.dart';
-import 'package:gradution/core/errors/expentions.dart';
 import 'package:gradution/core/errors/failure.dart';
 import 'package:gradution/features/authintication/sinup/data/models/user_model.dart';
 import 'package:gradution/features/authintication/sinup/domain/entities/user_entity.dart';
@@ -30,37 +28,24 @@ class UserRepoImpl extends SignupRepositry {
           roles: [],
         ).toJson(),
       );
+      
+      return response.fold(
+        (l) => Left(Failure(errMessage: l)),
+        (r) {
+          final raw = r.data;
+          if (raw == null || raw.toString().trim().isEmpty) {
+            return Left(Failure(errMessage: "Empty response from server"));
+          }
 
-    return response.fold(
-  (l) => Left(Failure(errMessage: l)),
-  (r) => Right(r.data['token'] as String), // ✅ رجّع التوكن
-);// ✅ رجّع اليوزر مع التوكن
-    } on ServerException catch (e) {
+          final jsonMap = raw is String ? json.decode(raw) : raw;
+          return Right(UserModel.fromJson(jsonMap));
+        },
+      );
+    } catch (e) {
       return Left(Failure(errMessage: e.toString()));
     }
   }
-
-  @override
-  Future<Either<Failure, UserEntity>> loginUser(UserEntity user)async {
-    
-      try {
-        final response = await dioConsumer.post(
-        path:   EndPoints.loginUser,
-          data: UserModel(
-                  email: user.email,
-                  password: user.password,
-                  token: '' /* مبدئيًا */)
-              .toJson(),
-        );
- return response.fold(
-  (l) => Left(Failure(errMessage: l)),
-  (r) => Right(UserModel.fromJson(r.data)),
-);
-      } catch (e) {
-        return Left(Failure(errMessage: e.toString()));
-      }
-    }
-
+  
   @override
 Future<Either<Failure, SellerEntity>> signupSeller(SellerEntity seller) async {
   try {
@@ -124,7 +109,7 @@ Future<Either<Failure, SellerEntity>> signupSeller(SellerEntity seller) async {
           // ✅ التعامل مع Map response
           else if (raw is Map<String, dynamic>) {
             jsonMap = raw;
-          } 
+            } 
           // ✅ نوع غير متوقع
           else {
             print('Unexpected response type: ${raw.runtimeType}');

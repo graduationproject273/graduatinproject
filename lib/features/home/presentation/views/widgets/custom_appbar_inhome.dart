@@ -2,7 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gradution/constants/images.dart';
+import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/core/styles/colors.dart';
 
 class CustomAppbarInhome extends StatefulWidget {
@@ -66,9 +68,23 @@ class _CustomAppbarInhomeState extends State<CustomAppbarInhome>
               ),
             ),
             Text('EZhome', style: TextStyle(fontSize: 16.sp,color: maincolor,fontWeight:FontWeight.w800 ),),
-            CircleAvatar(
-          radius: 30,
-          child: Image.asset(Assets.imagesAvatar))
+            Row(
+              children: [
+                CircleAvatar(
+                          radius: 30,
+                          child: Image.asset(Assets.imagesAvatar)),
+                const SizedBox(width: 8),
+                 GestureDetector(
+                   onTap: (){
+                    GoRouter.of(context).go(Routes.cart);
+                   },
+                   child: CircleAvatar(
+                   
+                            radius: 30,
+                            child:Icon(Icons.shopping_cart_outlined)),
+                 ),
+              ],
+            )
 
           ],
         ),

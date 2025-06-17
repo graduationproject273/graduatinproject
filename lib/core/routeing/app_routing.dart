@@ -67,7 +67,12 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: Routes.productDetails,
-      builder: (context, state) =>  ProductDetailesView(productEntity: state.extra as ProductEntity,),
+      builder: (context, state) => BlocProvider(
+        create: (context) => sl<CartCubit>(),
+        child: ProductDetailesView(
+          productEntity: state.extra as ProductEntity,
+        ),
+      ),
     ),
     GoRoute(
       path: Routes.dashboardseller,
@@ -93,16 +98,16 @@ final GoRouter router = GoRouter(
       path: Routes.blogDetails,
       builder: (context, state) => const BlogDetailsView(),
     ),
-  GoRoute(
-  path: Routes.cart,
-  builder: (context, state) {
-    return BlocProvider(
-      create: (context) => sl<CartCubit>()..getCartItems(), // استدعاء getCartItems
-      child: CartView(),
-    );
-  },
-),
-
+    GoRoute(
+      path: Routes.cart,
+      builder: (context, state) {
+        return BlocProvider(
+          create: (context) =>
+              sl<CartCubit>()..getCartItems(), // استدعاء getCartItems
+          child: CartView(),
+        );
+      },
+    ),
     GoRoute(
       path: Routes.checkout,
       builder: (context, state) => const CheckoutView(),
@@ -147,12 +152,10 @@ final GoRouter router = GoRouter(
       path: Routes.apponimentwidget,
       builder: (context, state) => const AppointmentDialog(),
     ),
- GoRoute(
-  path: Routes.sellerProducts,
-  builder: (context, state) => const ProductsSellerView(),
-),
-
-
+    GoRoute(
+      path: Routes.sellerProducts,
+      builder: (context, state) => const ProductsSellerView(),
+    ),
     GoRoute(
       path: Routes.addsellerProducts,
       builder: (context, state) => const AddProductSellerView(),

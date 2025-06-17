@@ -51,11 +51,11 @@ class CartCubit extends Cubit<CartState> {
   }
 
   double getTotalPrice(List<CartItemEntity> cartItems) {
-    return cartItems.fold(
-        0.0,
-        (total, item) =>
-            total + (item.productcartentity.price * item.quantity));
+    return cartItems.fold(0.0, (total, item) => total + (item.productcartentity.price * item.quantity));
   }
+  return 0.0;
+}
+
 
   int getTotalQuantity(List<CartItemEntity> cartItems) {
     return cartItems.fold(0, (total, item) => total + item.quantity);

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/core/styles/colors.dart';
 import 'package:gradution/core/widgets/custom_button.dart';
 import 'package:gradution/core/widgets/custom_textfield.dart';
 import 'package:gradution/features/sellerDashboard/data/models/add_product_model.dart';
-import 'package:gradution/features/sellerDashboard/presentation/cubit/cubit/add_product_cubit.dart';
+import 'package:gradution/features/sellerDashboard/presentation/cubit/add_product_cubit/add_product_cubit.dart';
 import 'package:gradution/features/sellerDashboard/presentation/widgets/drowpdown_categories.dart';
 import 'package:gradution/features/sellerDashboard/presentation/widgets/upload_photo_row.dart';
 
@@ -16,7 +18,20 @@ class AddProductForm extends StatelessWidget {
     int catid = 0;
     return BlocListener<AddProductCubit, AddProductState>(
       listener: (context, state) {
-        
+        if (state is AddProductSuccess) {
+          context.read<AddProductCubit>().descriptionController.clear();
+          context.read<AddProductCubit>().descriptionController.clear();
+          context.read<AddProductCubit>().priceController.clear();
+          context.read<AddProductCubit>().sellingPriceController.clear();
+          context.read<AddProductCubit>().discountController.clear();
+          context.read<AddProductCubit>().quantityController.clear();
+          context
+              .read<AddProductCubit>()
+              .hardwareSpecificationsController
+              .clear();
+          context.read<AddProductCubit>().nameController.clear();
+          GoRouter.of(context).push(Routes.sellerProducts);
+        }
       },
       child: SingleChildScrollView(
         child: Form(
@@ -132,7 +147,8 @@ class AddProductForm extends StatelessWidget {
                           .read<AddProductCubit>()
                           .formKey2
                           .currentState!
-                          .validate() && catid!=0 &&
+                          .validate() &&
+                      catid != 0 &&
                       context.read<AddProductCubit>().imageUrl.isNotEmpty) {
                     context.read<AddProductCubit>().addProduct(AddProductModel(
                         name: context

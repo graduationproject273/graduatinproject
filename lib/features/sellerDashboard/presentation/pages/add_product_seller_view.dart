@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gradution/depency_injection.dart';
-import 'package:gradution/features/sellerDashboard/presentation/cubit/cubit/add_product_cubit.dart';
+import 'package:gradution/features/sellerDashboard/presentation/cubit/add_product_cubit/add_product_cubit.dart';
 import 'package:gradution/features/sellerDashboard/presentation/widgets/add_product_seller_view_body.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 class AddProductSellerView extends StatelessWidget {

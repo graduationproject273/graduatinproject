@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/core/widgets/custom_button.dart';
-import 'package:gradution/features/sellerDashboard/presentation/cubit/cubit/add_product_cubit.dart';
+import 'package:gradution/features/sellerDashboard/presentation/cubit/add_product_cubit/add_product_cubit.dart';
 
 
 class UploadPhotoRow extends StatelessWidget {
@@ -26,7 +27,7 @@ class UploadPhotoRow extends StatelessWidget {
               style: Textstyles.namereview.copyWith(fontSize: 19)),
           const SizedBox(width: 60),
           SizedBox(
-            width: 150,
+            width: 130.w,
             child: CustomButton(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,

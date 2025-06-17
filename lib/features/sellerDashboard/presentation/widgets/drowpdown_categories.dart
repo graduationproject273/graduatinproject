@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gradution/core/styles/colors.dart';
 import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/depency_injection.dart';
-import 'package:gradution/features/sellerDashboard/presentation/cubit/cubit/cubit/get_all_category_cubit.dart';
+import 'package:gradution/features/sellerDashboard/presentation/cubit/get_all_category_cubit/get_all_category_cubit.dart';
 
 
 class DrowpdownCategories extends StatefulWidget {

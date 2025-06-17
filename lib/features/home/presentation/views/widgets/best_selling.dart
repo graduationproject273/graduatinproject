@@ -29,7 +29,7 @@ class BestSelling extends StatelessWidget {
                 child: Container(
                   width: 140.w, 
                   margin: EdgeInsets.symmetric(vertical: 10.h),
-                  child: ProductItem()),
+                  child:Container()),
               );
             },
             itemCount: 10,

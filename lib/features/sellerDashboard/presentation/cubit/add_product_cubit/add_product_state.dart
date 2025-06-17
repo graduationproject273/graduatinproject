@@ -28,8 +28,7 @@ class ErrorImage extends AddProductState {
 
 final class AddProductLoading extends AddProductState {}
 final class AddProductSuccess extends AddProductState {
-  final String message;
-
+ final AddProductEntity message;
   const AddProductSuccess(this.message);
 
   @override

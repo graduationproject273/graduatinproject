@@ -3,6 +3,7 @@ import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/widgets.dart';
 import 'package:gradution/features/sellerDashboard/data/models/add_product_model.dart';
+import 'package:gradution/features/sellerDashboard/domain/entities/add_product_entity.dart';
 import 'package:gradution/features/sellerDashboard/domain/entities/get_all_category_entity.dart';
 import 'package:gradution/features/sellerDashboard/domain/usecases/addproduct_usecase.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,7 +12,7 @@ part 'add_product_state.dart';
 
 class AddProductCubit extends Cubit<AddProductState> {
   final AddproductUsecase addproductUsecase;
-  AddProductCubit( {required this.addproductUsecase})
+  AddProductCubit({required this.addproductUsecase})
       : super(AddProductInitial());
   String imageUrl = '';
   TextEditingController nameController = TextEditingController();
@@ -61,12 +62,14 @@ class AddProductCubit extends Cubit<AddProductState> {
       result.fold(
         (failure) => emit(AddProductFailure(
             "❗ Please make sure all fields are filled out correctly or internt")),
-        (success) => emit(AddProductSuccess('Product added successfully')),
+        (success) {
+          emit(AddProductSuccess(success));
+          print(success);
+        },
       );
     } catch (e) {
       emit(AddProductFailure(
           '❗ Please make sure all fields are filled out correctly '));
     }
   }
- 
 }

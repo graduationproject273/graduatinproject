@@ -12,9 +12,9 @@ final ProductEntity productEntity;
     var itemWidth = MediaQuery.of(context).size.width;
 
     return GestureDetector(
-      onTap: () {
-        GoRouter.of(context).push(Routes.productDetails);
-      },
+    //  onTap: () {
+     //   GoRouter.of(context).push(Routes.productDetails);
+     // },
       child: Material(
         elevation: 5,
         child: ClipRRect(

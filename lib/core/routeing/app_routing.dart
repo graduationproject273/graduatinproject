@@ -12,6 +12,7 @@ import 'package:gradution/features/authintication/sinup/presentation/pages/sinup
 import 'package:gradution/features/authintication/typeUser/presentation/views/usertype_view.dart';
 import 'package:gradution/features/blog/presentation/view/blog_details_view.dart';
 import 'package:gradution/features/blog/presentation/view/blog_view.dart';
+import 'package:gradution/features/cart/presentation/cubits/cubit/cart_cubit.dart';
 import 'package:gradution/features/cart/presentation/views/cart_view.dart';
 import 'package:gradution/features/categories/presentation/views/categories_view.dart';
 import 'package:gradution/features/checkout/presentation/views/checkout_view.dart';
@@ -67,11 +68,11 @@ final GoRouter router = GoRouter(
       path: Routes.productDetails,
       builder: (context, state) => const ProductDetailesView(),
     ),
-     GoRoute(
+    GoRoute(
       path: Routes.dashboardseller,
       builder: (context, state) => const SellerDashboardView(),
     ),
-      GoRoute(
+    GoRoute(
       path: Routes.service,
       builder: (context, state) => const ServicesView(),
     ),
@@ -91,10 +92,16 @@ final GoRouter router = GoRouter(
       path: Routes.blogDetails,
       builder: (context, state) => const BlogDetailsView(),
     ),
-    GoRoute(
-      path: Routes.cart,
-      builder: (context, state) => const CartView(),
-    ),
+  GoRoute(
+  path: Routes.cart,
+  builder: (context, state) {
+    return BlocProvider(
+      create: (context) => sl<CartCubit>()..getCartItems(), // استدعاء getCartItems
+      child: CartView(),
+    );
+  },
+),
+
     GoRoute(
       path: Routes.checkout,
       builder: (context, state) => const CheckoutView(),
@@ -107,8 +114,6 @@ final GoRouter router = GoRouter(
       path: Routes.profile,
       builder: (context, state) => const ProfileView(),
     ),
-   
-    
     GoRoute(
       path: Routes.reviews,
       builder: (context, state) => const ReviewsView(),
@@ -121,39 +126,50 @@ final GoRouter router = GoRouter(
       path: Routes.authbuttonsview,
       builder: (context, state) => const AuthButtonsView(),
     ),
-    GoRoute(path: Routes.usertype,
-    builder: (context, state) => const UsertypeView(),
-    ),
-    GoRoute(path: Routes.otpwidget,
-    builder: (context, state) => const OtpWidget(),
+    GoRoute(
+      path: Routes.usertype,
+      builder: (context, state) => const UsertypeView(),
     ),
     GoRoute(
-  path: Routes.signupseller,
-  builder: (context, state) => BlocProvider(
-    create: (context) => sl<SellerCubit>(), // أو SellerCubit() لو مش بتستخدم GetIt
-    child: const SellerSignup(),
-  ),
+      path: Routes.otpwidget,
+      builder: (context, state) => const OtpWidget(),
+    ),
+    GoRoute(
+      path: Routes.signupseller,
+      builder: (context, state) => BlocProvider(
+        create: (context) =>
+            sl<SellerCubit>(), // أو SellerCubit() لو مش بتستخدم GetIt
+        child: const SellerSignup(),
+      ),
+    ),
+    GoRoute(
+      path: Routes.apponimentwidget,
+      builder: (context, state) => const AppointmentDialog(),
+    ),
+ GoRoute(
+  path: Routes.sellerProducts,
+  builder: (context, state) => const ProductsSellerView(),
 ),
 
-    GoRoute(path: Routes.apponimentwidget,
-    builder: (context, state) => const AppointmentDialog(),
+
+    GoRoute(
+      path: Routes.addsellerProducts,
+      builder: (context, state) => const AddProductSellerView(),
     ),
-    GoRoute(path: Routes.sellerProducts,
-    builder: (context, state) => const ProductsSellerView(),),
-    
-    GoRoute(path: Routes.addsellerProducts,
-    builder: (context, state) => const AddProductSellerView(),),
-    
-       GoRoute(path: Routes.payments,
-    builder: (context, state) => const PaymentsWidets(),),
-       GoRoute(path: Routes.transactions,
-    builder: (context, state) => const TransactionWidet(),),
-    GoRoute(path: Routes.dashboardhome,
-    builder: (context, state) => const DasboardWidet(),),
+    GoRoute(
+      path: Routes.payments,
+      builder: (context, state) => const PaymentsWidets(),
+    ),
+    GoRoute(
+      path: Routes.transactions,
+      builder: (context, state) => const TransactionWidet(),
+    ),
+    GoRoute(
+      path: Routes.dashboardhome,
+      builder: (context, state) => const DasboardWidet(),
+    ),
   ],
   errorBuilder: (context, state) => const Scaffold(
     body: Center(child: Text('Page not found')),
   ),
 );
-
-  

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gradution/core/styles/textstyles.dart';
-import 'package:gradution/features/products/presentation/view/widgets/product_item.dart';
 
 class BestSelling extends StatelessWidget {
   const BestSelling({super.key});

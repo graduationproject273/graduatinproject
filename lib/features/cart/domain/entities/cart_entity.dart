@@ -1,8 +1,8 @@
-class CartItemEntity {
+class CartEntity {
   final int productId;
   final int quantity;
 
-  CartItemEntity({
+  CartEntity({
     required this.productId,
     required this.quantity,
   });

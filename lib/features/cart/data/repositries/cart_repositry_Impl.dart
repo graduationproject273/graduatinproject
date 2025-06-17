@@ -4,18 +4,20 @@ import 'package:dartz/dartz.dart';
 import 'package:gradution/core/databases/api/dio_consumer.dart';
 import 'package:gradution/core/databases/api/end_points.dart';
 import 'package:gradution/core/errors/failure.dart';
+import 'package:gradution/features/cart/data/models/cart_item_model.dart';
 import 'package:gradution/features/cart/data/models/cart_model.dart';
+import 'package:gradution/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:gradution/features/cart/domain/repositries/cart_repositry.dart';
 
-late final DioConsumer dioConsumer ;
-
 class CartRepositryImpl extends CartRepositry{
+   final DioConsumer dioConsumer ;
+   CartRepositryImpl({required this.dioConsumer});
   @override
-  Future<Either<Failure, CartItemModel>> addToCart(cart) async {
+  Future<Either<Failure, CartModel>> addToCart(cart) async {
     try {
       final response = await dioConsumer.post(
         path: EndPoints.addtocart,
-        data: CartItemModel(productId: cart.productId, quantity: cart.quantity)
+        data: CartModel(productId: cart.productId, quantity: cart.quantity)
       );
       return response.fold(
         (l) => Left(Failure(errMessage: l)),
@@ -26,6 +28,39 @@ class CartRepositryImpl extends CartRepositry{
     }
   }
 
- 
+  // Update the method signature to match the abstract class/interface
+    @override
+    Future<Either<Failure, List<CartItemEntity>>> getCartItems() async {
+      try {
+        final response = await dioConsumer.get(path: EndPoints.getCartItems);
+        return response.fold(
+          (l) => Left(Failure(errMessage: l)),
+          (r) {
+            if (r.data == null || r.data.isEmpty) {
+              return Right([]);
+            }
+            final cartItems = (r.data as List)
+                .map((item) => CartItemModel.fromJson(item) as CartItemEntity)
+                .toList();
+            return Right(cartItems);
+          },
+        );
+      } catch (e) {
+        return Left(Failure(errMessage: e.toString()));
+      }
+    }
+    
+      @override
+      Future<Either<Failure, void>> clearCart() async {
+        try {
+          final response = await dioConsumer.delete(path: EndPoints.clearCart);
+          return response.fold(
+            (l) => Left(Failure(errMessage: l)),
+            (r) => Right(null), 
+          );
+        } catch (e) {
+          return Left(Failure(errMessage: e.toString()));
+        }
+      }
   
-}
+      }

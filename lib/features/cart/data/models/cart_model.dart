@@ -2,15 +2,15 @@
 
 import 'package:gradution/features/cart/domain/entities/cart_entity.dart';
 
-class CartItemModel extends CartItemEntity {
-  CartItemModel({
+class CartModel extends CartEntity {
+  CartModel({
     required super.productId,
     required super.quantity,
   });
 
   // تحويل من JSON إلى كائن
-  factory CartItemModel.fromJson(Map<String, dynamic> json) {
-    return CartItemModel(
+  factory CartModel.fromJson(Map<String, dynamic> json) {
+    return CartModel(
       productId: json['productId'],
       quantity: json['quantity'],
     );

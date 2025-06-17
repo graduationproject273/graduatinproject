@@ -6,6 +6,10 @@ import 'package:gradution/core/databases/api/dio_consumer.dart';
 import 'package:gradution/core/databases/cache/cache_helper.dart';
 import 'package:gradution/features/authintication/sinup/data/repositries/user_repo_Impl.dart';
 import 'package:gradution/features/authintication/sinup/domain/repositries/signup_repositry.dart';
+import 'package:gradution/features/cart/data/repositries/cart_repositry_Impl.dart';
+import 'package:gradution/features/cart/domain/repositries/cart_repositry.dart';
+import 'package:gradution/features/cart/domain/usecases/cart_usecase.dart';
+import 'package:gradution/features/cart/presentation/cubits/cubit/cart_cubit.dart';
 import 'package:gradution/features/products/data/datasource/product_data_sourse_local.dart';
 import 'package:gradution/features/products/data/datasource/product_data_sourse_remote.dart';
 import 'package:gradution/features/products/data/repositories/product_repositry_impli.dart';
@@ -54,12 +58,14 @@ void setup() {
       productDataSourseLocal: sl(),
       productDataSourseRemote: sl()));
   sl.registerLazySingleton<SignupRepositry>(() => UserRepoImpl(sl()));
+   sl.registerLazySingleton<CartRepositry>(() => CartRepositryImpl(dioConsumer:  sl()));
   sl.registerLazySingleton<SellerRepositry>(
       () => SellerRepositryImpl(sl(), sl(), sl(), sl()));
 
   // Usecase
   sl.registerLazySingleton(() => GetAllCategory(productsRepositry: sl()));
   sl.registerLazySingleton(() => GetAllProduct(repository: sl()));
+  sl.registerLazySingleton(() => CartUseCase(cartRepositry:  sl()));
 
   sl.registerLazySingleton(() => AddproductUsecase(productsRepositry: sl()));
 
@@ -76,4 +82,8 @@ void setup() {
   sl.registerLazySingleton(() => GetProductSellerCubit(sl()));
   sl.registerFactory(() => SinupCubit(sl(), sl()));
   sl.registerFactory(() => SellerCubit(sl()));
+
+  sl.registerFactory(()=> CartCubit(
+     sl(),
+  ));
 }

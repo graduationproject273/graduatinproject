@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gradution/core/styles/extention.dart';
 import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/features/cart/domain/entities/cart_item_entity.dart';
+import 'package:gradution/features/cart/presentation/cubits/cubit/cart_cubit.dart';
 import 'package:gradution/features/cart/presentation/widgets/row_increment_and_decrement_number.dart';
 
 
@@ -100,7 +102,10 @@ class ItemCart extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
-                      rowIncrementAndDecrementNumber(),
+                      RowIncrementAndDecrementNumber(
+                        quantity: product.quantity,
+                        id: product.id,
+                      ),
                     ],
                   ),
                 ),
@@ -108,7 +113,9 @@ class ItemCart extends StatelessWidget {
               
               IconButton(
                 onPressed: () {
-                  // إضافة منطق الحذف هنا
+                context.read<CartCubit>().clearItemCart(product.id);
+               
+
                 },
                 icon: Icon(
                   CupertinoIcons.delete,
@@ -122,4 +129,5 @@ class ItemCart extends StatelessWidget {
       ),
     );
   }
+  
 }

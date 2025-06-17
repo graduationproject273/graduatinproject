@@ -20,4 +20,10 @@ class CartUseCase {
   Future<Either<Failure, void>> clearCart() {
     return cartRepositry.clearCart();
   }
+  Future<Either<Failure, void>> clearItemCart(int itemId) {
+    return cartRepositry.clearItemCart(itemId);
+  }
+    Future<Either<Failure, void>> updateCartItemQuantity(int itemId, int quantity) {
+    return cartRepositry.updateCartItemQuantity(itemId, quantity);
+  }
 }

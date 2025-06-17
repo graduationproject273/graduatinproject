@@ -24,7 +24,7 @@ class CartCubit extends Cubit<CartState> {
     final result = await cartUseCase.getCartItems();
     result.fold(
       (failure) => emit(CartError(message: failure.errMessage)),
-      (cartItems) => emit(CartLoaded( productitems: cartItems)), 
+      (cartItems) => emit(CartLoaded(productitems: cartItems)),
     );
   }
 
@@ -37,19 +37,49 @@ class CartCubit extends Cubit<CartState> {
     );
   }
 
+  Future<void> clearItemCart(int itemId) async {
+    emit(CartLoading());
+    final result = await cartUseCase.clearItemCart(itemId);
+  getCartItems();
+    result.fold(
+      (failure) {
+
+        emit(CartError(message: failure.errMessage));
+      },
+      (_) => emit(ClearCart()),
+    );
+  }
+
   double getTotalPrice(List<CartItemEntity> cartItems) {
-    return cartItems.fold(0.0, (total, item) => total + (item.productcartentity.price * item.quantity));
+    return cartItems.fold(
+        0.0,
+        (total, item) =>
+            total + (item.productcartentity.price * item.quantity));
   }
 
   int getTotalQuantity(List<CartItemEntity> cartItems) {
     return cartItems.fold(0, (total, item) => total + item.quantity);
   }
 
-  int increaseQuantity(int quantity) {
-    return quantity + 1;
+  increaseQuantity(
+    int itemId,
+    int quantity,
+  ) async {
+    final result =
+        await cartUseCase.updateCartItemQuantity(itemId, quantity + 1);
+    ();
+    result.fold(
+      (failure) => emit(CartError(message: failure.errMessage)),
+      (_) => emit(ClearCart()),
+    );
   }
 
-  int decreaseQuantity(int quantity) {
-    return quantity - 1;
+  decreaseQuantity(int itemId, int quantity) async {
+    final result =
+        await cartUseCase.updateCartItemQuantity(itemId, quantity - 1);
+    result.fold(
+      (failure) => emit(CartError(message: failure.errMessage)),
+      (_) => emit(ClearCart()),
+    );
   }
 }

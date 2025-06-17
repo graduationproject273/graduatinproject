@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gradution/core/routeing/routes.dart';
+import 'package:gradution/features/products/domain/entities/product_entity.dart';
 
 class ProductItem extends StatelessWidget {
-  const ProductItem({super.key});
-
+  const ProductItem({super.key, required this.productEntity});
+final ProductEntity productEntity;
   @override
   Widget build(BuildContext context) {
     var itemWidth = MediaQuery.of(context).size.width;
@@ -54,7 +55,7 @@ class ProductItem extends StatelessWidget {
                       width: itemWidth * 0.5,
                       decoration: BoxDecoration(
                         image: DecorationImage(
-                          image: AssetImage('assets/images/smartlighting.png',),
+                          image: NetworkImage(productEntity.image??'http://res.cloudinary.com/doilrq33o/image/upload/v1750089972/de9vl2f9lwdnkzdc6ed3.png',),
                           fit: BoxFit.fill, // تأكيد تغطية الصورة للمساحة
                         ),
                       ),
@@ -67,7 +68,7 @@ class ProductItem extends StatelessWidget {
                           children: [
                             // اسم المنتج
                             Text(
-                              'Lacoste Sport Top.',
+                              productEntity.name ,
                               style: TextStyle(
                                 fontSize: 14.sp, // زيادة حجم الخط بشكل مرن
                                 fontWeight: FontWeight.w600,
@@ -79,7 +80,7 @@ class ProductItem extends StatelessWidget {
                             SizedBox(height: 5.h), // زيادة المسافة بين الاسم والسعر
                             // سعر المنتج
                             Text(
-                              '25\$',
+                              '${productEntity.price} EGP',
                               style: TextStyle(
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w600,

@@ -109,7 +109,7 @@ Future<Either<Failure, SellerEntity>> signupSeller(SellerEntity seller) async {
           // ✅ التعامل مع Map response
           else if (raw is Map<String, dynamic>) {
             jsonMap = raw;
-          } 
+            } 
           // ✅ نوع غير متوقع
           else {
             print('Unexpected response type: ${raw.runtimeType}');

@@ -39,7 +39,7 @@ void setup() {
   sl.registerLazySingleton<ProductDataSourseLocal>(
       () => ProductDataSourseLocal(cache: CacheHelper()));
   sl.registerLazySingleton<ProductDataSourseRemote>(
-      () => ProductDataSourseRemote(apiConsumer: sl()));
+      () => ProductDataSourseRemote(apiConsumer: sl<DioConsumer>()));
 
   sl.registerLazySingleton<GetAllCategoryDatasourseLocal>(
       () => GetAllCategoryDatasourseLocal(cache: CacheHelper()));
@@ -69,12 +69,11 @@ void setup() {
       ));
   sl.registerLazySingleton(() => GetAllCategoryCubit(sl()));
 
-  sl.registerLazySingleton(() => SinupCubit(sl(), sl()));
 
   sl.registerLazySingleton(() => SellerUsecase(signupRepositry: sl()));
   sl.registerLazySingleton(() => SignupSellerUsecase(sl()));
   sl.registerLazySingleton(() => LoginUsecase(sl()));
   sl.registerLazySingleton(() => GetProductSellerCubit(sl()));
-  sl.registerLazySingleton(() => SinupCubit(sl(), sl()));
-  sl.registerLazySingleton(() => SellerCubit(sl()));
+  sl.registerFactory(() => SinupCubit(sl(), sl()));
+  sl.registerFactory(() => SellerCubit(sl()));
 }

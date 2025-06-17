@@ -7,7 +7,6 @@ import 'package:gradution/core/databases/api/dio_consumer.dart';
 import 'package:gradution/core/databases/api/end_points.dart';
 import 'package:gradution/core/errors/expentions.dart';
 import 'package:gradution/core/errors/failure.dart';
-import 'package:gradution/features/authintication/sinup/presentation/cubit/seller_cubit/cubit/seller_cubit.dart';
 import 'package:gradution/features/sellerDashboard/data/datasources/get_all_category_datasourse_local.dart';
 import 'package:gradution/features/sellerDashboard/data/datasources/get_all_category_datasourse_remote.dart';
 import 'package:gradution/features/sellerDashboard/data/models/add_product_model.dart';

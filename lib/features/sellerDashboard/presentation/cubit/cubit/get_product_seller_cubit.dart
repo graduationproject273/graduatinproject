@@ -11,6 +11,7 @@ class GetProductSellerCubit extends Cubit<GetProductSellerState> {
 
    Future<void> getAllcategoryfunction ()async{
   try {
+    emit(GetProductSellerLoading());
       final result = await getAllProduct.call();
       result.fold(
         (C) => emit(GetAllProductError(

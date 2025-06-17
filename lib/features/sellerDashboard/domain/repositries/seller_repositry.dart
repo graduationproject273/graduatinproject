@@ -1,7 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:gradution/core/errors/failure.dart';
 import 'package:gradution/features/sellerDashboard/data/models/add_product_model.dart';
-import 'package:gradution/features/sellerDashboard/data/models/get_All_category_model.dart';
 import 'package:gradution/features/sellerDashboard/domain/entities/add_product_entity.dart';
 import 'package:gradution/features/sellerDashboard/domain/entities/get_all_category_entity.dart';
 

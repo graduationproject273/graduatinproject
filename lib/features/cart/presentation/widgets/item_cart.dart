@@ -84,7 +84,7 @@ class ItemCart extends StatelessWidget {
                       Text(
                         product.productcartentity.name.isNotEmpty ? product.productcartentity.name : 'Unknown Product',
                         style: Textstyles.textitemcart,
-                        maxLines: 2,
+                        maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                       ),
                       Text(
@@ -92,19 +92,12 @@ class ItemCart extends StatelessWidget {
                         style: Textstyles.textitemcart,
                       ),
                       // عرض وصف المنتج إذا كان متوفراً
-                      if (product.productcartentity.description != null && product.productcartentity.description!.isNotEmpty)
-                        Text(
-                          product.productcartentity.description!,
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            color: Colors.grey[600],
-                          ),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                      RowIncrementAndDecrementNumber(
-                        quantity: product.quantity,
-                        id: product.id,
+                      
+                      RowIncrementAndDecrementNumber(id: product.id, quantity: product.quantity, onQuantityChanged: (newQuantity) {
+                        // يمكنك هنا تنفيذ أي إجراء عند تغيير الكمية
+                       
+                      }
+                      
                       ),
                     ],
                   ),

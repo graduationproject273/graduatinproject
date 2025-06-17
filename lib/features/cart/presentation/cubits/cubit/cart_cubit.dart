@@ -33,55 +33,48 @@ class CartCubit extends Cubit<CartState> {
     final result = await cartUseCase.clearCart();
     result.fold(
       (failure) => emit(CartError(message: failure.errMessage)),
-      (_) => emit(ClearCart()),
+      (_) {},
     );
   }
 
   Future<void> clearItemCart(int itemId) async {
     emit(CartLoading());
     final result = await cartUseCase.clearItemCart(itemId);
-  getCartItems();
+    await getCartItems();
     result.fold(
-      (failure) {
-
-        emit(CartError(message: failure.errMessage));
-      },
-      (_) => emit(ClearCart()),
+      (failure) => emit(CartError(message: failure.errMessage)),
+      (_) {},
     );
   }
 
   double getTotalPrice() {
-  if (state is CartLoaded) {
-    final items = (state as CartLoaded).productitems;
-    return items.fold(0.0,
-        (total, item) => total + (item.productcartentity.price * item.quantity));
+    if (state is CartLoaded) {
+      final items = (state as CartLoaded).productitems;
+      return items.fold(0.0,
+          (total, item) => total + (item.productcartentity.price * item.quantity));
+    }
+    return 0.0;
   }
-  return 0.0;
-}
 
   int getTotalQuantity(List<CartItemEntity> cartItems) {
     return cartItems.fold(0, (total, item) => total + item.quantity);
   }
 
-  increaseQuantity(
-    int itemId,
-    int quantity,
-  ) async {
-    final result =
-        await cartUseCase.updateCartItemQuantity(itemId, quantity + 1);
-    ();
+  Future<void> increaseQuantity(int itemId, int quantity) async {
+    final result = await cartUseCase.updateCartItemQuantity(itemId, quantity);
     result.fold(
       (failure) => emit(CartError(message: failure.errMessage)),
-      (_) => emit(ClearCart()),
+      (_) async => await getCartItems(),
     );
   }
 
-  decreaseQuantity(int itemId, int quantity) async {
-    final result =
-        await cartUseCase.updateCartItemQuantity(itemId, quantity - 1);
-    result.fold(
-      (failure) => emit(CartError(message: failure.errMessage)),
-      (_) => emit(ClearCart()),
-    );
+  Future<void> decreaseQuantity(int itemId, int quantity) async {
+    if (quantity > 1) {
+      final result = await cartUseCase.updateCartItemQuantity(itemId, quantity);
+      result.fold(
+        (failure) => emit(CartError(message: failure.errMessage)),
+        (_) async => await getCartItems(),
+      );
+    }
   }
 }

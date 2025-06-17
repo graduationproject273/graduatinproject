@@ -6,43 +6,47 @@ import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/features/cart/presentation/cubits/cubit/cart_cubit.dart';
 
 class RowIncrementAndDecrementNumber extends StatefulWidget {
-  const RowIncrementAndDecrementNumber({super.key, required this.id, required this.quantity});
+  const RowIncrementAndDecrementNumber({
+    super.key,
+    required this.id,
+    required this.quantity,
+    this.onQuantityChanged, // Optional callback
+  });
+
   final int id;
   final int quantity;
+  final Function(int quantity)? onQuantityChanged;
 
   @override
-  State<RowIncrementAndDecrementNumber> createState() => _RowIncrementAndDecrementNumberState();
+  State<RowIncrementAndDecrementNumber> createState() =>
+      _RowIncrementAndDecrementNumberState();
 }
 
-class _RowIncrementAndDecrementNumberState extends State<RowIncrementAndDecrementNumber> {
-  int quantity = 1;
+class _RowIncrementAndDecrementNumberState
+    extends State<RowIncrementAndDecrementNumber> {
+  late int quantity;
 
-  
-@override
+  @override
   void initState() {
     super.initState();
     quantity = widget.quantity;
-  ///
   }
+
   void increment() {
     setState(() {
       quantity++;
-      context.read<CartCubit>().increaseQuantity(
-        widget.id,
-        quantity,
-      );
     });
+    context.read<CartCubit>().increaseQuantity(widget.id, quantity);
+    widget.onQuantityChanged?.call(quantity); // Notify parent if needed
   }
 
   void decrement() {
     if (quantity > 1) {
       setState(() {
         quantity--;
-        context.read<CartCubit>().increaseQuantity(
-        widget.id,
-        quantity,
-      );
       });
+      context.read<CartCubit>().increaseQuantity(widget.id, quantity);
+      widget.onQuantityChanged?.call(quantity); // Notify parent if needed
     }
   }
 

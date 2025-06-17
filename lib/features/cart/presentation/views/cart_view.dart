@@ -40,14 +40,7 @@ class CartView extends StatelessWidget {
       return const Center(child: CircularProgressIndicator());
     } else if (state is CartLoaded) {
       return bodyInCartView(products: state.productitems);
-    } else if (state is ClearCart) {
-      return const Center(
-        child: Text(
-          "No items in cart",
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-        ),
-      );
-    } else if (state is CartError) {
+    }  else if (state is CartError) {
       return Center(child: Text(state.message));
     } else {
       return const SizedBox.shrink();

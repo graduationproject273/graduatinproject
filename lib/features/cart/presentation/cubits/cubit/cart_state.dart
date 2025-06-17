@@ -38,3 +38,13 @@ final class CartError extends CartState {
 final class ClearCart extends CartState {
 
 }
+final class CartItemUpdated extends CartState {
+  final int itemId;
+  final int quantity;
+  const CartItemUpdated({required this.itemId, required this.quantity});
+
+
+
+  @override
+  List<Object> get props => [itemId];
+}

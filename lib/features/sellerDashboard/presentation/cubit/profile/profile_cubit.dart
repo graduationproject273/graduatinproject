@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gradution/core/errors/failure.dart';
+import 'package:gradution/features/sellerDashboard/domain/entities/profile_entity.dart';
 import 'package:gradution/features/sellerDashboard/domain/usecases/profile_usecase.dart';
 
 part 'profile_state.dart';
@@ -14,6 +15,12 @@ class ProfileCubit extends Cubit<ProfileState> {
      emit(ProfileLoading());
      final result = await profileUsecase.call();
      result.fold((l) => emit(ProfileFailure(l)), (r) => emit(RemoveSeller()));
+   }
+
+   Future<void> getProfile()async{
+     emit(ProfileLoading());
+     final result = await profileUsecase.getProfile();
+     result.fold((l) => emit(ProfileFailure(l)), (r) => emit(GetProfile(r)));
    }
 }
 

@@ -16,11 +16,14 @@ import 'package:gradution/features/cart/presentation/cubits/cubit/cart_cubit.dar
 import 'package:gradution/features/cart/presentation/views/cart_view.dart';
 import 'package:gradution/features/categories/presentation/views/categories_view.dart';
 import 'package:gradution/features/checkout/presentation/views/checkout_view.dart';
+import 'package:gradution/features/home/presentation/cubit/cubit/userprofile_cubit.dart';
 import 'package:gradution/features/home/presentation/views/home_view.dart';
+import 'package:gradution/features/home/presentation/views/user_profile.dart';
 import 'package:gradution/features/onbording/presentation/views/auth_buttons_view.dart';
 import 'package:gradution/features/onbording/presentation/views/onboarding_view.dart';
 import 'package:gradution/features/onbording/presentation/views/splash_view.dart';
 import 'package:gradution/features/order-success/presentation/views/order_success_view.dart';
+import 'package:gradution/features/orders/presentation/pages/orders_view.dart';
 import 'package:gradution/features/products/domain/entities/product_entity.dart';
 import 'package:gradution/features/products/presentation/view/product_details_view.dart';
 import 'package:gradution/features/products/presentation/view/product_view.dart';
@@ -31,6 +34,7 @@ import 'package:gradution/features/sellerDashboard/presentation/cubit/profile/pr
 import 'package:gradution/features/sellerDashboard/presentation/pages/add_product_seller_view.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/order_view.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/products_seller_view.dart';
+import 'package:gradution/features/sellerDashboard/presentation/pages/profile_seller.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/seller_dashboard_view.dart';
 import 'package:gradution/features/sellerDashboard/presentation/widgets/dasboard_widet.dart';
 import 'package:gradution/features/sellerDashboard/presentation/widgets/payments_widets.dart';
@@ -52,7 +56,10 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: Routes.home,
-      builder: (context, state) => HomeView(sliderKey: sliderKey),
+      builder: (context, state) => BlocProvider(
+        create: (context) => sl<UserprofileCubit>()..getUserProfile(),
+        child: HomeView(sliderKey: sliderKey),
+      ),
     ),
     GoRoute(
       path: Routes.register,
@@ -78,7 +85,7 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: Routes.dashboardseller,
       builder: (context, state) => BlocProvider(
-        create: (context) => sl<ProfileCubit>(),
+        create: (context) => sl<ProfileCubit>()..getProfile(),
         child: const SellerDashboardView(),
       ),
     ),
@@ -175,6 +182,21 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: Routes.dashboardhome,
       builder: (context, state) => const DasboardWidet(),
+    ),
+    GoRoute(
+      path: Routes.profileSeller,
+      builder: (context, state) => BlocProvider(
+        create: (context) => sl<ProfileCubit>()..getProfile(),
+        child: const ProfileSeller(),
+      ),
+    ),
+    GoRoute(
+      path: Routes.ordersview,
+      builder: (context, state) => OrdersPage(),
+    ),
+     GoRoute(
+      path: Routes.userprofile,
+      builder: (context, state) => UserProfile(),
     ),
   ],
   errorBuilder: (context, state) => const Scaffold(

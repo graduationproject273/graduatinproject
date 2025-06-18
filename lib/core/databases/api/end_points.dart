@@ -13,6 +13,8 @@ class EndPoints {
   static const String clearCart = "cart-items/clearAll";
   static const String addProduct = "products/seller";
     static const String getAllcatecgory = "categories";
+   static String getSellerProfile(int id) => "sellers/$id";
+   static const String userProfile = "profile";
 
 }
 

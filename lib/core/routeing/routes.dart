@@ -30,4 +30,7 @@ class Routes {
   static const String payments= '/payments';
   static const String transactions= '/transactions';
   static const String dashboardhome= '/dashboardhome';
+  static const String profileSeller= '/profileSeller';
+  static const String ordersview= '/ordersview';
+  static const String userprofile= '/userprofile';
 }

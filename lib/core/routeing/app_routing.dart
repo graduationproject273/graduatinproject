@@ -27,6 +27,7 @@ import 'package:gradution/features/products/presentation/view/product_view.dart'
 import 'package:gradution/features/profile/presentation/views/profile_view.dart';
 import 'package:gradution/features/reviews/presentation/view/reviews_view.dart';
 import 'package:gradution/features/reviews/presentation/view/add_reviews_view.dart';
+import 'package:gradution/features/sellerDashboard/presentation/cubit/profile/profile_cubit.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/add_product_seller_view.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/edit_product_seller.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/order_view.dart';
@@ -81,7 +82,10 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: Routes.dashboardseller,
-      builder: (context, state) => const SellerDashboardView(),
+      builder: (context, state) => BlocProvider(
+        create: (context) => sl<ProfileCubit>(),
+        child: const SellerDashboardView(),
+      ),
     ),
     GoRoute(
       path: Routes.service,

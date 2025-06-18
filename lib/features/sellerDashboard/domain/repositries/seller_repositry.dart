@@ -10,4 +10,5 @@ abstract class SellerRepositry {
   Future<Either<Failure, void>> deleteProduct( int id);
 
   Future<Either<Failure, List<GetAllCategoryEntity>>> getAllProducts();
+  Future<Either<Failure, void>> deleteSeller();
 }

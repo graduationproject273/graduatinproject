@@ -5,6 +5,7 @@ import 'package:gradution/core/connection/network_info.dart';
 import 'package:gradution/core/databases/api/dio_consumer.dart';
 
 import 'package:gradution/core/databases/api/end_points.dart';
+import 'package:gradution/core/databases/cache/cache_helper.dart';
 import 'package:gradution/core/errors/expentions.dart';
 import 'package:gradution/core/errors/failure.dart';
 import 'package:gradution/features/sellerDashboard/data/datasources/get_all_category_datasourse_local.dart';
@@ -73,6 +74,21 @@ class SellerRepositryImpl extends SellerRepositry {
     }
   }
 }
+
+@override
+Future<Either<Failure, void>> deleteSeller() async {
+  try {
+    final result = await CacheHelper().removeData(key: 'token');
+    if (result == true) {
+      return const Right(null);
+    } else {
+      return Left(Failure(errMessage: 'failed to delete token'));
+    }
+  } catch (e) {
+    return Left(Failure(errMessage: e.toString()));
+  }
+}
+
 }
 
 

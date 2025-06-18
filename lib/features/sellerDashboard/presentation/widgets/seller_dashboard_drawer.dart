@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/core/styles/colors.dart';
 import 'package:gradution/core/styles/extention.dart';
 import 'package:gradution/core/styles/textstyles.dart';
+import 'package:gradution/features/sellerDashboard/presentation/cubit/profile/profile_cubit.dart';
 
 class SellerDashboardDrawer extends StatefulWidget {
   const SellerDashboardDrawer({super.key});
@@ -22,6 +24,7 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
     Icons.payment,
     Icons.transform,
   ];
+
   final List<String> titles = [
     'Orders',
     'Products',
@@ -29,16 +32,17 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
     'Payments',
     'Transactions',
   ];
-   final List<IconData> icons2 = [
+
+  final List<IconData> icons2 = [
     Icons.account_box,
     Icons.logout,
-    
   ];
-    final List<String> titles2 = [
-    
+
+  final List<String> titles2 = [
     'Account',
     'Logout',
   ];
+
   void navigateToPage(BuildContext context, int index) {
     switch (index) {
       case 0:
@@ -56,84 +60,117 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
       case 4:
         GoRouter.of(context).push(Routes.transactions);
         break;
-
       default:
         GoRouter.of(context).go(Routes.dashboardseller);
     }
   }
 
+ void showLogoutDialog(BuildContext parentcontext) {
+  showDialog(
+    context: parentcontext,
+    builder: (context) => AlertDialog(
+      title: const Text("Confirm Logout"),
+      content: const Text("Are you sure you want to logout?"),
+      actions: [
+        TextButton(
+          onPressed: () => GoRouter.of(context).pop(),
+          child: const Text("Cancel"),
+        ),
+        TextButton(
+          onPressed: () {
+            GoRouter.of(context).pop();
+            parentcontext.read<ProfileCubit>().clearSeller(); // ✅ هنا التعديل
+          },
+          child: const Text("Logout"),
+        ),
+      ],
+    ),
+  );
+}
+
+
   @override
   Widget build(BuildContext context) {
-    return Drawer(
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SingleChildScrollView(
-          child: Column(
-            //padding: EdgeInsets.zero,
-            children: <Widget>[
-              SizedBox(
-                height: 30.h,
-              ),
-              ListTile(
-                title: Text(
-                  'Dashboard',
-                  style: Textstyles.texttitlelogin.copyWith(color: Colors.black),
+    return BlocListener<ProfileCubit, ProfileState>(
+      listener: (context, state) {
+        if (state is RemoveSeller) {
+          GoRouter.of(context).go(Routes.login); 
+        } else if (state is ProfileFailure) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.failure.errMessage)),
+          );
+        }
+      },
+      child: Drawer(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 30.h),
+                ListTile(
+                  title: Text(
+                    'Dashboard',
+                    style:
+                        Textstyles.texttitlelogin.copyWith(color: Colors.black),
+                  ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  children: [
-                    Column(
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Column(
                         children: List.generate(
-                      iconss.length,
-                      (index) {
-                        return ListTile(
-                          leading: Icon(
-                            iconss[index],
-                            size: 24,
-                            color: maincolor,
+                          iconss.length,
+                          (index) => ListTile(
+                            leading: Icon(
+                              iconss[index],
+                              size: 24,
+                              color: maincolor,
+                            ),
+                            title: Text(
+                              titles[index],
+                              style: Textstyles.namereview
+                                  .copyWith(color: maincolor),
+                            ),
+                            onTap: () => navigateToPage(context, index),
                           ),
-                          title: Text(
-                            titles[index],
-                            style:
-                                Textstyles.namereview.copyWith(color: maincolor),
-                          ),
-                          onTap: () {
-                            navigateToPage(context, index);
-                          },
-                        );
-                      },
-                    )),
-                     SizedBox(
-                    height: context.height * 0.25,
-                   ),
-                    Divider(
-                      thickness: 1,
-                      height: 1,
-          
-                      color: Colors.grey.shade700,
-                    ), SizedBox(
-                    height: 20.h,
-                   ),
-                    Column(
+                        ),
+                      ),
+                      SizedBox(height: context.height * 0.25),
+                      Divider(
+                        thickness: 1,
+                        height: 1,
+                        color: Colors.grey.shade700,
+                      ),
+                      SizedBox(height: 20.h),
+                      Column(
                         children: List.generate(
-                            2,
-                            (index) => ListTile(
-                                leading: Icon(
-                                  icons2[index],
-                                  size: 24,
-                                  color: maincolor,
-                                ),
-                                title: Text(
-                                  titles2[index],
-                                  style: Textstyles.namereview
-                                      .copyWith(color: maincolor),
-                                ))))
-                  ],
+                          icons2.length,
+                          (index) => ListTile(
+                            leading: Icon(
+                              icons2[index],
+                              size: 24,
+                              color: maincolor,
+                            ),
+                            title: Text(
+                              titles2[index],
+                              style: Textstyles.namereview
+                                  .copyWith(color: maincolor),
+                            ),
+                            onTap: () {
+                              if (index == 1) {
+                                showLogoutDialog(context); 
+                              }
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              )
-            ],
+              ],
+            ),
           ),
         ),
       ),

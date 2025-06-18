@@ -131,4 +131,22 @@ Future<Either<Failure, void>> deleteSeller() async {
   }
 }
 
+
+@override
+Future<Either<Failure, ProfileEntity>> getProfile(  int id) async {
+  try {
+    final response = await dioConsumer.get(
+      path: EndPoints.getSellerProfile( id),
+    );
+
+    return response.fold(
+      (l) => Left(Failure(errMessage: l)),
+      (r) => Right(ProfileModel.fromJson(r.data)),
+    );
+  } catch (e) {
+    return Left(Failure(errMessage: e.toString()));
+  }
+}
+
+
 }

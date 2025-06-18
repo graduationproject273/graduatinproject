@@ -25,7 +25,6 @@ import 'package:gradution/features/sellerDashboard/data/datasources/get_all_cate
 import 'package:gradution/features/sellerDashboard/data/repositries/seller_repositry_impl.dart';
 import 'package:gradution/features/sellerDashboard/domain/repositries/seller_repositry.dart';
 import 'package:gradution/features/sellerDashboard/domain/usecases/addproduct_usecase.dart';
-import 'package:gradution/features/sellerDashboard/domain/usecases/edit_product.dart';
 import 'package:gradution/features/sellerDashboard/domain/usecases/get_all_category.dart';
 import 'package:gradution/features/sellerDashboard/domain/usecases/profile_usecase.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/add_product_cubit/add_product_cubit.dart';
@@ -67,6 +66,7 @@ void setup() {
       productDataSourseRemote: sl()));
   sl.registerLazySingleton<SignupRepositry>(() => UserRepoImpl(sl()));
    sl.registerLazySingleton<CartRepositry>(() => CartRepositryImpl(dioConsumer:  sl()));
+     sl.registerLazySingleton<UserProfileRepo>(() => UserProfileRepoImpl(dioConsumer:  sl()));
   sl.registerLazySingleton<SellerRepositry>(
       () => SellerRepositryImpl(sl(), sl(), sl(), sl()));
 
@@ -75,6 +75,7 @@ void setup() {
   sl.registerLazySingleton(() => GetAllProduct(repository: sl()));
   sl.registerLazySingleton(() => CartUseCase(cartRepositry: sl()));
   sl.registerLazySingleton(() => ProfileUsecase( sl()));
+  sl.registerLazySingleton(() => UserProfileUsecase( sl()));
 
   sl.registerLazySingleton(() => AddproductUsecase(productsRepositry: sl()));
 
@@ -93,8 +94,14 @@ void setup() {
   sl.registerLazySingleton(() => GetAllCategoryCubit(sl<GetAllCategory>()));
   sl.registerFactory(() => SinupCubit(sl(), sl()));
   sl.registerFactory(() => SellerCubit(sl()));
-  sl.registerFactory(() => ProfileCubit(sl()));
 
+  sl.registerFactory(() => CartCubit(
+        sl(),
+      ));
+  sl.registerLazySingleton(() => ProductsCubit(sl()));
+
+  sl.registerFactory(() => ProfileCubit(sl()));
+ sl.registerFactory(() => UserprofileCubit(sl()));
 
   sl.registerFactory(()=> CartCubit(
      sl(),

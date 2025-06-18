@@ -84,7 +84,11 @@ class CartRepositryImpl extends CartRepositry {
           .put(path: "${EndPoints.addtocart}/$itemId", data: {'quantity': quantity});
       return response.fold(
         (l) => Left(Failure(errMessage: l)),
-        (r) => Right(null),
+        (r) {
+          getCartItems();
+          return Right(null);
+          
+          },
       );
     } catch (e) {
       return Left(Failure(errMessage: e.toString()));

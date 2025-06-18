@@ -28,6 +28,7 @@ import 'package:gradution/features/profile/presentation/views/profile_view.dart'
 import 'package:gradution/features/reviews/presentation/view/reviews_view.dart';
 import 'package:gradution/features/reviews/presentation/view/add_reviews_view.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/add_product_seller_view.dart';
+import 'package:gradution/features/sellerDashboard/presentation/pages/edit_product_seller.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/order_view.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/products_seller_view.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/seller_dashboard_view.dart';
@@ -64,6 +65,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: Routes.products,
       builder: (context, state) => const ProductView(),
+    ),
+     GoRoute(
+      path: Routes.sellerProductsEdit,
+      builder: (context, state) => EditProductSeller (productEntity: state.extra as ProductEntity),
     ),
     GoRoute(
       path: Routes.productDetails,

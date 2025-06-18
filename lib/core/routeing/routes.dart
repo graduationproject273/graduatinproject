@@ -25,6 +25,7 @@ class Routes {
   static const String apponimentwidget = '/apponimentwidget';
   static const String dashboardseller = '/apponimentwidget';
   static const String sellerProducts = '/sellerProducts';
+  static const String sellerProductsEdit = '/sellerProductsEdit';
   static const String addsellerProducts = '/addsellerProducts';
   static const String order = '/order';
   static const String payments= '/payments';

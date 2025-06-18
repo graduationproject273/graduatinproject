@@ -51,7 +51,7 @@ class listItemsProducts extends StatelessWidget {
                       logo: '',
                       banner: '',
                       addresses: [],
-                      businessName: ''),
+                      businessName: ''), discountPrice: 25, sellingPrice: 25,
                 )));
           },
           itemCount: 10,

@@ -18,19 +18,20 @@ import 'package:gradution/features/products/domain/usecases/get_all_product.dart
 import 'package:gradution/features/products/presentation/cubits/products_cubit/cubit/products_cubit.dart';
 import 'package:gradution/features/sellerDashboard/data/datasources/get_all_category_datasourse_local.dart';
 import 'package:gradution/features/sellerDashboard/data/datasources/get_all_category_datasourse_remote.dart';
-import 'package:gradution/features/sellerDashboard/data/repositries/seller_repositry_Impl.dart';
+import 'package:gradution/features/sellerDashboard/data/repositries/seller_repositry_impl.dart';
 import 'package:gradution/features/sellerDashboard/domain/repositries/seller_repositry.dart';
 import 'package:gradution/features/sellerDashboard/domain/usecases/addproduct_usecase.dart';
+import 'package:gradution/features/sellerDashboard/domain/usecases/edit_product.dart';
 import 'package:gradution/features/sellerDashboard/domain/usecases/get_all_category.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/add_product_cubit/add_product_cubit.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/cubit/get_product_seller_cubit.dart';
-import 'package:gradution/features/sellerDashboard/presentation/cubit/get_all_category_cubit/get_all_category_cubit.dart';
-
 import 'package:gradution/features/authintication/sinup/domain/usecases/login_usecase.dart';
 import 'package:gradution/features/authintication/sinup/domain/usecases/seller_usecase.dart';
 import 'package:gradution/features/authintication/sinup/domain/usecases/signup_seller.dart';
 import 'package:gradution/features/authintication/sinup/presentation/cubit/seller_cubit/cubit/seller_cubit.dart';
-import 'package:gradution/features/authintication/sinup/presentation/cubit/user_cubit/sinup_cubit.dart'; // تأكد من مسار DioConsumer
+import 'package:gradution/features/authintication/sinup/presentation/cubit/user_cubit/sinup_cubit.dart';
+import 'package:gradution/features/sellerDashboard/presentation/cubit/edit_product_cubit/edit_product_seller_cubit.dart';
+import 'package:gradution/features/sellerDashboard/presentation/cubit/get_all_category_cubit/get_all_category_cubit.dart'; // تأكد من مسار DioConsumer
 
 final sl = GetIt.instance;
 
@@ -67,22 +68,24 @@ void setup() {
   sl.registerLazySingleton(() => GetAllCategory(productsRepositry: sl()));
   sl.registerLazySingleton(() => GetAllProduct(repository: sl()));
   sl.registerLazySingleton(() => CartUseCase(cartRepositry:  sl()));
-
+  sl.registerLazySingleton(() => EditProduct(sellerRepositry: sl()));
   sl.registerLazySingleton(() => AddproductUsecase(productsRepositry: sl()));
 
   // Cubit
   sl.registerLazySingleton(() => AddProductCubit(
         addproductUsecase: sl(),
       ));
-  sl.registerLazySingleton(() => GetAllCategoryCubit(sl()));
 
 
   sl.registerLazySingleton(() => SellerUsecase(signupRepositry: sl()));
   sl.registerLazySingleton(() => SignupSellerUsecase(sl()));
   sl.registerLazySingleton(() => LoginUsecase(sl()));
-  sl.registerLazySingleton(() => GetProductSellerCubit(sl()));
+  sl.registerLazySingleton(() => GetProductSellerCubit(sl(), sl()));
+  sl.registerLazySingleton(() => GetAllCategoryCubit(
+       sl<GetAllCategory>()));
   sl.registerFactory(() => SinupCubit(sl(), sl()));
   sl.registerFactory(() => SellerCubit(sl()));
+    sl.registerFactory(() => EditProductSellerCubit(sl()));
 
 
   sl.registerFactory(()=> CartCubit(

@@ -6,5 +6,8 @@ import 'package:gradution/features/sellerDashboard/domain/entities/get_all_categ
 
 abstract class SellerRepositry {
   Future<Either<Failure,AddProductEntity>> addProduct(AddProductModel add);
+  Future<Either<Failure,AddProductEntity>> updateProduct(AddProductModel add, int id);
+  Future<Either<Failure, void>> deleteProduct( int id);
+
   Future<Either<Failure, List<GetAllCategoryEntity>>> getAllProducts();
 }

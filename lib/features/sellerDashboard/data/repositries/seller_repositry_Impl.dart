@@ -6,6 +6,9 @@ import 'package:gradution/core/databases/api/end_points.dart';
 import 'package:gradution/core/databases/cache/cache_helper.dart';
 import 'package:gradution/core/errors/expentions.dart';
 import 'package:gradution/core/errors/failure.dart';
+import 'package:gradution/depency_injection.dart';
+import 'package:gradution/features/products/data/repositories/product_repositry_impli.dart';
+import 'package:gradution/features/products/domain/repositries/products_repositry.dart';
 import 'package:gradution/features/sellerDashboard/data/datasources/get_all_category_datasourse_local.dart';
 import 'package:gradution/features/sellerDashboard/data/datasources/get_all_category_datasourse_remote.dart';
 import 'package:gradution/features/sellerDashboard/data/models/add_product_model.dart';
@@ -64,16 +67,65 @@ class SellerRepositryImpl extends SellerRepositry {
     }
   }
 
-     Future<void> _update(String e) async {
-  if (await networkInfo.isConnected!) {
-    try {
-      final remoteModel = await remote.getCatergory(EndPoints.getAllcatecgory);
-      await local.cacheCategory(remoteModel, );
-    } catch (_) {
-      // تجاهل الخطأ بصمت أو سجل لو حبيت
+  Future<void> _update(String e) async {
+    if (await networkInfo.isConnected!) {
+      try {
+        final remoteModel =
+            await remote.getCatergory(EndPoints.getAllcatecgory);
+        await local.cacheCategory(
+          remoteModel,
+        );
+      } catch (_) {
+        // تجاهل الخطأ بصمت أو سجل لو حبيت
+      }
     }
+  }
+
+  @override
+  Future<Either<Failure, AddProductEntity>> updateProduct(
+      AddProductModel add, int id) async {
+    try {
+      final response = await dioConsumer.put(
+        path: "${EndPoints.addProduct}/$id",
+        data: add.toJson(),
+      );
+      return response.fold(
+        (l) => Left(Failure(errMessage: l)),
+        (r) => Right(AddProductModel.fromJson(r.data)),
+      );
+    } on ServerException catch (e) {
+      return Left(Failure(errMessage: e.toString()));
+    }
+  }
+  
+  @override
+  Future<Either<Failure, void>> deleteProduct(int id)async {
+     try {
+      final response =
+          await dioConsumer.delete(path: '${EndPoints.productsSeller}/$id');
+      return response.fold(
+        (l) => Left(Failure(errMessage: l)),
+        (r) {
+          
+          return Right(null);
+        },
+      );
+    } catch (e) {
+      return Left(Failure(errMessage: e.toString()));
+    }
+  }
+  
+ @override
+Future<Either<Failure, void>> deleteSeller() async {
+  try {
+    final result = await CacheHelper().removeData(key: 'token');
+    if (result == true) {
+      return const Right(null);
+    } else {
+      return Left(Failure(errMessage: 'failed to delete token'));
+    }
+  } catch (e) {
+    return Left(Failure(errMessage: e.toString()));
   }
 }
 }
-
-

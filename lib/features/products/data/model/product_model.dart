@@ -30,7 +30,7 @@ class ProductModel extends ProductEntity {
         category: CategoryModel.fromJson(json['category']),
         seller: SellerModel.fromJson(json['seller']),
         discountPrice: json['discountPrice']?? 0.0,
-        sellingPrice: json['sellingPrice'],
+        sellingPrice: json['sellingPrice']??0,
       );
   Map<String, dynamic> toJson() => {
         'id': id,

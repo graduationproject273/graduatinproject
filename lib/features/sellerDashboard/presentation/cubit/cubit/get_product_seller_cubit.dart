@@ -33,11 +33,13 @@ class GetProductSellerCubit extends Cubit<GetProductSellerState> {
       final result = await edi.deleteProduct(id);
       result.fold(
         (failure) => emit(GetAllProductError("❗ ${failure.errMessage}")),
-        (_) => getAllProductfun(
-          ),
+        (_) {
+          getAllProductfun(); // Refresh the product list after deletion
+        },
       );
     } catch (e) {
       emit(GetAllProductError('❗$e '));
     }
   }
+  
 }

@@ -160,7 +160,7 @@ class EditProductSellerBody extends StatelessWidget {
                             .read<EditProductSellerCubit>()
                             .descriptionController
                             .text,
-                        category: CategoryModel(id: 52,),
+                        category: CategoryModel(id: 154,),
                         specialOffer: (double.tryParse(context
                                     .read<EditProductSellerCubit>()
                                     .discountController

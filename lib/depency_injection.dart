@@ -30,7 +30,10 @@ import 'package:gradution/features/authintication/sinup/domain/usecases/login_us
 import 'package:gradution/features/authintication/sinup/domain/usecases/seller_usecase.dart';
 import 'package:gradution/features/authintication/sinup/domain/usecases/signup_seller.dart';
 import 'package:gradution/features/authintication/sinup/presentation/cubit/seller_cubit/cubit/seller_cubit.dart';
-import 'package:gradution/features/authintication/sinup/presentation/cubit/user_cubit/sinup_cubit.dart'; // تأكد من مسار DioConsumer
+import 'package:gradution/features/authintication/sinup/presentation/cubit/user_cubit/sinup_cubit.dart';
+import 'package:gradution/features/sellerDashboard/presentation/cubit/edit_product_cubit/edit_product_seller_cubit.dart';
+import 'package:gradution/features/sellerDashboard/presentation/cubit/get_all_category_cubit/get_all_category_cubit.dart';
+import 'package:gradution/features/sellerDashboard/presentation/cubit/profile/profile_cubit.dart'; // تأكد من مسار DioConsumer
 
 final sl = GetIt.instance;
 
@@ -59,14 +62,17 @@ void setup() {
       productDataSourseLocal: sl(),
       productDataSourseRemote: sl()));
   sl.registerLazySingleton<SignupRepositry>(() => UserRepoImpl(sl()));
-   sl.registerLazySingleton<CartRepositry>(() => CartRepositryImpl(dioConsumer:  sl()));
+  sl.registerLazySingleton<CartRepositry>(
+      () => CartRepositryImpl(dioConsumer: sl()));
   sl.registerLazySingleton<SellerRepositry>(
       () => SellerRepositryImpl(sl(), sl(), sl(), sl()));
 
   // Usecase
   sl.registerLazySingleton(() => GetAllCategory(productsRepositry: sl()));
   sl.registerLazySingleton(() => GetAllProduct(repository: sl()));
-  sl.registerLazySingleton(() => CartUseCase(cartRepositry:  sl()));
+  sl.registerLazySingleton(() => CartUseCase(cartRepositry: sl()));
+  sl.registerLazySingleton(() => ProfileUsecase( sl()));
+  sl.registerLazySingleton(() => EditProduct(sellerRepositry: sl()));
 
   sl.registerLazySingleton(() => AddproductUsecase(productsRepositry: sl()));
 
@@ -74,20 +80,20 @@ void setup() {
   sl.registerLazySingleton(() => AddProductCubit(
         addproductUsecase: sl(),
       ));
-
+  sl.registerFactory(() => ProfileCubit(sl()));
 
   sl.registerLazySingleton(() => SellerUsecase(signupRepositry: sl()));
   sl.registerLazySingleton(() => SignupSellerUsecase(sl()));
   sl.registerLazySingleton(() => LoginUsecase(sl()));
+    sl.registerLazySingleton(() => EditProductSellerCubit(sl()));
+
   sl.registerLazySingleton(() => GetProductSellerCubit(sl(), sl()));
-  sl.registerLazySingleton(() => GetAllCategoryCubit(
-       sl<GetAllCategory>()));
+  sl.registerLazySingleton(() => GetAllCategoryCubit(sl<GetAllCategory>()));
   sl.registerFactory(() => SinupCubit(sl(), sl()));
   sl.registerFactory(() => SellerCubit(sl()));
 
-
-  sl.registerFactory(()=> CartCubit(
-     sl(),
-  ));
-    sl.registerLazySingleton(() => ProductsCubit(sl()));
+  sl.registerFactory(() => CartCubit(
+        sl(),
+      ));
+  sl.registerLazySingleton(() => ProductsCubit(sl()));
 }

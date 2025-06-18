@@ -13,7 +13,9 @@ import 'package:gradution/features/sellerDashboard/data/datasources/get_all_cate
 import 'package:gradution/features/sellerDashboard/data/datasources/get_all_category_datasourse_remote.dart';
 import 'package:gradution/features/sellerDashboard/data/models/add_product_model.dart';
 import 'package:gradution/features/sellerDashboard/data/models/get_all_category_model.dart';
+import 'package:gradution/features/sellerDashboard/data/models/profile_model.dart';
 import 'package:gradution/features/sellerDashboard/domain/entities/add_product_entity.dart';
+import 'package:gradution/features/sellerDashboard/domain/entities/profile_entity.dart';
 import 'package:gradution/features/sellerDashboard/domain/repositries/seller_repositry.dart';
 
 class SellerRepositryImpl extends SellerRepositry {
@@ -128,4 +130,5 @@ Future<Either<Failure, void>> deleteSeller() async {
     return Left(Failure(errMessage: e.toString()));
   }
 }
+
 }

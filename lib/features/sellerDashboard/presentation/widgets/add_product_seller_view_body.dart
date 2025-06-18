@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gradution/core/styles/textstyles.dart';
-import 'package:gradution/features/sellerDashboard/presentation/widgets/seller_dashboard_drawer.dart';
 import 'add_product_form.dart';
 
 class AddProductSellerViewBody extends StatelessWidget {
@@ -18,8 +18,17 @@ class AddProductSellerViewBody extends StatelessWidget {
           style: Textstyles.namereview,
         ),
         centerTitle: true,
+         leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            GoRouter.of(context).pop();
+          },
+        ),
       ),
-      drawer: const SellerDashboardDrawer(),
+  
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(

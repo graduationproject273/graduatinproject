@@ -11,6 +11,11 @@ final class ProfileInitial extends ProfileState {}
 
 final class ProfileLoading extends ProfileState {}
 
+final class GetProfile extends ProfileState {
+  final ProfileEntity profile;
+  const GetProfile(this.profile);
+}
+
 final class ProfileFailure extends ProfileState {
   final Failure failure;
   const ProfileFailure(this.failure);

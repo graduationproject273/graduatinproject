@@ -70,13 +70,18 @@ class _CustomAppbarInhomeState extends State<CustomAppbarInhome>
             Text('EZhome', style: TextStyle(fontSize: 16.sp,color: maincolor,fontWeight:FontWeight.w800 ),),
             Row(
               children: [
-                CircleAvatar(
-                          radius: 30,
-                          child: Image.asset(Assets.imagesAvatar)),
+                GestureDetector(
+                  onTap: () {
+                    GoRouter.of(context).push(Routes.userprofile);
+                  },
+                  child: CircleAvatar(
+                            radius: 30,
+                            child: Image.asset(Assets.imagesAvatar)),
+                ),
                 const SizedBox(width: 8),
                  GestureDetector(
                    onTap: (){
-                    GoRouter.of(context).push(Routes.cart);
+                    GoRouter.of(context).push(Routes.ordersview);
                    },
                    child: CircleAvatar(
                    

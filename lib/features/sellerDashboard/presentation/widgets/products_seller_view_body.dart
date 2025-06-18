@@ -5,7 +5,6 @@ import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/features/products/presentation/view/widgets/product_item.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/cubit/get_product_seller_cubit.dart';
-import 'package:gradution/features/sellerDashboard/presentation/widgets/seller_dashboard_drawer.dart';
 
 class ProductsSellerViewBody extends StatelessWidget {
   const ProductsSellerViewBody({super.key});
@@ -22,8 +21,17 @@ class ProductsSellerViewBody extends StatelessWidget {
           style: Textstyles.namereview,
         ),
         centerTitle: true,
+         leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            GoRouter.of(context).pop();
+          },
+        ),
       ),
-      drawer: const SellerDashboardDrawer(),
+      
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(

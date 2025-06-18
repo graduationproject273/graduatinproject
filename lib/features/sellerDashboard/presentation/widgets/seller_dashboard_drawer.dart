@@ -65,23 +65,30 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
     }
   }
 
- void showLogoutDialog(BuildContext parentcontext) {
+
+void showLogoutDialog(BuildContext parentcontext) {
   showDialog(
     context: parentcontext,
     builder: (context) => AlertDialog(
-      title: const Text("Confirm Logout"),
-      content: const Text("Are you sure you want to logout?"),
+      backgroundColor: Colors.white, // 👈 تغيير الخلفية هنا
+      title: const Text(
+        "Confirm Logout",
+        style: TextStyle(color: Colors.black), // لون النص
+      ),
+      content: const Text(
+        "Are you sure you want to logout?",
+        style: TextStyle(color: Colors.black), // لون النص
+      ),
       actions: [
         TextButton(
-          onPressed: () => GoRouter.of(context).pop(),
-          child: const Text("Cancel"),
+          onPressed: () => Navigator.of(context).pop(),
+          child: const Text("Cancel", style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
         ),
         TextButton(
           onPressed: () {
-            GoRouter.of(context).pop();
-            parentcontext.read<ProfileCubit>().clearSeller(); // ✅ هنا التعديل
+            parentcontext.read<ProfileCubit>().clearSeller();
           },
-          child: const Text("Logout"),
+          child: const Text("Logout", style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold)),
         ),
       ],
     ),
@@ -94,7 +101,7 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
     return BlocListener<ProfileCubit, ProfileState>(
       listener: (context, state) {
         if (state is RemoveSeller) {
-          GoRouter.of(context).go(Routes.login); 
+          GoRouter.of(context).go(Routes.login);
         } else if (state is ProfileFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(state.failure.errMessage)),
@@ -111,8 +118,7 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
                 ListTile(
                   title: Text(
                     'Dashboard',
-                    style:
-                        Textstyles.texttitlelogin.copyWith(color: Colors.black),
+                    style: Textstyles.texttitlelogin.copyWith(color: Colors.black),
                   ),
                 ),
                 Padding(
@@ -130,8 +136,7 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
                             ),
                             title: Text(
                               titles[index],
-                              style: Textstyles.namereview
-                                  .copyWith(color: maincolor),
+                              style: Textstyles.namereview.copyWith(color: maincolor),
                             ),
                             onTap: () => navigateToPage(context, index),
                           ),
@@ -155,12 +160,13 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
                             ),
                             title: Text(
                               titles2[index],
-                              style: Textstyles.namereview
-                                  .copyWith(color: maincolor),
+                              style: Textstyles.namereview.copyWith(color: maincolor),
                             ),
                             onTap: () {
                               if (index == 1) {
-                                showLogoutDialog(context); 
+                                showLogoutDialog(context);
+                              } else if (index == 0) {
+                                GoRouter.of(context).push(Routes.profileSeller); // ← هنا التعديل
                               }
                             },
                           ),

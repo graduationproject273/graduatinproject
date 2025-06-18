@@ -10,6 +10,10 @@ import 'package:gradution/features/cart/data/repositries/cart_repositry_Impl.dar
 import 'package:gradution/features/cart/domain/repositries/cart_repositry.dart';
 import 'package:gradution/features/cart/domain/usecases/cart_usecase.dart';
 import 'package:gradution/features/cart/presentation/cubits/cubit/cart_cubit.dart';
+import 'package:gradution/features/home/data/repostries/user_profile_repo_Impl.dart';
+import 'package:gradution/features/home/domain/repositries/user_profile_repo.dart';
+import 'package:gradution/features/home/domain/usecases/user_profile_usecase.dart';
+import 'package:gradution/features/home/presentation/cubit/cubit/userprofile_cubit.dart';
 import 'package:gradution/features/products/data/datasource/product_data_sourse_local.dart';
 import 'package:gradution/features/products/data/datasource/product_data_sourse_remote.dart';
 import 'package:gradution/features/products/data/repositories/product_repositry_impli.dart';
@@ -62,8 +66,7 @@ void setup() {
       productDataSourseLocal: sl(),
       productDataSourseRemote: sl()));
   sl.registerLazySingleton<SignupRepositry>(() => UserRepoImpl(sl()));
-  sl.registerLazySingleton<CartRepositry>(
-      () => CartRepositryImpl(dioConsumer: sl()));
+   sl.registerLazySingleton<CartRepositry>(() => CartRepositryImpl(dioConsumer:  sl()));
   sl.registerLazySingleton<SellerRepositry>(
       () => SellerRepositryImpl(sl(), sl(), sl(), sl()));
 
@@ -72,7 +75,6 @@ void setup() {
   sl.registerLazySingleton(() => GetAllProduct(repository: sl()));
   sl.registerLazySingleton(() => CartUseCase(cartRepositry: sl()));
   sl.registerLazySingleton(() => ProfileUsecase( sl()));
-  sl.registerLazySingleton(() => EditProduct(sellerRepositry: sl()));
 
   sl.registerLazySingleton(() => AddproductUsecase(productsRepositry: sl()));
 
@@ -91,9 +93,11 @@ void setup() {
   sl.registerLazySingleton(() => GetAllCategoryCubit(sl<GetAllCategory>()));
   sl.registerFactory(() => SinupCubit(sl(), sl()));
   sl.registerFactory(() => SellerCubit(sl()));
+  sl.registerFactory(() => ProfileCubit(sl()));
 
-  sl.registerFactory(() => CartCubit(
-        sl(),
-      ));
-  sl.registerLazySingleton(() => ProductsCubit(sl()));
+
+  sl.registerFactory(()=> CartCubit(
+     sl(),
+  ));
+    sl.registerLazySingleton(() => ProductsCubit(sl()));
 }

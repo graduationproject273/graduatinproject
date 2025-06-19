@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gradution/core/widgets/custom_appbar.dart';
-import 'package:gradution/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:gradution/features/checkout/presentation/views/widgets/checkout_view_body.dart';
 
 class CheckoutView extends StatelessWidget {
@@ -12,7 +11,7 @@ class CheckoutView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(title: 'Checkout'),
-      body:  CheckoutPage(cartItems: cartItems,),
+      body:  CheckoutPage(),
     );
   }
 }

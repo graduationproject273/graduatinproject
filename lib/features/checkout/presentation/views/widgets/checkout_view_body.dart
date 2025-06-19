@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gradution/features/cart/domain/entities/cart_entity.dart';
-import 'package:gradution/features/cart/domain/entities/cart_item_entity.dart';
-import 'package:gradution/features/checkout/presentation/views/widgets/order_summery.dart';
 
 class CheckoutPage extends StatefulWidget {
- final List<CartItemEntity> cartItems;
-  const CheckoutPage({super.key, required this.cartItems});
-
   @override
   // ignore: library_private_types_in_public_api
   _CheckoutPageState createState() => _CheckoutPageState();
@@ -16,7 +10,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   String selectedPaymentMethod = 'card';
   String selectedAddress = 'home';
   bool saveAddress = false;
-
+  
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
@@ -49,18 +43,18 @@ class _CheckoutPageState extends State<CheckoutPage> {
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Form(
-          key: _formKey,
+          key: context.read<CheckoutCubit>().formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Order Summary
-              OrderSummery(cartItems: widget.cartItems,),
+              _buildOrderSummary(),
               SizedBox(height: 20),
-
+              
               // Delivery Address
               _buildDeliveryAddress(),
               SizedBox(height: 20),
-
+              
               // Payment Method
               _buildPaymentMethod(),
               SizedBox(height: 20),
@@ -112,11 +106,82 @@ class _CheckoutPageState extends State<CheckoutPage> {
           _buildSummaryRow('Shipping', 50.00),
           _buildSummaryRow('Tax', 182.00),
           Divider(height: 20),
-          _buildSummaryRow('Total', 3822.00, isTotal: true),
+          Padding(
+      padding: EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Total',
+            style: TextStyle(
+              fontSize: true ? 16 : 14,
+              fontWeight: true ? FontWeight.bold : FontWeight.normal,
+              color: true ? Colors.black87 : Colors.grey[700],
+            ),
+          ),
+          Text(
+            '\$${3822.00.toStringAsFixed(2)}',
+            style: TextStyle(
+              fontSize: true ? 16 : 14,
+              fontWeight: FontWeight.bold,
+              color: true ? Color(0xFF00917C) : Colors.black87,
+            ),
+          ),
         ],
+      ),
+    ),
+        ],
+      ),
+    ),
+              SizedBox(height: 20),
+              
+              // Delivery Address
+              CheckoutAddress(
+                addressController: context.read<CheckoutCubit>().addressController,
+                 saveAddress: context.read<CheckoutCubit>().saveAddress,
+                  onSaveAddressChanged: (bool? value) {  
+                    if (value != null) {
+                      context.read<CheckoutCubit>().toggleSaveAddress(value);
+                    }
+                  },),
+              SizedBox(height: 20),
+              
+              // Payment Method
+        BlocConsumer<CheckoutCubit, CheckoutState>(
+  listener: (context, state) {
+    if (state is CheckoutError) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(state.message)),
+      );
+    }
+  },
+  builder: (context, state) {
+    final cubit = context.read<CheckoutCubit>();
+
+    return CheckoutPayment(
+      cardNumberController: cubit.cardNumberController,
+      expiryController: cubit.expiryController,
+      cvvController: cubit.cvvController,
+      selectedPaymentMethod: cubit.paymentMethod, // ✅ هنا صح
+      onChanged: (String? value) {
+        if (value != null) {
+          cubit.setPaymentMethod(value); // ✅ تحديث الحالة
+        }
+      },
+    );
+  },
+),
+
+              SizedBox(height: 20),
+              _buildCheckoutButton(),
+            ],
+          ),
+        ),
       ),
     );
   }
+
+  
 
   Widget _buildOrderItem(String name, int quantity, double price) {
     return Padding(
@@ -341,6 +406,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
           SizedBox(height: 16),
           _buildPaymentOption('card', 'Credit Card', Icons.credit_card),
           _buildPaymentOption('cash', 'Cash on Delivery', Icons.money),
+          
           if (selectedPaymentMethod == 'card') ...[
             SizedBox(height: 16),
             TextFormField(
@@ -429,7 +495,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
       height: 56,
       child: ElevatedButton(
         onPressed: () {
-          if (_formKey.currentState!.validate()) {
+          if (context.read<CheckoutCubit>().formKey.currentState!.validate()) {
             _showOrderConfirmation();
           }
         },

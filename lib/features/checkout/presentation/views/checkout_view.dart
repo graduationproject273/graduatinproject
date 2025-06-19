@@ -10,7 +10,7 @@ class CheckoutView extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: CustomAppBar(title: 'Checkout'),
-      body: const CheckoutViewBody(),
+      body:  CheckoutPage(),
     );
   }
 }

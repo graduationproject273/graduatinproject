@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gradution/depency_injection.dart';
+import 'package:gradution/features/sellerDashboard/presentation/cubit/getorders/getorders_cubit.dart';
 import 'package:gradution/features/sellerDashboard/presentation/widgets/order_view_body.dart';
 
 class OrderView extends StatelessWidget {
@@ -13,7 +16,10 @@ class OrderView extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
       backgroundColor: Colors.white,
-      body: OrderViewBody(),
+      body: BlocProvider(
+        create: (context) => sl<GetordersCubit>()..getorders(),
+        child: OrderViewBody(),
+      ),
     );
   }
 }

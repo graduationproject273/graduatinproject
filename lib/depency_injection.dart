@@ -26,7 +26,9 @@ import 'package:gradution/features/sellerDashboard/data/repositries/seller_repos
 import 'package:gradution/features/sellerDashboard/domain/repositries/seller_repositry.dart';
 import 'package:gradution/features/sellerDashboard/domain/usecases/addproduct_usecase.dart';
 import 'package:gradution/features/sellerDashboard/domain/usecases/get_all_category.dart';
+import 'package:gradution/features/sellerDashboard/domain/usecases/getorders_usecase.dart';
 import 'package:gradution/features/sellerDashboard/domain/usecases/profile_usecase.dart';
+import 'package:gradution/features/sellerDashboard/domain/usecases/update_status_order.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/add_product_cubit/add_product_cubit.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/cubit/get_product_seller_cubit.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/get_all_category_cubit/get_all_category_cubit.dart';
@@ -36,6 +38,7 @@ import 'package:gradution/features/authintication/sinup/domain/usecases/seller_u
 import 'package:gradution/features/authintication/sinup/domain/usecases/signup_seller.dart';
 import 'package:gradution/features/authintication/sinup/presentation/cubit/seller_cubit/cubit/seller_cubit.dart';
 import 'package:gradution/features/authintication/sinup/presentation/cubit/user_cubit/sinup_cubit.dart';
+import 'package:gradution/features/sellerDashboard/presentation/cubit/getorders/getorders_cubit.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/profile/profile_cubit.dart'; // تأكد من مسار DioConsumer
 
 final sl = GetIt.instance;
@@ -76,6 +79,8 @@ void setup() {
   sl.registerLazySingleton(() => CartUseCase(cartRepositry:  sl()));
   sl.registerLazySingleton(() => ProfileUsecase( sl()));
   sl.registerLazySingleton(() => UserProfileUsecase( sl()));
+  sl.registerLazySingleton(() => GetordersUsecase( sl()));
+  sl.registerLazySingleton(() => UpdateStatusOrder( sl()));
 
   sl.registerLazySingleton(() => AddproductUsecase(productsRepositry: sl()));
 
@@ -94,6 +99,7 @@ void setup() {
   sl.registerFactory(() => SellerCubit(sl()));
   sl.registerFactory(() => ProfileCubit(sl()));
  sl.registerFactory(() => UserprofileCubit(sl()));
+ sl.registerFactory(() => GetordersCubit( sl(), sl()));
 
   sl.registerFactory(()=> CartCubit(
      sl(),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:gradution/core/styles/textstyles.dart';
-import 'package:gradution/features/sellerDashboard/presentation/widgets/seller_dashboard_drawer.dart';
 import 'package:gradution/features/sellerDashboard/presentation/widgets/table_payment_and_transaction.dart';
 
 class TransactionWidet extends StatelessWidget {
@@ -19,8 +19,17 @@ class TransactionWidet extends StatelessWidget {
           style: Textstyles.namereview,
         ),
         centerTitle: true,
+        leading: IconButton(
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            GoRouter.of(context).pop();
+          },
+        ),
       ),
-      drawer: const SellerDashboardDrawer(),
+ 
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),

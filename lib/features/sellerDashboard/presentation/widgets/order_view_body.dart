@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gradution/features/sellerDashboard/presentation/cubit/getorders/getorders_cubit.dart';
 import 'package:gradution/features/sellerDashboard/presentation/widgets/listview_orders.dart';
 
 class OrderViewBody extends StatelessWidget {
@@ -29,7 +31,26 @@ class OrderViewBody extends StatelessWidget {
               // Add your order details here
               // For example, you can use ListView to display order items
               Expanded(
-                child: ListviewOrders(),
+                child: BlocConsumer<GetordersCubit, GetordersState>(
+                  listener: (context, state) {
+                    if (state is GetordersError) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text(state.errMessage)),
+                      );
+                    }
+
+                  },
+                  builder: (context, state) {
+                    if (state is GetordersLoading) {
+                      return Center(child: CircularProgressIndicator());
+                    }
+                    if (state is GetordersLoaded) {
+                      return ListviewOrders(orders: state.ordersList,);
+                    } else {
+                      return Center(child: Text('No orders found'));
+                    }
+                  },
+                ),
               ),
             ],
           ),
@@ -38,4 +59,3 @@ class OrderViewBody extends StatelessWidget {
     );
   }
 }
-

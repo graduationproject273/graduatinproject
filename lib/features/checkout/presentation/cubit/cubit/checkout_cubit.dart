@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:gradution/features/checkout/data/item_oreder_model.dart';
 import 'package:gradution/features/checkout/domain/usecases/checkout_usecase.dart';
 
 part 'checkout_state.dart';
@@ -14,7 +15,7 @@ class CheckoutCubit extends Cubit<CheckoutState> {
   final expiryController = TextEditingController();
   final cvvController = TextEditingController();
   final addressController = TextEditingController(); // ✅ أضف هذا
-
+  List<ItemOrderModel> items = [];
   String paymentMethod = 'cash';
   bool saveAddress = false; // ✅ اختياري لو حبيت تحفط العنوان
 
@@ -31,7 +32,7 @@ class CheckoutCubit extends Cubit<CheckoutState> {
   Future<void> checkout({
     required String paymentMethod,
     required String shippingAddress,
-    required List<Map<String, dynamic>> items,
+    required List<ItemOrderModel> items,
   }) async {
     emit(CheckoutLoading());
 

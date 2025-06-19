@@ -75,9 +75,7 @@ void setup() {
   sl.registerLazySingleton<OrderDataSourseRemote>(
       () => OrderDataSourseRemote( sl()));
 
-  ///S
-  ///
-  // Repository
+ // Repositry
   sl.registerLazySingleton<ProductsRepositry>(() => ProductRepositryImpli(
       networkInfo: sl(),
       productDataSourseLocal: sl(),
@@ -121,7 +119,7 @@ void setup() {
   sl.registerFactory(() => CartCubit(
         sl(),
       ));
-  sl.registerLazySingleton(() => ProductsCubit(sl()));
+  sl.registerFactory(() => ProductsCubit(sl()));
 
   sl.registerFactory(() => ProfileCubit(sl()));
  sl.registerFactory(() => UserprofileCubit(sl()));

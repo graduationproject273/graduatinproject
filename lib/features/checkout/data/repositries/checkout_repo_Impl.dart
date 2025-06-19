@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:gradution/core/databases/api/dio_consumer.dart';
 import 'package:gradution/core/databases/api/end_points.dart';
 import 'package:gradution/core/errors/failure.dart';
+import 'package:gradution/features/checkout/data/item_oreder_model.dart';
 import 'package:gradution/features/checkout/domain/repostries/checkout_repositry.dart';
 import 'package:gradution/features/orders/data/models/order_model.dart';
 import 'package:gradution/features/orders/domain/entities/order_entity.dart';
@@ -14,7 +15,7 @@ class CheckoutRepoImpl extends CheckoutRepositry{
 Future<Either<Failure, OrderEntity>> createOrder({
   required String paymentMethod,
   required String shippingAddress,
-  required List<Map<String, dynamic>> items,
+  required List<ItemOrderModel> items,
 }) async {
   try {
     final response = await dioConsumer.post(
@@ -22,7 +23,7 @@ Future<Either<Failure, OrderEntity>> createOrder({
       data: {
         'paymentMethod': paymentMethod,
         'shippingAddress': shippingAddress,
-        'items': items,
+        'items':  items.map((e) => e.toJson()).toList(),
       },
     );
 

@@ -1,22 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gradution/features/checkout/presentation/cubit/cubit/checkout_cubit.dart';
+import 'package:gradution/features/checkout/presentation/views/widgets/checkout_address.dart';
+import 'package:gradution/features/checkout/presentation/views/widgets/checkout_payment.dart';
 
 class CheckoutPage extends StatefulWidget {
+  const CheckoutPage({super.key});
+
   @override
   _CheckoutPageState createState() => _CheckoutPageState();
 }
 
 class _CheckoutPageState extends State<CheckoutPage> {
-  String selectedPaymentMethod = 'card';
-  String selectedAddress = 'home';
-  bool saveAddress = false;
-  
-  final _formKey = GlobalKey<FormState>();
-  final _nameController = TextEditingController();
-  final _phoneController = TextEditingController();
-  final _addressController = TextEditingController();
-  final _cardNumberController = TextEditingController();
-  final _expiryController = TextEditingController();
-  final _cvvController = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -42,31 +38,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
       body: SingleChildScrollView(
         padding: EdgeInsets.all(16),
         child: Form(
-          key: _formKey,
+          key: context.read<CheckoutCubit>().formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Order Summary
-              _buildOrderSummary(),
-              SizedBox(height: 20),
-              
-              // Delivery Address
-              _buildDeliveryAddress(),
-              SizedBox(height: 20),
-              
-              // Payment Method
-              _buildPaymentMethod(),
-              SizedBox(height: 20),
-              _buildCheckoutButton(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildOrderSummary() {
-    return Container(
+              Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -105,11 +82,82 @@ class _CheckoutPageState extends State<CheckoutPage> {
           _buildSummaryRow('Shipping', 50.00),
           _buildSummaryRow('Tax', 182.00),
           Divider(height: 20),
-          _buildSummaryRow('Total', 3822.00, isTotal: true),
+          Padding(
+      padding: EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            'Total',
+            style: TextStyle(
+              fontSize: true ? 16 : 14,
+              fontWeight: true ? FontWeight.bold : FontWeight.normal,
+              color: true ? Colors.black87 : Colors.grey[700],
+            ),
+          ),
+          Text(
+            '\$${3822.00.toStringAsFixed(2)}',
+            style: TextStyle(
+              fontSize: true ? 16 : 14,
+              fontWeight: FontWeight.bold,
+              color: true ? Color(0xFF00917C) : Colors.black87,
+            ),
+          ),
         ],
+      ),
+    ),
+        ],
+      ),
+    ),
+              SizedBox(height: 20),
+              
+              // Delivery Address
+              CheckoutAddress(
+                addressController: context.read<CheckoutCubit>().addressController,
+                 saveAddress: context.read<CheckoutCubit>().saveAddress,
+                  onSaveAddressChanged: (bool? value) {  
+                    if (value != null) {
+                      context.read<CheckoutCubit>().toggleSaveAddress(value);
+                    }
+                  },),
+              SizedBox(height: 20),
+              
+              // Payment Method
+        BlocConsumer<CheckoutCubit, CheckoutState>(
+  listener: (context, state) {
+    if (state is CheckoutError) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(state.message)),
+      );
+    }
+  },
+  builder: (context, state) {
+    final cubit = context.read<CheckoutCubit>();
+
+    return CheckoutPayment(
+      cardNumberController: cubit.cardNumberController,
+      expiryController: cubit.expiryController,
+      cvvController: cubit.cvvController,
+      selectedPaymentMethod: cubit.paymentMethod, // ✅ هنا صح
+      onChanged: (String? value) {
+        if (value != null) {
+          cubit.setPaymentMethod(value); // ✅ تحديث الحالة
+        }
+      },
+    );
+  },
+),
+
+              SizedBox(height: 20),
+              _buildCheckoutButton(),
+            ],
+          ),
+        ),
       ),
     );
   }
+
+  
 
   Widget _buildOrderItem(String name, int quantity, double price) {
     return Padding(
@@ -187,235 +235,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
     );
   }
 
-  Widget _buildDeliveryAddress() {
-    return Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(Icons.location_on, color: Color(0xFF00917C)),
-              SizedBox(width: 8),
-              Text(
-                'Delivery Address',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 16),
-          TextFormField(
-            controller: _nameController,
-            decoration: InputDecoration(
-              labelText: 'Full Name',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: Color(0xFF00917C)),
-              ),
-            ),
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter your name';
-              }
-              return null;
-            },
-          ),
-          SizedBox(height: 12),
-          TextFormField(
-            controller: _phoneController,
-            decoration: InputDecoration(
-              labelText: 'Phone Number',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: Color(0xFF00917C)),
-              ),
-            ),
-            keyboardType: TextInputType.phone,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter your phone number';
-              }
-              return null;
-            },
-          ),
-          SizedBox(height: 12),
-          TextFormField(
-            controller: _addressController,
-            decoration: InputDecoration(
-              labelText: 'Detailed Address',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(color: Color(0xFF00917C)),
-              ),
-            ),
-            maxLines: 3,
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return 'Please enter your address';
-              }
-              return null;
-            },
-          ),
-          SizedBox(height: 12),
-          Row(
-            children: [
-              Checkbox(
-                value: saveAddress,
-                onChanged: (value) {
-                  setState(() {
-                    saveAddress = value ?? false;
-                  });
-                },
-                activeColor: Color(0xFF00917C),
-              ),
-              Text('Save this address for future orders'),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+ 
 
-  Widget _buildPaymentMethod() {
-    return Container(
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Icon(Icons.payment, color: Color(0xFF00917C)),
-              SizedBox(width: 8),
-              Text(
-                'Payment Method',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black87,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 16),
-          _buildPaymentOption('card', 'Credit Card', Icons.credit_card),
-          _buildPaymentOption('cash', 'Cash on Delivery', Icons.money),
-          
-          if (selectedPaymentMethod == 'card') ...[
-            SizedBox(height: 16),
-            TextFormField(
-              controller: _cardNumberController,
-              decoration: InputDecoration(
-                labelText: 'Card Number',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(8),
-                  borderSide: BorderSide(color: Color(0xFF00917C)),
-                ),
-              ),
-              keyboardType: TextInputType.number,
-            ),
-            SizedBox(height: 12),
-            Row(
-              children: [
-                Expanded(
-                  child: TextFormField(
-                    controller: _expiryController,
-                    decoration: InputDecoration(
-                      labelText: 'MM/YY',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: Color(0xFF00917C)),
-                      ),
-                    ),
-                    keyboardType: TextInputType.number,
-                  ),
-                ),
-                SizedBox(width: 12),
-                Expanded(
-                  child: TextFormField(
-                    controller: _cvvController,
-                    decoration: InputDecoration(
-                      labelText: 'CVV',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        borderSide: BorderSide(color: Color(0xFF00917C)),
-                      ),
-                    ),
-                    keyboardType: TextInputType.number,
-                    obscureText: true,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPaymentOption(String value, String title, IconData icon) {
-    return RadioListTile<String>(
-      value: value,
-      groupValue: selectedPaymentMethod,
-      onChanged: (String? value) {
-        setState(() {
-          selectedPaymentMethod = value!;
-        });
-      },
-      title: Row(
-        children: [
-          Icon(icon, color: Color(0xFF00917C), size: 20),
-          SizedBox(width: 8),
-          Text(title),
-        ],
-      ),
-      activeColor: Color(0xFF00917C),
-      contentPadding: EdgeInsets.zero,
-    );
-  }
+ 
 
   Widget _buildCheckoutButton() {
     return SizedBox(
@@ -423,7 +245,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
       height: 56,
       child: ElevatedButton(
         onPressed: () {
-          if (_formKey.currentState!.validate()) {
+          if (context.read<CheckoutCubit>().formKey.currentState!.validate()) {
             _showOrderConfirmation();
           }
         },
@@ -491,15 +313,5 @@ class _CheckoutPageState extends State<CheckoutPage> {
       },
     );
   }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _phoneController.dispose();
-    _addressController.dispose();
-    _cardNumberController.dispose();
-    _expiryController.dispose();
-    _cvvController.dispose();
-    super.dispose();
-  }
 }
+

@@ -10,6 +10,10 @@ import 'package:gradution/features/cart/data/repositries/cart_repositry_Impl.dar
 import 'package:gradution/features/cart/domain/repositries/cart_repositry.dart';
 import 'package:gradution/features/cart/domain/usecases/cart_usecase.dart';
 import 'package:gradution/features/cart/presentation/cubits/cubit/cart_cubit.dart';
+import 'package:gradution/features/checkout/data/repositries/checkout_repo_Impl.dart';
+import 'package:gradution/features/checkout/domain/repostries/checkout_repositry.dart';
+import 'package:gradution/features/checkout/domain/usecases/checkout_usecase.dart';
+import 'package:gradution/features/checkout/presentation/cubit/cubit/checkout_cubit.dart';
 import 'package:gradution/features/home/data/repostries/user_profile_repo_Impl.dart';
 import 'package:gradution/features/home/domain/repositries/user_profile_repo.dart';
 import 'package:gradution/features/home/domain/usecases/user_profile_usecase.dart';
@@ -82,6 +86,7 @@ void setup() {
    sl.registerLazySingleton<CartRepositry>(() => CartRepositryImpl(dioConsumer:  sl()));
       sl.registerLazySingleton<OrderRepositry>(() => OrderRepositoryImpl(localDataSource:  sl(), remoteDataSource:  sl(),networkInfo: NetworkInfoImpl(DataConnectionChecker())));
      sl.registerLazySingleton<UserProfileRepo>(() => UserProfileRepoImpl(dioConsumer:  sl()));
+     sl.registerLazySingleton<CheckoutRepositry>(()=>CheckoutRepoImpl(sl() ));
   sl.registerLazySingleton<SellerRepositry>(
       () => SellerRepositryImpl(sl(), sl(), sl(), sl()));
 
@@ -94,6 +99,7 @@ void setup() {
   sl.registerLazySingleton(() => GetordersUsecase( sl()));
   sl.registerLazySingleton(() => UpdateStatusOrder( sl()));
    sl.registerLazySingleton(() => GetAllOrder( sl()));
+   sl.registerLazySingleton(() => CheckoutUsecase( sl()));
 
   sl.registerLazySingleton(() => AddproductUsecase(productsRepositry: sl()));
 
@@ -121,6 +127,7 @@ void setup() {
  sl.registerFactory(() => UserprofileCubit(sl()));
  sl.registerFactory(() => GetordersCubit( sl(), sl()));
  sl.registerFactory(() => OrdersCubit(sl()));
+ sl.registerFactory(() => CheckoutCubit(sl()));
 
   
 }

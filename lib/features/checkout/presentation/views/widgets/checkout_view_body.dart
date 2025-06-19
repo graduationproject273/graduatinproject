@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:gradution/features/cart/domain/entities/cart_entity.dart';
+import 'package:gradution/features/cart/domain/entities/cart_item_entity.dart';
+import 'package:gradution/features/checkout/presentation/views/widgets/order_summery.dart';
 
 class CheckoutPage extends StatefulWidget {
+ final List<CartItemEntity> cartItems;
+  const CheckoutPage({super.key, required this.cartItems});
+
   @override
+  // ignore: library_private_types_in_public_api
   _CheckoutPageState createState() => _CheckoutPageState();
 }
 
@@ -9,7 +16,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
   String selectedPaymentMethod = 'card';
   String selectedAddress = 'home';
   bool saveAddress = false;
-  
+
   final _formKey = GlobalKey<FormState>();
   final _nameController = TextEditingController();
   final _phoneController = TextEditingController();
@@ -47,13 +54,13 @@ class _CheckoutPageState extends State<CheckoutPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Order Summary
-              _buildOrderSummary(),
+              OrderSummery(cartItems: widget.cartItems,),
               SizedBox(height: 20),
-              
+
               // Delivery Address
               _buildDeliveryAddress(),
               SizedBox(height: 20),
-              
+
               // Payment Method
               _buildPaymentMethod(),
               SizedBox(height: 20),
@@ -334,7 +341,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
           SizedBox(height: 16),
           _buildPaymentOption('card', 'Credit Card', Icons.credit_card),
           _buildPaymentOption('cash', 'Cash on Delivery', Icons.money),
-          
           if (selectedPaymentMethod == 'card') ...[
             SizedBox(height: 16),
             TextFormField(

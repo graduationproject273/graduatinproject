@@ -81,7 +81,7 @@ class _CustomAppbarInhomeState extends State<CustomAppbarInhome>
                 const SizedBox(width: 8),
                  GestureDetector(
                    onTap: (){
-                    GoRouter.of(context).push(Routes.checkout);
+                    GoRouter.of(context).push(Routes.cart);
                    },
                    child: CircleAvatar(
                    

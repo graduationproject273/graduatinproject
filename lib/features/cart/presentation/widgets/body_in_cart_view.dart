@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gradution/features/cart/domain/entities/cart_entity.dart';
 import 'package:gradution/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:gradution/features/cart/presentation/widgets/container_total_price.dart';
 import 'package:gradution/features/cart/presentation/widgets/list_item_cart.dart';
@@ -9,7 +10,7 @@ import 'package:gradution/features/cart/presentation/widgets/list_item_cart.dart
 class bodyInCartView extends StatelessWidget {
    final List<CartItemEntity> products ;
   const bodyInCartView({
-    super.key, required this.products,
+    super.key, required this.products, 
   });
 
   @override
@@ -24,7 +25,7 @@ class bodyInCartView extends StatelessWidget {
           SizedBox(
             height: 40.h,
           ),
-          containerTotalPrice(),
+          containerTotalPrice(cartEntity: products,),
           SizedBox(
             height: 40.h,
           ),

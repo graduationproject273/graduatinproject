@@ -6,11 +6,13 @@ import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/core/styles/colors.dart';
 import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/core/widgets/custom_button.dart';
+import 'package:gradution/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:gradution/features/cart/presentation/cubits/cubit/cart_cubit.dart';
 
 // ignore: camel_case_types
 class containerTotalPrice extends StatelessWidget {
-  const containerTotalPrice({super.key});
+  final List<CartItemEntity> cartEntity;
+  const containerTotalPrice({super.key, required this.cartEntity});
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +44,7 @@ class containerTotalPrice extends StatelessWidget {
                 child: CustomButton(
                   text: 'Checkout',
                   onTap: () {
-                    GoRouter.of(context).go(Routes.checkout);
+                    GoRouter.of(context).go(Routes.checkout,extra: cartEntity);
                   },
                   buttonbodycolor: maincolor,
                   textcolor: Colors.white,

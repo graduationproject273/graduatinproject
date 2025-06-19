@@ -12,6 +12,8 @@ import 'package:gradution/features/authintication/sinup/presentation/pages/sinup
 import 'package:gradution/features/authintication/typeUser/presentation/views/usertype_view.dart';
 import 'package:gradution/features/blog/presentation/view/blog_details_view.dart';
 import 'package:gradution/features/blog/presentation/view/blog_view.dart';
+import 'package:gradution/features/cart/domain/entities/cart_entity.dart';
+import 'package:gradution/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:gradution/features/cart/presentation/cubits/cubit/cart_cubit.dart';
 import 'package:gradution/features/cart/presentation/views/cart_view.dart';
 import 'package:gradution/features/categories/presentation/views/categories_view.dart';
@@ -132,7 +134,7 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: Routes.checkout,
-      builder: (context, state) => const CheckoutView(),
+      builder: (context, state) =>  CheckoutView(cartItems: state.extra as List<CartItemEntity>,),
     ),
     GoRoute(
       path: Routes.orderSuccess,

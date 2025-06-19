@@ -1,4 +1,3 @@
-
 import 'package:gradution/features/products/data/model/sub_model/Seller_model.dart';
 import 'package:gradution/features/products/domain/entities/product_entity.dart';
 import 'package:gradution/features/products/domain/entities/sub_entities/category_entity.dart';
@@ -15,6 +14,8 @@ class ProductModel extends ProductEntity {
     required super.hardwareSpecifications,
     required super.category,
     required super.seller,
+    required super.discountPrice,
+    required super.sellingPrice,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) => ProductModel(
@@ -28,19 +29,21 @@ class ProductModel extends ProductEntity {
         hardwareSpecifications: json['hardwareSpecifications'],
         category: CategoryModel.fromJson(json['category']),
         seller: SellerModel.fromJson(json['seller']),
+        discountPrice: json['discountPrice']?? 0.0,
+        sellingPrice: json['sellingPrice']??0,
       );
-       Map<String, dynamic> toJson() => {
-    'id': id,
-    'name': name,
-    'price': price,
-    'description': description,
-    'image': image,
-    'quantityAvailable': quantityAvailable,
-    'specialOffer': specialOffer,
-    'hardwareSpecifications': hardwareSpecifications,
-    'category': (category as CategoryModel).toJson(),
-    'seller': (seller as SellerModel).toJson(),
-  };
+  Map<String, dynamic> toJson() => {
+        'id': id,
+        'name': name,
+        'price': price,
+        'description': description,
+        'image': image,
+        'quantityAvailable': quantityAvailable,
+        'specialOffer': specialOffer,
+        'hardwareSpecifications': hardwareSpecifications,
+        'category': (category as CategoryModel).toJson(),
+        'seller': (seller as SellerModel).toJson(),
+      };
 }
 
 class CategoryModel extends CategoryEntity {
@@ -49,16 +52,8 @@ class CategoryModel extends CategoryEntity {
   factory CategoryModel.fromJson(Map<String, dynamic> json) =>
       CategoryModel(id: json['id'], name: json['name']);
 
-
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'name': name,
-  };
+        'id': id,
+        'name': name,
+      };
 }
-
-
-
-
-
-
-

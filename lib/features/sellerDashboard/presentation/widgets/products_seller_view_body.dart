@@ -41,32 +41,32 @@ class ProductsSellerViewBody extends StatelessWidget {
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: BlocBuilder<GetProductSellerCubit, GetProductSellerState>(
+                  child:
+                      BlocBuilder<GetProductSellerCubit, GetProductSellerState>(
                     builder: (context, state) {
                       if (state is GetProductSellerSuccess) {
-  return GridView.builder(
-    
-    gridDelegate:
-        const SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 2,
-      childAspectRatio: 150 / 270,
-      crossAxisSpacing: 20,
-      
-      mainAxisSpacing: 20,
-    ),
-    itemBuilder: (context, index) {
-      return InkWell(
-          onTap: () {
-            GoRouter.of(context)
-                .push(Routes.productDetails);
-          },
-          child: ProductItem(productEntity: state.products[index],));
-    },
-    itemCount: state.products.length,
-    shrinkWrap: true,
-    // physics: const NeverScrollableScrollPhysics(),
-  );
-}else if (state is GetAllProductError) {
+                        return GridView.builder(
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 150 / 270,
+                            crossAxisSpacing: 20,
+                            mainAxisSpacing: 20,
+                          ),
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                                onTap: () {
+                                  GoRouter.of(context)
+                                      .push(Routes.productDetails);
+                                },
+                                child: ProductItem(
+                                  productEntity: state.products[index],
+                                ));
+                          },
+                          itemCount: state.products.length,
+                          shrinkWrap: true,
+                        );
+                      } else if (state is GetAllProductError) {
                         return Center(
                           child: Text(
                             state.message,

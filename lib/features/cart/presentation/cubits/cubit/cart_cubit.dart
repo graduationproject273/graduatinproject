@@ -50,22 +50,21 @@ class CartCubit extends Cubit<CartState> {
   double getTotalPrice() {
     if (state is CartLoaded) {
       final items = (state as CartLoaded).productitems;
-      return items.fold(0.0,
-          (total, item) => total + (item.productcartentity.price * item.quantity));
+      return items.fold(
+          0.0,
+          (total, item) =>
+              total + (item.productcartentity.price * item.quantity));
     }
     return 0.0;
   }
 
-  int getTotalQuantity(List<CartItemEntity> cartItems) {
-    return cartItems.fold(0, (total, item) => total + item.quantity);
-  }
+
 
   Future<void> increaseQuantity(int itemId, int quantity) async {
     final result = await cartUseCase.updateCartItemQuantity(itemId, quantity);
     result.fold(
-      (failure) => emit(CartError(message: failure.errMessage)),
-      (_) async => await getCartItems(),
-    );
+        (failure) => emit(CartError(message: failure.errMessage)),   (_) async {
+        },);
   }
 
   Future<void> decreaseQuantity(int itemId, int quantity) async {
@@ -73,7 +72,9 @@ class CartCubit extends Cubit<CartState> {
       final result = await cartUseCase.updateCartItemQuantity(itemId, quantity);
       result.fold(
         (failure) => emit(CartError(message: failure.errMessage)),
-        (_) async => await getCartItems(),
+        (_) async {
+          await getCartItems();
+        },
       );
     }
   }

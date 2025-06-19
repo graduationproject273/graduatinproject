@@ -13,8 +13,11 @@ class ProductEntity {
   final String hardwareSpecifications;
   final CategoryEntity category;
   final SellerEntity seller;
+    final double discountPrice;
+  final double sellingPrice;
 
-  ProductEntity({
+
+  ProductEntity( {
     required this.id,
     required this.name,
     required this.price,
@@ -25,6 +28,7 @@ class ProductEntity {
     required this.hardwareSpecifications,
     required this.category,
     required this.seller,
+    required this.discountPrice,required this.sellingPrice,
   });
 }
 

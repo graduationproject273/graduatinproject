@@ -1,16 +1,36 @@
-# gradution
+# EzHome 🏡📱
 
-A new Flutter project.
+**EzHome** is a graduation project – a full-featured **eCommerce Flutter application** for selling and managing **smart home products**. It provides separate interfaces and experiences for both **Users** and **Sellers**, ensuring a smooth and professional interaction flow.
 
-## Getting Started
+## 💡 Project Idea
 
-This project is a starting point for a Flutter application.
+EzHome aims to digitize the process of buying and selling **smart home devices** like smart bulbs, cameras, sensors, smart locks, etc. Users can browse and purchase products, while sellers can manage their listings and orders.
 
-A few resources to get you started if this is your first Flutter project:
+## 👥 Roles
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+### 🧑‍💼 User:
+- Browse smart home products
+- View product details
+- Add to cart and checkout
+- View order history
+- Profile management
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### 🛍️ Seller:
+- Add new products
+- Edit or delete existing products
+- View orders made on their products
+- Manage profile and store information
+
+## 🧰 Tech Stack
+
+- **Flutter** for cross-platform UI
+- **Dart** programming language
+- **Firebase** or **Spring Boot** (depending on backend)
+- **Cubit (Bloc)** for state management
+- **MVVM Architecture**
+- **Dio + Retrofit** for API integration
+- **Hive** / SharedPreferences for local data
+- **GoRouter** or Navigator 2.0 for routing
+
+## 📱 App Structure
+

@@ -3,17 +3,20 @@ import 'package:equatable/equatable.dart';
 import 'package:gradution/core/databases/api/end_points.dart';
 import 'package:gradution/features/products/domain/entities/product_entity.dart';
 import 'package:gradution/features/products/domain/usecases/get_all_product.dart';
+import 'package:gradution/features/sellerDashboard/domain/usecases/edit_product.dart';
 
 part 'get_product_seller_state.dart';
 
 class GetProductSellerCubit extends Cubit<GetProductSellerState> {
   final GetAllProduct getAllProduct;
-  GetProductSellerCubit(this.getAllProduct) : super(GetProductSellerInitial());
+    final EditProduct edi;
+
+  GetProductSellerCubit(this.getAllProduct, this.edi) : super(GetProductSellerInitial());
 
    Future<void> getAllProductfun ()async{
   try {
     emit(GetProductSellerLoading());
-      final result = await getAllProduct.call(EndPoints.products);
+      final result = await getAllProduct.call(EndPoints.productsSeller);
       result.fold(
         (C) => emit(GetAllProductError(
             "❗$C ")),
@@ -24,4 +27,19 @@ class GetProductSellerCubit extends Cubit<GetProductSellerState> {
           '❗ $e '));
     }
   }
+  Future<void> deleteProduct(int id) async {
+    emit(GetProductSellerLoading());
+    try {
+      final result = await edi.deleteProduct(id);
+      result.fold(
+        (failure) => emit(GetAllProductError("❗ ${failure.errMessage}")),
+        (_) {
+          getAllProductfun(); // Refresh the product list after deletion
+        },
+      );
+    } catch (e) {
+      emit(GetAllProductError('❗$e '));
+    }
+  }
+  
 }

@@ -1,176 +1,70 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:gradution/core/styles/colors.dart';
+import 'package:gradution/depency_injection.dart';
+import 'package:gradution/features/orders/presentation/cubit/orders_cubit.dart';
+import 'package:gradution/features/orders/presentation/widgets/order_card.dart';
 
-// نموذج الطلب
-class Order {
-  final String id;
-  final String customerName;
-  final double totalAmount;
-  final DateTime orderDate;
-  final OrderStatus status;
-  final List<String> items;
-
-  Order({
-    required this.id,
-    required this.customerName,
-    required this.totalAmount,
-    required this.orderDate,
-    required this.status,
-    required this.items,
-  });
-}
-
-// حالات الطلب
-enum OrderStatus {
-  pending,
-  confirmed,
-  preparing,
-  ready,
-  delivered,
-  cancelled,
-}
-
-// امتداد لترجمة حالات الطلب
-extension OrderStatusExtension on OrderStatus {
-  String get arabicName {
-    switch (this) {
-      case OrderStatus.pending:
-        return 'في انتظار التأكيد';
-      case OrderStatus.confirmed:
-        return 'مؤكد';
-      case OrderStatus.preparing:
-        return 'قيد التحضير';
-      case OrderStatus.ready:
-        return 'جاهز للاستلام';
-      case OrderStatus.delivered:
-        return 'تم التسليم';
-      case OrderStatus.cancelled:
-        return 'ملغي';
-    }
-  }
-
-  Color get color {
-    switch (this) {
-      case OrderStatus.pending:
-        return Colors.orange;
-      case OrderStatus.confirmed:
-        return const Color(0xFF00917C);
-      case OrderStatus.preparing:
-        return Colors.blue;
-      case OrderStatus.ready:
-        return Colors.green;
-      case OrderStatus.delivered:
-        return Colors.grey;
-      case OrderStatus.cancelled:
-        return Colors.red;
-    }
-  }
-
-  IconData get icon {
-    switch (this) {
-      case OrderStatus.pending:
-        return Icons.access_time;
-      case OrderStatus.confirmed:
-        return Icons.check_circle_outline;
-      case OrderStatus.preparing:
-        return Icons.restaurant;
-      case OrderStatus.ready:
-        return Icons.done_all;
-      case OrderStatus.delivered:
-        return Icons.local_shipping;
-      case OrderStatus.cancelled:
-        return Icons.cancel;
-    }
-  }
-}
-
-// صفحة الطلبات
 class OrdersPage extends StatefulWidget {
-  const OrdersPage({Key? key}) : super(key: key);
+  const OrdersPage({super.key});
 
   @override
   State<OrdersPage> createState() => _OrdersPageState();
 }
 
 class _OrdersPageState extends State<OrdersPage> {
-  // بيانات تجريبية للطلبات
-  final List<Order> orders = [
-    Order(
-      id: 'ORD001',
-      customerName: 'أحمد محمد',
-      totalAmount: 125.50,
-      orderDate: DateTime.now().subtract(const Duration(minutes: 30)),
-      status: OrderStatus.preparing,
-      items: ['برجر دجاج', 'بطاطس مقلية', 'كوكاكولا'],
-    ),
-    Order(
-      id: 'ORD002',
-      customerName: 'فاطمة أحمد',
-      totalAmount: 85.00,
-      orderDate: DateTime.now().subtract(const Duration(hours: 1)),
-      status: OrderStatus.ready,
-      items: ['بيتزا مارجريتا', 'عصير برتقال'],
-    ),
-    Order(
-      id: 'ORD003',
-      customerName: 'محمد علي',
-      totalAmount: 95.75,
-      orderDate: DateTime.now().subtract(const Duration(hours: 2)),
-      status: OrderStatus.delivered,
-      items: ['شاورما لحم', 'سلطة', 'ماء'],
-    ),
-    Order(
-      id: 'ORD004',
-      customerName: 'سارة حسن',
-      totalAmount: 156.25,
-      orderDate: DateTime.now().subtract(const Duration(minutes: 15)),
-      status: OrderStatus.confirmed,
-      items: ['وجبة عائلية', 'أرز بخاري', 'شوربة عدس', 'سلطة فتوش'],
-    ),
-    Order(
-      id: 'ORD005',
-      customerName: 'عمر يوسف',
-      totalAmount: 67.50,
-      orderDate: DateTime.now().subtract(const Duration(minutes: 45)),
-      status: OrderStatus.pending,
-      items: ['ساندويش فلافل', 'عصير ليمون'],
-    ),
-  ];
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[50],
-      appBar: AppBar(
-        title: const Text(
-          'الطلبات',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+    return BlocProvider(
+      create: (context) => sl<OrdersCubit>()..getAllOrders(),
+      child: Scaffold(
+        backgroundColor: Colors.grey[50],
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+            ),
+            onPressed: () {
+              GoRouter.of(context).pop();
+            },
           ),
+          title: const Text(
+            'Orders',
+            style: TextStyle(
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+              color: Colors.white,
+            ),
+          ),
+          backgroundColor:maincolor,
+          elevation: 2,
+          centerTitle: true,
         ),
-        backgroundColor: const Color(0xFF00917C),
-        elevation: 2,
-        centerTitle: true,
-      ),
-      body: RefreshIndicator(
-        onRefresh: _refreshOrders,
-        color: const Color(0xFF00917C),
-        child: ListView.builder(
-          padding: const EdgeInsets.all(16),
-          itemCount: orders.length,
-          itemBuilder: (context, index) {
-            return OrderCard(order: orders[index]);
+        body: BlocBuilder<OrdersCubit, OrdersState>(
+          builder: (context, state) {
+            if (state is OrdersLoaded) {
+  return ListView.builder(
+    padding: const EdgeInsets.all(16),
+    itemCount: state.orders.length,
+    itemBuilder: (context, index) {
+      return OrderCard(order: state.orders[index]);
+    },
+    
+  );
+}else if (state is OrdersError) {
+  return Center(child: Text(state.message));
+}
+else{
+  return const Center(child: CircularProgressIndicator());
+}
           },
+          
         ),
       ),
     );
-  }
-
-  Future<void> _refreshOrders() async {
-    // محاكاة تحديث البيانات
-    await Future.delayed(const Duration(seconds: 1));
-    setState(() {});
   }
 }
 

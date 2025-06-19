@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gradution/core/databases/cache/cache_helper.dart';
 import 'package:gradution/core/styles/colors.dart';
 import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/core/widgets/custom_button.dart';
@@ -27,6 +28,7 @@ class _SectionTextFiledAndButtoninSinupState
       listener: (context, state) {
         if (state is SinupSuccess) {
           final roles = state.roles;
+          CacheHelper.sharedPreferences.setString('roles', roles.join(', '));
           if (roles.contains("ROLE_SELLER")) {
             GoRouter.of(context).go(Routes.dashboardseller);
           } else {

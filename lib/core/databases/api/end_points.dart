@@ -3,7 +3,7 @@ class EndPoints {
 
   static const String products = "products";
   static const String productsSeller = "products/seller";
-  static const String orders = "";
+  static const String orders = "orders/user";
   static const String createOrder = "";
   static const String sellerUrl = "sellers";
 

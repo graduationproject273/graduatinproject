@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:dartz/dartz.dart';
 import 'package:gradution/core/connection/network_info.dart';
 import 'package:gradution/core/databases/api/dio_consumer.dart';
-
 import 'package:gradution/core/databases/api/end_points.dart';
 import 'package:gradution/core/databases/cache/cache_helper.dart';
 import 'package:gradution/core/errors/expentions.dart';
@@ -154,4 +152,44 @@ class SellerRepositryImpl extends SellerRepositry {
       return Left(Failure(errMessage: e.toString()));
     }
   }
+ 
+
+    
+  
+
+  @override
+  Future<Either<Failure, AddProductEntity>> updateProduct(
+      AddProductModel add, int id) async {
+    try {
+      final response = await dioConsumer.put(
+        path: "${EndPoints.addProduct}/$id",
+        data: add.toJson(),
+      );
+      return response.fold(
+        (l) => Left(Failure(errMessage: l)),
+        (r) => Right(AddProductModel.fromJson(r.data)),
+      );
+    } on ServerException catch (e) {
+      return Left(Failure(errMessage: e.toString()));
+    }
+  }
+  
+  @override
+  Future<Either<Failure, void>> deleteProduct(int id)async {
+     try {
+      final response =
+          await dioConsumer.delete(path: '${EndPoints.productsSeller}/$id');
+      return response.fold(
+        (l) => Left(Failure(errMessage: l)),
+        (r) {
+          
+          return Right(null);
+        },
+      );
+    } catch (e) {
+      return Left(Failure(errMessage: e.toString()));
+    }
+  }
+
+
 }

@@ -23,6 +23,8 @@ import 'package:gradution/features/onbording/presentation/views/auth_buttons_vie
 import 'package:gradution/features/onbording/presentation/views/onboarding_view.dart';
 import 'package:gradution/features/onbording/presentation/views/splash_view.dart';
 import 'package:gradution/features/order-success/presentation/views/order_success_view.dart';
+import 'package:gradution/features/orders/domain/entities/order_entity.dart';
+import 'package:gradution/features/orders/presentation/pages/order_details_view.dart';
 import 'package:gradution/features/orders/presentation/pages/orders_view.dart';
 import 'package:gradution/features/products/domain/entities/product_entity.dart';
 import 'package:gradution/features/products/presentation/view/product_details_view.dart';
@@ -32,6 +34,7 @@ import 'package:gradution/features/reviews/presentation/view/reviews_view.dart';
 import 'package:gradution/features/reviews/presentation/view/add_reviews_view.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/profile/profile_cubit.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/add_product_seller_view.dart';
+import 'package:gradution/features/sellerDashboard/presentation/pages/edit_product_seller.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/order_view.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/products_seller_view.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/profile_seller.dart';
@@ -73,6 +76,10 @@ final GoRouter router = GoRouter(
       path: Routes.products,
       builder: (context, state) => const ProductView(),
     ),
+     GoRoute(
+      path: Routes.sellerProductsEdit,
+      builder: (context, state) => EditProductSeller (productEntity: state.extra as ProductEntity),
+    ),
     GoRoute(
       path: Routes.productDetails,
       builder: (context, state) => BlocProvider(
@@ -100,6 +107,10 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: Routes.order,
       builder: (context, state) => const OrderView(),
+    ),
+    GoRoute(
+      path: Routes.orderDetails,
+      builder: (context, state) =>  OrderDetailsScreen(order: state.extra as OrderEntity,),
     ),
     GoRoute(
       path: Routes.blog,

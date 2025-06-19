@@ -1,10 +1,10 @@
-import 'package:gradution/core/databases/api/api_consumer.dart';
+import 'package:gradution/core/databases/api/dio_consumer.dart';
 import 'package:gradution/core/databases/api/end_points.dart';
 import 'package:gradution/core/databases/params/params.dart';
 import 'package:gradution/features/orders/data/models/order_model.dart';
 
 class OrderDataSourseRemote {
-  final ApiConsumer apiConsumer;
+  final DioConsumer apiConsumer;
   OrderDataSourseRemote(this.apiConsumer);
   Future<void> createOrder(
     OrderParams order,

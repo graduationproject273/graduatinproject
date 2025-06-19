@@ -14,6 +14,12 @@ import 'package:gradution/features/home/data/repostries/user_profile_repo_Impl.d
 import 'package:gradution/features/home/domain/repositries/user_profile_repo.dart';
 import 'package:gradution/features/home/domain/usecases/user_profile_usecase.dart';
 import 'package:gradution/features/home/presentation/cubit/cubit/userprofile_cubit.dart';
+import 'package:gradution/features/orders/data/datasources/order_data_sourse_local.dart';
+import 'package:gradution/features/orders/data/datasources/order_data_sourse_remote.dart';
+import 'package:gradution/features/orders/data/repositories/order_repositry_impli.dart';
+import 'package:gradution/features/orders/domain/repositories/order_repositry.dart';
+import 'package:gradution/features/orders/domain/usecases/get_all_order.dart';
+import 'package:gradution/features/orders/presentation/cubit/orders_cubit.dart';
 import 'package:gradution/features/products/data/datasource/product_data_sourse_local.dart';
 import 'package:gradution/features/products/data/datasource/product_data_sourse_remote.dart';
 import 'package:gradution/features/products/data/repositories/product_repositry_impli.dart';
@@ -57,6 +63,11 @@ void setup() {
   sl.registerLazySingleton<GetAllCategoryDatasourseRemote>(
       () => GetAllCategoryDatasourseRemote(dioConsumer: sl()));
 
+       sl.registerLazySingleton<OrderDataSourseLocal>(
+      () => OrderDataSourseLocal(cache: CacheHelper()));
+  sl.registerLazySingleton<OrderDataSourseRemote>(
+      () => OrderDataSourseRemote( sl()));
+
   ///S
   ///
   // Repository
@@ -66,6 +77,7 @@ void setup() {
       productDataSourseRemote: sl()));
   sl.registerLazySingleton<SignupRepositry>(() => UserRepoImpl(sl()));
    sl.registerLazySingleton<CartRepositry>(() => CartRepositryImpl(dioConsumer:  sl()));
+      sl.registerLazySingleton<OrderRepositry>(() => OrderRepositoryImpl(localDataSource:  sl(), remoteDataSource:  sl(),networkInfo: NetworkInfoImpl(DataConnectionChecker())));
      sl.registerLazySingleton<UserProfileRepo>(() => UserProfileRepoImpl(dioConsumer:  sl()));
   sl.registerLazySingleton<SellerRepositry>(
       () => SellerRepositryImpl(sl(), sl(), sl(), sl()));
@@ -76,6 +88,7 @@ void setup() {
   sl.registerLazySingleton(() => CartUseCase(cartRepositry: sl()));
   sl.registerLazySingleton(() => ProfileUsecase( sl()));
   sl.registerLazySingleton(() => UserProfileUsecase( sl()));
+   sl.registerLazySingleton(() => GetAllOrder( sl()));
 
   sl.registerLazySingleton(() => AddproductUsecase(productsRepositry: sl()));
 
@@ -83,7 +96,6 @@ void setup() {
   sl.registerLazySingleton(() => AddProductCubit(
         addproductUsecase: sl(),
       ));
-  sl.registerFactory(() => ProfileCubit(sl()));
 
   sl.registerLazySingleton(() => SellerUsecase(signupRepositry: sl()));
   sl.registerLazySingleton(() => SignupSellerUsecase(sl()));
@@ -102,9 +114,7 @@ void setup() {
 
   sl.registerFactory(() => ProfileCubit(sl()));
  sl.registerFactory(() => UserprofileCubit(sl()));
+ sl.registerFactory(() => OrdersCubit(sl()));
 
-  sl.registerFactory(()=> CartCubit(
-     sl(),
-  ));
-    sl.registerLazySingleton(() => ProductsCubit(sl()));
+  
 }

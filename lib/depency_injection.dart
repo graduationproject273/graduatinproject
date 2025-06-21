@@ -35,6 +35,7 @@ import 'package:gradution/features/sellerDashboard/data/datasources/get_all_cate
 import 'package:gradution/features/sellerDashboard/data/repositries/seller_repositry_impl.dart';
 import 'package:gradution/features/sellerDashboard/domain/repositries/seller_repositry.dart';
 import 'package:gradution/features/sellerDashboard/domain/usecases/addproduct_usecase.dart';
+import 'package:gradution/features/sellerDashboard/domain/usecases/edit_product.dart';
 import 'package:gradution/features/sellerDashboard/domain/usecases/get_all_category.dart';
 import 'package:gradution/features/sellerDashboard/domain/usecases/getorders_usecase.dart';
 import 'package:gradution/features/sellerDashboard/domain/usecases/profile_usecase.dart';
@@ -67,13 +68,10 @@ void setup() {
 
   sl.registerLazySingleton<GetAllCategoryDatasourseLocal>(
       () => GetAllCategoryDatasourseLocal(cache: CacheHelper()));
-  sl.registerLazySingleton<GetAllCategoryDatasourseRemote>(
-      () => GetAllCategoryDatasourseRemote(dioConsumer: sl()));
+  sl.registerLazySingleton<GetAllCategoryDatasourseRemote>(() => GetAllCategoryDatasourseRemote(dioConsumer: sl()));
 
-       sl.registerLazySingleton<OrderDataSourseLocal>(
-      () => OrderDataSourseLocal(cache: CacheHelper()));
-  sl.registerLazySingleton<OrderDataSourseRemote>(
-      () => OrderDataSourseRemote( sl()));
+  sl.registerLazySingleton<OrderDataSourseLocal>(() => OrderDataSourseLocal(cache: CacheHelper()));
+  sl.registerLazySingleton<OrderDataSourseRemote>(() => OrderDataSourseRemote( sl()));
 
  // Repositry
   sl.registerLazySingleton<ProductsRepositry>(() => ProductRepositryImpli(
@@ -97,6 +95,7 @@ void setup() {
   sl.registerLazySingleton(() => GetordersUsecase( sl()));
   sl.registerLazySingleton(() => UpdateStatusOrder( sl()));
    sl.registerLazySingleton(() => GetAllOrder( sl()));
+  sl.registerLazySingleton<EditProduct>(() => EditProduct(sellerRepositry: sl()));
    sl.registerLazySingleton(() => CheckoutUsecase( sl()));
 
   sl.registerLazySingleton(() => AddproductUsecase(productsRepositry: sl()));
@@ -111,8 +110,8 @@ void setup() {
   sl.registerLazySingleton(() => LoginUsecase(sl()));
     sl.registerLazySingleton(() => EditProductSellerCubit(sl()));
 
-  sl.registerLazySingleton(() => GetProductSellerCubit(sl(), sl()));
-  sl.registerLazySingleton(() => GetAllCategoryCubit(sl<GetAllCategory>()));
+  sl.registerFactory(() => GetProductSellerCubit(sl(), sl()));
+  sl.registerFactory(() => GetAllCategoryCubit(sl<GetAllCategory>()));
   sl.registerFactory(() => SinupCubit(sl(), sl()));
   sl.registerFactory(() => SellerCubit(sl()));
 

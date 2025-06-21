@@ -21,6 +21,6 @@ class EndPoints {
       "order-items/$orderItemId/status";
 
   static String getCouponByCode(String code) => "coupons/code/$code";
-
+  static String getProductByCategoryId(int id) => "categories/${id}/products";
   static const String validateCoupon = "coupons/validate";
 }

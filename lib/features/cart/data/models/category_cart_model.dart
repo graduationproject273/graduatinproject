@@ -34,4 +34,5 @@ class CategoryCartModel extends CategoryCartEntity {
       'image': image,
     };
   }
+
 }

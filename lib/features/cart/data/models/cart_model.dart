@@ -23,4 +23,13 @@ class CartModel extends CartEntity {
       'quantity': quantity,
     };
   }
+  copyWith({
+    int? productId,
+    int? quantity,
+  }) {
+    return CartModel(
+      productId: productId ?? this.productId,
+      quantity: quantity ?? this.quantity,
+    );
+  }
 }

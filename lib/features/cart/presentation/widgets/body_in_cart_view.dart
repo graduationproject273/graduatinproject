@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gradution/features/cart/domain/entities/cart_entity.dart';
 import 'package:gradution/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:gradution/features/cart/presentation/widgets/container_total_price.dart';
 import 'package:gradution/features/cart/presentation/widgets/list_item_cart.dart';

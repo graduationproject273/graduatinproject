@@ -30,21 +30,26 @@ class containerTotalPrice extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                'Total  ',
-                style: Textstyles.textitemtotal,
-              ),
-              Text(
-                '$totalPrice EGP',
-                style: Textstyles.texttotalprice,
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Total  ',
+                    style: Textstyles.textitemtotal,
+                  ),
+                  Text(
+                    totalPrice + ' EGP',
+                    style: Textstyles.texttotalprice,
+                  ),
+                ],
               ),
               const Spacer(),
               SizedBox(
-                width: 170.w,
+                width: 140.w,
                 child: CustomButton(
                   text: 'Checkout',
                   onTap: () {
-                    GoRouter.of(context).go(Routes.checkout,extra: cartEntity);
+                    GoRouter.of(context).push(Routes.checkout,extra: cartEntity);
                   },
                   buttonbodycolor: maincolor,
                   textcolor: Colors.white,

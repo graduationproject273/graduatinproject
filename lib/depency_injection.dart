@@ -115,7 +115,7 @@ void setup() {
   sl.registerFactory(() => SinupCubit(sl(), sl()));
   sl.registerFactory(() => SellerCubit(sl()));
 
-  sl.registerFactory(() => CartCubit(
+  sl.registerLazySingleton(() => CartCubit(
         sl(),
       ));
   sl.registerFactory(() => ProductsCubit(sl()));

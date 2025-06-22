@@ -13,7 +13,7 @@ class CartUseCase {
     return cartRepositry.addToCart(cart);
   }
 
-  Future<Either<Failure, List<CartItemEntity>>> getCartItems() {
+  Stream<Either<Failure, List<CartItemEntity>>> getCartItems() {
     return cartRepositry.getCartItems();
   }
 

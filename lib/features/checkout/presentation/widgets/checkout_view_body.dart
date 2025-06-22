@@ -90,6 +90,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
           // ✅ تحديث قائمة الطلبات
           context.read<GetordersCubit>().getorders();
 
+
           // ✅ الانتقال لصفحة الطلبات بعد نجاح الشراء
           //Navigator.of(context).pushReplacementNamed(''); // أو GoRouter.of(context).go('/orders');
 
@@ -146,3 +147,6 @@ class _CheckoutPageState extends State<CheckoutPage> {
 
   
 }
+
+  
+

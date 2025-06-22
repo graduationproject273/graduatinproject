@@ -10,14 +10,12 @@ import 'package:gradution/features/authintication/sinup/presentation/cubit/selle
 import 'package:gradution/features/authintication/sinup/presentation/pages/seller_sinup.dart';
 import 'package:gradution/features/authintication/sinup/presentation/pages/sinup_view.dart';
 import 'package:gradution/features/authintication/typeUser/presentation/views/usertype_view.dart';
-import 'package:gradution/features/blog/presentation/view/blog_details_view.dart';
-import 'package:gradution/features/blog/presentation/view/blog_view.dart';
 import 'package:gradution/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:gradution/features/cart/presentation/cubits/cubit/cart_cubit.dart';
 import 'package:gradution/features/cart/presentation/views/cart_view.dart';
-import 'package:gradution/features/categories/presentation/views/categories_view.dart';
 import 'package:gradution/features/checkout/presentation/views/checkout_view.dart';
 import 'package:gradution/features/home/presentation/cubit/cubit/userprofile_cubit.dart';
+import 'package:gradution/features/home/presentation/views/categories_view.dart';
 import 'package:gradution/features/home/presentation/views/home_view.dart';
 import 'package:gradution/features/home/presentation/views/user_profile.dart';
 import 'package:gradution/features/onbording/presentation/views/auth_buttons_view.dart';
@@ -30,8 +28,6 @@ import 'package:gradution/features/orders/presentation/pages/orders_view.dart';
 import 'package:gradution/features/products/domain/entities/product_entity.dart';
 import 'package:gradution/features/products/presentation/view/product_details_view.dart';
 import 'package:gradution/features/products/presentation/view/product_view.dart';
-import 'package:gradution/features/reviews/presentation/view/reviews_view.dart';
-import 'package:gradution/features/reviews/presentation/view/add_reviews_view.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/profile/profile_cubit.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/add_product_seller_view.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/edit_product_seller.dart';
@@ -100,9 +96,9 @@ final GoRouter router = GoRouter(
       path: Routes.service,
       builder: (context, state) => const ServicesView(),
     ),
-    GoRoute(
+      GoRoute(
       path: Routes.categories,
-      builder: (context, state) => const CategoriesView(),
+      builder: (context, state) =>  CategoriesView(id: state.extra as int,),
     ),
     GoRoute(
       path: Routes.order,
@@ -112,14 +108,7 @@ final GoRouter router = GoRouter(
       path: Routes.orderDetails,
       builder: (context, state) =>  OrderDetailsScreen(order: state.extra as OrderEntity,),
     ),
-    GoRoute(
-      path: Routes.blog,
-      builder: (context, state) => const BlogView(),
-    ),
-    GoRoute(
-      path: Routes.blogDetails,
-      builder: (context, state) => const BlogDetailsView(),
-    ),
+   
     GoRoute(
       path: Routes.cart,
       builder: (context, state) {
@@ -138,15 +127,10 @@ final GoRouter router = GoRouter(
       path: Routes.orderSuccess,
       builder: (context, state) => const OrderSuccessView(),
     ),
+
   
-    GoRoute(
-      path: Routes.reviews,
-      builder: (context, state) => const ReviewsView(),
-    ),
-    GoRoute(
-      path: Routes.addReview,
-      builder: (context, state) => const ReviewsViewBody(),
-    ),
+    
+
     GoRoute(
       path: Routes.authbuttonsview,
       builder: (context, state) => const AuthButtonsView(),

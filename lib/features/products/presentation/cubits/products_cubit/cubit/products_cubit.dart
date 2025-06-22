@@ -27,4 +27,18 @@ class ProductsCubit extends Cubit<ProductsState> {
           '❗ $e '));
     }
   }
+  getProductById(int id)async{
+    try {
+      emit(ProductsLoading());
+      final result = await getAllProduct.call(EndPoints.getProductByCategoryId(id));
+      result.fold(
+        (C) => emit(ProductsError(
+            "❗$C ")),
+        (success) => emit(ProductsLoaded(success)),
+      );
+    } catch (e) {
+      emit(ProductsError(
+          '❗ $e '));
+    }
+  }
 }

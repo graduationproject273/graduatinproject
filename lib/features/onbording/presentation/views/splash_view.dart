@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gradution/constants/images.dart';
 import 'package:gradution/core/routeing/routes.dart';
+import 'package:gradution/core/styles/colors.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -66,7 +67,7 @@ class _SplashViewState extends State<SplashView>
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       // ignore: deprecated_member_use
-                      color: Colors.blue.withOpacity(0.2),
+                      color: maincolor.withOpacity(0.2),
                     ),
                   ),
                   // الدائرة الثانية
@@ -76,7 +77,7 @@ class _SplashViewState extends State<SplashView>
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       // ignore: deprecated_member_use
-                      color: Colors.blue.withOpacity(0.4),
+                      color: maincolor.withOpacity(0.4),
                     ),
                   ),
                   // الدائرة الثالثة
@@ -86,12 +87,12 @@ class _SplashViewState extends State<SplashView>
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       // ignore: deprecated_member_use
-                      color: Colors.blue.withOpacity(0.6),
+                      color: maincolor.withOpacity(0.6),
                     ),
                   ),
                   // شعار في المنتصف
                   Image.asset(
-                     Assets.imagesSplahimagee, // مسار الشعار
+                     Assets.imagesModifylogo, // مسار الشعار
                     width: 240.h,
                     height: 240.h,
                   ),

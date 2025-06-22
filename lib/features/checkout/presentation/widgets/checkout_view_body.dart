@@ -122,42 +122,4 @@ class _CheckoutPageState extends State<CheckoutPage> {
     );
   }
 
-  void _showOrderConfirmation() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          title: Row(
-            children: [
-              Icon(Icons.check_circle, color: Color(0xFF00917C), size: 30),
-              SizedBox(width: 8),
-              Text('Order Confirmed'),
-            ],
-          ),
-          content: Text(
-            'Thank you! Your order has been confirmed successfully. We will contact you soon to confirm the delivery date.',
-            style: TextStyle(fontSize: 16),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                'OK',
-                style: TextStyle(
-                  color: Color(0xFF00917C),
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ],
-        );
-      },
-    );
   }
-}

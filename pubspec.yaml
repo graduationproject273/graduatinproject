@@ -69,6 +69,7 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+   
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
@@ -76,7 +77,6 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -123,6 +123,12 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/splahimagee.png"
+  min_sdk_android: 2
+
 flutter_assets:
   assets_path: assets/images
   output_path: lib/constants/

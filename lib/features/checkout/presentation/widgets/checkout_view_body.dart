@@ -6,6 +6,7 @@ import 'package:gradution/features/checkout/presentation/cubit/cubit/checkout_cu
 import 'package:gradution/features/checkout/presentation/widgets/checkout_address.dart';
 import 'package:gradution/features/checkout/presentation/widgets/checkout_payment.dart';
 import 'package:gradution/features/checkout/presentation/widgets/order_summery.dart';
+import 'package:gradution/features/sellerDashboard/presentation/cubit/getorders/getorders_cubit.dart';
 
 class CheckoutPage extends StatefulWidget {
   final List<CartItemEntity> cartItems;
@@ -80,84 +81,68 @@ class _CheckoutPageState extends State<CheckoutPage> {
   }
 
   Widget _buildCheckoutButton() {
-    return SizedBox(
-      width: double.infinity,
-      height: 56,
-      child: ElevatedButton(
-        onPressed: () {
-          if (context.read<CheckoutCubit>().formKey.currentState!.validate()) {
-            context.read<CheckoutCubit>().checkout(
-                  paymentMethod: context.read<CheckoutCubit>().paymentMethod,
-                  shippingAddress:
-                      context.read<CheckoutCubit>().addressController.text,
-                  items: context.read<CheckoutCubit>().items,
-                );
-            print(context.read<CheckoutCubit>().items[0].id);
-         //   _showOrderConfirmation();
-          }
-        },
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Color(0xFF00917C),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          elevation: 2,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.check_circle, color: Colors.white),
-            SizedBox(width: 8),
-            Text(
-              'Confirm Order - \$3,822.00',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  return SizedBox(
+    width: double.infinity,
+    height: 56,
+    child: BlocConsumer<CheckoutCubit, CheckoutState>(
+      listener: (context, state) {
+        if (state is CheckoutSuccess) {
+          // ✅ تحديث قائمة الطلبات
+          context.read<GetordersCubit>().getorders();
 
-  void _showOrderConfirmation() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
+          // ✅ الانتقال لصفحة الطلبات بعد نجاح الشراء
+          //Navigator.of(context).pushReplacementNamed(''); // أو GoRouter.of(context).go('/orders');
+
+          // ✅ إشعار نجاح
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Order added successfully!')),
+          );
+        } else if (state is CheckoutError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(state.message)),
+          );
+        }
+      },
+      builder: (context, state) {
+        return ElevatedButton(
+          onPressed: () {
+            if (context.read<CheckoutCubit>().formKey.currentState!.validate()) {
+              context.read<CheckoutCubit>().checkout(
+                    paymentMethod: context.read<CheckoutCubit>().paymentMethod,
+                    shippingAddress:
+                        context.read<CheckoutCubit>().addressController.text,
+                    items: context.read<CheckoutCubit>().items,
+                  );
+            }
+          },
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Color(0xFF00917C),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            elevation: 2,
           ),
-          title: Row(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(Icons.check_circle, color: Color(0xFF00917C), size: 30),
+              Icon(Icons.check_circle, color: Colors.white),
               SizedBox(width: 8),
-              Text('Order Confirmed'),
-            ],
-          ),
-          content: Text(
-            'Thank you! Your order has been confirmed successfully. We will contact you soon to confirm the delivery date.',
-            style: TextStyle(fontSize: 16),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
-              },
-              child: Text(
-                'OK',
+              Text(
+                'Confirm Order',
                 style: TextStyle(
-                  color: Color(0xFF00917C),
+                  fontSize: 18,
                   fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
-    );
-  }
+    ),
+  );
+}
+
+
+  
 }

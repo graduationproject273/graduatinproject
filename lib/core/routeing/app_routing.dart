@@ -12,7 +12,6 @@ import 'package:gradution/features/authintication/sinup/presentation/pages/sinup
 import 'package:gradution/features/authintication/typeUser/presentation/views/usertype_view.dart';
 import 'package:gradution/features/blog/presentation/view/blog_details_view.dart';
 import 'package:gradution/features/blog/presentation/view/blog_view.dart';
-import 'package:gradution/features/cart/domain/entities/cart_entity.dart';
 import 'package:gradution/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:gradution/features/cart/presentation/cubits/cubit/cart_cubit.dart';
 import 'package:gradution/features/cart/presentation/views/cart_view.dart';
@@ -31,7 +30,6 @@ import 'package:gradution/features/orders/presentation/pages/orders_view.dart';
 import 'package:gradution/features/products/domain/entities/product_entity.dart';
 import 'package:gradution/features/products/presentation/view/product_details_view.dart';
 import 'package:gradution/features/products/presentation/view/product_view.dart';
-import 'package:gradution/features/profile/presentation/views/profile_view.dart';
 import 'package:gradution/features/reviews/presentation/view/reviews_view.dart';
 import 'package:gradution/features/reviews/presentation/view/add_reviews_view.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/profile/profile_cubit.dart';
@@ -39,10 +37,10 @@ import 'package:gradution/features/sellerDashboard/presentation/pages/add_produc
 import 'package:gradution/features/sellerDashboard/presentation/pages/edit_product_seller.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/order_view.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/products_seller_view.dart';
-import 'package:gradution/features/sellerDashboard/presentation/pages/profile_seller.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/seller_dashboard_view.dart';
 import 'package:gradution/features/sellerDashboard/presentation/widgets/dasboard_widet.dart';
 import 'package:gradution/features/sellerDashboard/presentation/widgets/payments_widets.dart';
+import 'package:gradution/features/sellerDashboard/presentation/widgets/profile_seller_widget.dart';
 import 'package:gradution/features/sellerDashboard/presentation/widgets/transaction_widet.dart';
 import 'package:gradution/features/services/presentation/pages/services_view.dart';
 import 'package:gradution/features/services/presentation/widgets/appointment_widget.dart';
@@ -140,10 +138,7 @@ final GoRouter router = GoRouter(
       path: Routes.orderSuccess,
       builder: (context, state) => const OrderSuccessView(),
     ),
-    GoRoute(
-      path: Routes.profile,
-      builder: (context, state) => const ProfileView(),
-    ),
+  
     GoRoute(
       path: Routes.reviews,
       builder: (context, state) => const ReviewsView(),
@@ -196,21 +191,31 @@ final GoRouter router = GoRouter(
       path: Routes.dashboardhome,
       builder: (context, state) => const DasboardWidet(),
     ),
-    GoRoute(
-      path: Routes.profileSeller,
-      builder: (context, state) => BlocProvider(
-        create: (context) => sl<ProfileCubit>()..getProfile(),
-        child: const ProfileSeller(),
+GoRoute(
+  path: Routes.profileSeller,
+  name: Routes.profile,
+  pageBuilder: (context, state) {
+    return MaterialPage(
+      child: BlocProvider.value(
+        value: sl<ProfileCubit>(),
+        child: const ProfileSellerWidget(), // StatefulWidget فيه initState
       ),
+    );
+  },
+),
+ GoRoute(
+      path: Routes.userprofile,
+      pageBuilder: (context, state) {
+        return MaterialPage(child: BlocProvider.value(value: sl<UserprofileCubit>(), child: const UserProfile()));
+      }
     ),
+
+
     GoRoute(
       path: Routes.ordersview,
       builder: (context, state) => OrdersPage(),
     ),
-     GoRoute(
-      path: Routes.userprofile,
-      builder: (context, state) => UserProfile(),
-    ),
+    
   ],
   errorBuilder: (context, state) => const Scaffold(
     body: Center(child: Text('Page not found')),

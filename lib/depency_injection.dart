@@ -121,9 +121,10 @@ void setup() {
       ));
   sl.registerFactory(() => ProductsCubit(sl()));
 
-  sl.registerFactory(() => ProfileCubit(sl()));
- sl.registerFactory(() => UserprofileCubit(sl()));
- sl.registerFactory(() => GetordersCubit( sl(), sl()));
+  sl.registerLazySingleton<ProfileCubit>(() => ProfileCubit(sl()));
+
+ sl.registerLazySingleton<UserprofileCubit>(() => UserprofileCubit(sl()));
+ sl.registerLazySingleton<GetordersCubit>(() => GetordersCubit( sl(), sl()));
  sl.registerFactory(() => OrdersCubit(sl()));
  sl.registerFactory(() => CheckoutCubit(sl()));
 

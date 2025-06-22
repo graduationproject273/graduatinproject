@@ -5,9 +5,23 @@ import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/features/home/presentation/cubit/cubit/userprofile_cubit.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/profile/profile_cubit.dart';
 
-
-class UserProfileWidget extends StatelessWidget {
+class UserProfileWidget extends StatefulWidget {
   const UserProfileWidget({super.key});
+
+  @override
+  State<UserProfileWidget> createState() => _UserProfileWidgetState();
+}
+
+class _UserProfileWidgetState extends State<UserProfileWidget> {
+  @override
+  void initState() {
+    super.initState();
+
+    final cubit = context.read<UserprofileCubit>();
+    if (cubit.state is! GetuserProfile) {
+      cubit.getUserProfile();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,16 +110,16 @@ class UserProfileWidget extends StatelessWidget {
                               _buildInfoCard(
                                 icon: Icons.person_outline,
                                 title: 'First Name',
-                                subtitle: state.profile.firstname
-                                    , // Replace with actual first + last name
+                                subtitle: state.profile
+                                    .firstname, // Replace with actual first + last name
                               ),
 
                               const SizedBox(height: 15),
                               _buildInfoCard(
                                 icon: Icons.person_outline,
                                 title: 'Last Name',
-                                subtitle: state.profile.lastname
-                                    , // Replace with actual first + last name
+                                subtitle: state.profile
+                                    .lastname, // Replace with actual first + last name
                               ),
 
                               const SizedBox(height: 15),
@@ -114,68 +128,25 @@ class UserProfileWidget extends StatelessWidget {
                               _buildInfoCard(
                                 icon: Icons.email_outlined,
                                 title: 'Email',
-                                subtitle: state.profile.email
-                                    , // Replace with actual email
+                                subtitle: state
+                                    .profile.email, // Replace with actual email
                               ),
 
                               const SizedBox(height: 30),
 
-                              // Edit profile button
-                              SizedBox(
-                                width: double.infinity,
-                                height: 50,
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    // Handle edit profile action
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('Edit Profile clicked'),
-                                      ),
-                                    );
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFF00917C),
-                                    foregroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    elevation: 3,
-                                  ),
-                                  child: const Text(
-                                    'Edit Profile',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
 
-                              const SizedBox(height: 20),
-
-                              // Additional options
-                              _buildOptionTile(
-                                icon: Icons.settings_outlined,
-                                title: 'Settings',
-                                onTap: () {},
-                              ),
-
-                              _buildOptionTile(
-                                icon: Icons.help_outline,
-                                title: 'Help & Support',
-                                onTap: () {},
-                              ),
+                             
 
                               BlocListener<UserprofileCubit, UserprofileState>(
                                 listener: (context, state) {
-        if (state is RemoveSeller) {
-          GoRouter.of(context).go(Routes.login);
-        } else if (state is ProfileFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Error')),
-          );
-        }
-      },
+                                  if (state is RemoveSeller) {
+                                    GoRouter.of(context).go(Routes.login);
+                                  } else if (state is ProfileFailure) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text('Error')),
+                                    );
+                                  }
+                                },
                                 child: _buildOptionTile(
                                   icon: Icons.logout_outlined,
                                   title: 'Logout',
@@ -325,16 +296,18 @@ void showLogoutDialog(BuildContext parentcontext) {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text("Cancel", style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+          child: const Text("Cancel",
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
         ),
         TextButton(
           onPressed: () {
             parentcontext.read<ProfileCubit>().clearSeller();
           },
-          child: const Text("Logout", style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold)),
+          child: const Text("Logout",
+              style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
         ),
       ],
     ),
   );
 }
-

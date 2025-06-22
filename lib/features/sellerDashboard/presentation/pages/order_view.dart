@@ -16,8 +16,8 @@ class OrderView extends StatelessWidget {
         backgroundColor: Colors.white,
       ),
       backgroundColor: Colors.white,
-      body: BlocProvider(
-        create: (context) => sl<GetordersCubit>()..getorders(),
+      body: BlocProvider.value(
+        value: sl<GetordersCubit>(),
         child: OrderViewBody(),
       ),
     );

@@ -4,8 +4,23 @@ import 'package:go_router/go_router.dart';
 import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/profile/profile_cubit.dart';
 
-class ProfileSellerWidget extends StatelessWidget {
+class ProfileSellerWidget extends StatefulWidget {
   const ProfileSellerWidget({super.key});
+
+  @override
+  State<ProfileSellerWidget> createState() => _ProfileSellerWidgetState();
+}
+
+class _ProfileSellerWidgetState extends State<ProfileSellerWidget> {
+  @override
+  void initState() {
+    super.initState();
+
+    final cubit = context.read<ProfileCubit>();
+    if (cubit.state is! GetProfile) {
+      cubit.getProfile();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -118,62 +133,18 @@ class ProfileSellerWidget extends StatelessWidget {
 
                               const SizedBox(height: 30),
 
-                              // Edit profile button
-                              SizedBox(
-                                width: double.infinity,
-                                height: 50,
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    // Handle edit profile action
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                        content: Text('Edit Profile clicked'),
-                                      ),
-                                    );
-                                  },
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xFF00917C),
-                                    foregroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
-                                    ),
-                                    elevation: 3,
-                                  ),
-                                  child: const Text(
-                                    'Edit Profile',
-                                    style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ),
-
-                              const SizedBox(height: 20),
-
-                              // Additional options
-                              _buildOptionTile(
-                                icon: Icons.settings_outlined,
-                                title: 'Settings',
-                                onTap: () {},
-                              ),
-
-                              _buildOptionTile(
-                                icon: Icons.help_outline,
-                                title: 'Help & Support',
-                                onTap: () {},
-                              ),
-
                               BlocListener<ProfileCubit, ProfileState>(
                                 listener: (context, state) {
-        if (state is RemoveSeller) {
-          GoRouter.of(context).go(Routes.login);
-        } else if (state is ProfileFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.failure.errMessage)),
-          );
-        }
-      },
+                                  if (state is RemoveSeller) {
+                                    GoRouter.of(context).go(Routes.login);
+                                  } else if (state is ProfileFailure) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                          content:
+                                              Text(state.failure.errMessage)),
+                                    );
+                                  }
+                                },
                                 child: _buildOptionTile(
                                   icon: Icons.logout_outlined,
                                   title: 'Logout',
@@ -323,16 +294,18 @@ void showLogoutDialog(BuildContext parentcontext) {
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(),
-          child: const Text("Cancel", style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold)),
+          child: const Text("Cancel",
+              style:
+                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
         ),
         TextButton(
           onPressed: () {
             parentcontext.read<ProfileCubit>().clearSeller();
           },
-          child: const Text("Logout", style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold)),
+          child: const Text("Logout",
+              style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
         ),
       ],
     ),
   );
 }
-

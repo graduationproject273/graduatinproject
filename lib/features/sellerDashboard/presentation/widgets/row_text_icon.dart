@@ -77,7 +77,7 @@ class _RowTextAndIconState extends State<RowTextAndIcon> {
   @override
   void initState() {
     super.initState();
-    // استخدم القيمة مباشرة بدلًا من المقارنة
+   
     selectedStatus = widget.order.status;
   }
 
@@ -151,17 +151,11 @@ class _RowTextAndIconState extends State<RowTextAndIcon> {
                       value: selectedStatus,
                       underline: const SizedBox(),
                       dropdownColor: Colors.white,
-                      style: Textstyles.textitemcart.copyWith(
-                        fontSize: 12.sp,
-                        color: Colors.black,
-                      ),
+                      style: TextStyle(color: Colors.black),
                       items: OrderItemStatus.values.map((status) {
                         return DropdownMenuItem<OrderItemStatus>(
                           value: status,
-                          child: Text(
-                            status.name,
-                            style: TextStyle(color: Colors.black),
-                          ),
+                          child: Text(status.name),
                         );
                       }).toList(),
                       onChanged: (status) {
@@ -170,13 +164,9 @@ class _RowTextAndIconState extends State<RowTextAndIcon> {
                             selectedStatus = status;
                           });
 
-                          // تغيير الحالة ثم إعادة التحميل
                           context
                               .read<GetordersCubit>()
-                              .changeStatusOrder(widget.order.id, status.name)
-                              .then((_) {
-                            context.read<GetordersCubit>().getorders();
-                          });
+                              .changeStatusOrder(widget.order.id, status.name);
                         }
                       },
                     ),

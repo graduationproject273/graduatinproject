@@ -11,7 +11,10 @@ final class CheckoutInitial extends CheckoutState {}
 
 final class CheckoutLoading extends CheckoutState {}
 
-final class CheckoutSuccess extends CheckoutState {}
+final class CheckoutSuccess extends CheckoutState {
+  final OrderEntity order;
+  const CheckoutSuccess(this.order);
+}
 
 final class CheckoutError extends CheckoutState {
   final String message;

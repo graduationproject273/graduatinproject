@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gradution/core/styles/extention.dart';
@@ -27,11 +28,16 @@ class ProductsDetailsViewBody extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: 25.h),
-                  Image.network(
+                  CachedNetworkImage(imageUrl: 
                    productEntity.image !,
                     height: 300.h,
                     width: double.infinity,
                     fit: BoxFit.fill,
+                    errorListener: (value) => const Icon(
+                      Icons.image_not_supported_outlined,
+                      size: 32,
+                      color: Colors.grey,
+                    ),
                   ),
                   SizedBox(height: 25.h),
                   Text(

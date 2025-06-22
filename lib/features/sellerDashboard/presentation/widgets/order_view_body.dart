@@ -3,8 +3,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/getorders/getorders_cubit.dart';
 import 'package:gradution/features/sellerDashboard/presentation/widgets/listview_orders.dart';
 
-class OrderViewBody extends StatelessWidget {
+class OrderViewBody extends StatefulWidget {
   const OrderViewBody({super.key});
+
+  @override
+  State<OrderViewBody> createState() => _OrderViewBodyState();
+}
+
+class _OrderViewBodyState extends State<OrderViewBody> {
+  @override
+  void initState() {
+    super.initState();
+    final cubit = context.read<GetordersCubit>();
+
+    // نجيب الداتا فقط لو مش متحملة قبل كدا
+    if (cubit.state is! GetordersLoaded) {
+      cubit.getorders();
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -13,23 +30,34 @@ class OrderViewBody extends StatelessWidget {
       child: Container(
         decoration: BoxDecoration(
           border: Border.all(color: Colors.black12, width: 1),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'All Orders ',
+              const Text(
+                'All Orders',
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              Text(
-                'Total Orders: 10',
-                style: TextStyle(fontSize: 16, color: Colors.grey),
+
+              // ✅ عدد الطلبات بناءً على الحالة
+              BlocBuilder<GetordersCubit, GetordersState>(
+                builder: (context, state) {
+                  if (state is GetordersLoaded) {
+                    return Text(
+                      'Total Orders: ${state.ordersList.length}',
+                      style: const TextStyle(fontSize: 16, color: Colors.grey),
+                    );
+                  } else {
+                    return const SizedBox(); // فارغ لو مش لوديد
+                  }
+                },
               ),
-              // Add your order details here
-              // For example, you can use ListView to display order items
+
+              const SizedBox(height: 8),
+
               Expanded(
                 child: BlocConsumer<GetordersCubit, GetordersState>(
                   listener: (context, state) {
@@ -38,16 +66,14 @@ class OrderViewBody extends StatelessWidget {
                         SnackBar(content: Text(state.errMessage)),
                       );
                     }
-
                   },
                   builder: (context, state) {
                     if (state is GetordersLoading) {
-                      return Center(child: CircularProgressIndicator());
-                    }
-                    if (state is GetordersLoaded) {
-                      return ListviewOrders(orders: state.ordersList,);
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is GetordersLoaded) {
+                      return ListviewOrders(orders: state.ordersList);
                     } else {
-                      return Center(child: Text('No orders found'));
+                      return const Center(child: Text('No orders found'));
                     }
                   },
                 ),

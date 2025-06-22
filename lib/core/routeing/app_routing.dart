@@ -33,10 +33,10 @@ import 'package:gradution/features/sellerDashboard/presentation/pages/add_produc
 import 'package:gradution/features/sellerDashboard/presentation/pages/edit_product_seller.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/order_view.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/products_seller_view.dart';
-import 'package:gradution/features/sellerDashboard/presentation/pages/profile_seller.dart';
 import 'package:gradution/features/sellerDashboard/presentation/pages/seller_dashboard_view.dart';
 import 'package:gradution/features/sellerDashboard/presentation/widgets/dasboard_widet.dart';
 import 'package:gradution/features/sellerDashboard/presentation/widgets/payments_widets.dart';
+import 'package:gradution/features/sellerDashboard/presentation/widgets/profile_seller_widget.dart';
 import 'package:gradution/features/sellerDashboard/presentation/widgets/transaction_widet.dart';
 import 'package:gradution/features/services/presentation/pages/services_view.dart';
 import 'package:gradution/features/services/presentation/widgets/appointment_widget.dart';
@@ -127,7 +127,10 @@ final GoRouter router = GoRouter(
       path: Routes.orderSuccess,
       builder: (context, state) => const OrderSuccessView(),
     ),
+
+  
     
+
     GoRoute(
       path: Routes.authbuttonsview,
       builder: (context, state) => const AuthButtonsView(),
@@ -172,21 +175,31 @@ final GoRouter router = GoRouter(
       path: Routes.dashboardhome,
       builder: (context, state) => const DasboardWidet(),
     ),
-    GoRoute(
-      path: Routes.profileSeller,
-      builder: (context, state) => BlocProvider(
-        create: (context) => sl<ProfileCubit>()..getProfile(),
-        child: const ProfileSeller(),
+GoRoute(
+  path: Routes.profileSeller,
+  name: Routes.profile,
+  pageBuilder: (context, state) {
+    return MaterialPage(
+      child: BlocProvider.value(
+        value: sl<ProfileCubit>(),
+        child: const ProfileSellerWidget(), // StatefulWidget فيه initState
       ),
+    );
+  },
+),
+ GoRoute(
+      path: Routes.userprofile,
+      pageBuilder: (context, state) {
+        return MaterialPage(child: BlocProvider.value(value: sl<UserprofileCubit>(), child: const UserProfile()));
+      }
     ),
+
+
     GoRoute(
       path: Routes.ordersview,
       builder: (context, state) => OrdersPage(),
     ),
-     GoRoute(
-      path: Routes.userprofile,
-      builder: (context, state) => UserProfile(),
-    ),
+    
   ],
   errorBuilder: (context, state) => const Scaffold(
     body: Center(child: Text('Page not found')),

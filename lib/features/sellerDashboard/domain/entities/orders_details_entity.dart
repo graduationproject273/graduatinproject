@@ -1,6 +1,6 @@
 import 'package:gradution/core/enums/status.dart';
 
-abstract class OrdersDetailsEntity {
+class OrdersDetailsEntity {
   final int id;
   final int orderId;
   final int productId;
@@ -28,4 +28,34 @@ abstract class OrdersDetailsEntity {
     required this.userEmail,
     required this.userName,
   });
+
+  OrdersDetailsEntity copyWith({
+    int? id,
+    int? orderId,
+    int? productId,
+    String? productName,
+    int? quantity,
+    double? unitPrice,
+    double? subtotal,
+    OrderItemStatus? status,
+    DateTime? createdAt,
+    int? userId,
+    String? userEmail,
+    String? userName,
+  }) {
+    return OrdersDetailsEntity(
+      id: id ?? this.id,
+      orderId: orderId ?? this.orderId,
+      productId: productId ?? this.productId,
+      productName: productName ?? this.productName,
+      quantity: quantity ?? this.quantity,
+      unitPrice: unitPrice ?? this.unitPrice,
+      subtotal: subtotal ?? this.subtotal,
+      status: status ?? this.status,
+      createdAt: createdAt ?? this.createdAt,
+      userId: userId ?? this.userId,
+      userEmail: userEmail ?? this.userEmail,
+      userName: userName ?? this.userName,
+    );
+  }
 }

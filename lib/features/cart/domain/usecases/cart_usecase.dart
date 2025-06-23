@@ -9,7 +9,7 @@ class CartUseCase {
 
   CartUseCase({required this.cartRepositry});
 
-  Future<Either<Failure, CartEntity>> addToCart(CartEntity cart) {
+  Future<Either<Failure, CartItemEntity>> addToCart(CartEntity cart) {
     return cartRepositry.addToCart(cart);
   }
 

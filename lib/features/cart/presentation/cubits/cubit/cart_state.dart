@@ -30,12 +30,9 @@ final class CartUpdated extends CartState {
 }
 
 final class AddtoCartLoaded extends CartState {
-  final CartEntity cartItem;
+ 
 
-  const AddtoCartLoaded({required this.cartItem});
 
-  @override
-  List<Object> get props => [cartItem];
 }
 
 final class CartError extends CartState {

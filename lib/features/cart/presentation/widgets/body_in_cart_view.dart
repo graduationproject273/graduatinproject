@@ -24,7 +24,7 @@ class bodyInCartView extends StatelessWidget {
           SizedBox(
             height: 40.h,
           ),
-          containerTotalPrice(cartEntity: products,),
+          ContainerTotalPrice(cartEntity: products,),
           SizedBox(
             height: 40.h,
           ),

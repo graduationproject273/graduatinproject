@@ -10,15 +10,12 @@ import 'package:gradution/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:gradution/features/cart/presentation/cubits/cubit/cart_cubit.dart';
 
 // ignore: camel_case_types
-class containerTotalPrice extends StatelessWidget {
+class ContainerTotalPrice extends StatelessWidget {
   final List<CartItemEntity> cartEntity;
-  const containerTotalPrice({super.key, required this.cartEntity});
+  const ContainerTotalPrice({super.key, required this.cartEntity});
 
   @override
   Widget build(BuildContext context) {
-    final totalPrice =
-        context.watch<CartCubit>().getTotalPrice().toStringAsFixed(2);
-
     return Container(
       width: double.infinity,
       height: 0.15.sh,
@@ -30,18 +27,27 @@ class containerTotalPrice extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'Total  ',
-                    style: Textstyles.textitemtotal,
-                  ),
-                  Text(
-                    totalPrice + ' EGP',
-                    style: Textstyles.texttotalprice,
-                  ),
-                ],
+              // 👇 استخدم StreamBuilder هنا
+              StreamBuilder<double>(
+                stream: Stream.value(context.watch<CartCubit>().getTotalPrice()),
+                builder: (context, snapshot) {
+                  final priceText = snapshot.hasData
+                      ? "${snapshot.data!.toStringAsFixed(2)} EGP"
+                      : "0.00 EGP";
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Total',
+                        style: Textstyles.textitemtotal,
+                      ),
+                      Text(
+                        priceText,
+                        style: Textstyles.texttotalprice,
+                      ),
+                    ],
+                  );
+                },
               ),
               const Spacer(),
               SizedBox(
@@ -49,7 +55,8 @@ class containerTotalPrice extends StatelessWidget {
                 child: CustomButton(
                   text: 'Checkout',
                   onTap: () {
-                    GoRouter.of(context).push(Routes.checkout,extra: cartEntity);
+                    GoRouter.of(context)
+                        .push(Routes.checkout, extra: cartEntity);
                   },
                   buttonbodycolor: maincolor,
                   textcolor: Colors.white,
@@ -62,3 +69,4 @@ class containerTotalPrice extends StatelessWidget {
     );
   }
 }
+

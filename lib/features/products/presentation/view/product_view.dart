@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gradution/core/databases/api/end_points.dart';
 import 'package:gradution/depency_injection.dart';
 import 'package:gradution/features/products/presentation/cubits/products_cubit/cubit/products_cubit.dart';
 
@@ -12,7 +13,7 @@ class ProductView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<ProductsCubit>()..getAllProduct,
+      create: (context) => sl<ProductsCubit>()..getProduct(EndPoints.products),
       child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppberInProduct(

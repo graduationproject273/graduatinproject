@@ -24,11 +24,7 @@ class listItemsCarts extends StatelessWidget {
               SnackBar(content: Text(state.message)),
             );
           }
-          if (state is CartLoaded) {
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('cart loaded successfully')),
-            );
-          }
+      
         },
         builder: (context, state) {
           return ListView.builder(

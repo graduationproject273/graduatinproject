@@ -32,4 +32,15 @@ class CartItemModel extends CartItemEntity {
       'product': (productcartentity as ProductCartModel).toJson(),
     };
   }
+  CartItemModel copyWith({
+    int? id,
+    ProductCartModel? productcartentity,
+    int? quantity,
+  }) {
+    return CartItemModel(
+      id: id ?? this.id,
+      productcartentity: productcartentity ?? this.productcartentity,
+      quantity: quantity ?? this.quantity,
+    );
+  }
 }

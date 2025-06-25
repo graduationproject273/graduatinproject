@@ -13,24 +13,21 @@ class Containerindrawer extends StatelessWidget {
 
   final List<IconData> iconss = [
     Icons.man_outlined,
-    CupertinoIcons.list_bullet,
+    Icons.production_quantity_limits,
     CupertinoIcons.cart_fill,
-    CupertinoIcons.gift_fill,
+    CupertinoIcons.cart_badge_plus,
     CupertinoIcons.phone_fill,
-    CupertinoIcons.info_circle_fill,
-    CupertinoIcons.money_dollar_circle,
-    CupertinoIcons.person_fill,
+ 
   ];
 
   final List<String> titles = [
     'Add Seller',
-    'Categories',
+    'Products',
     'Carts',
-    'Rewards',
+    'Orders',
     'Contact Us',
-    'About Us',
-    'Refer & Earn',
-    'Profile',
+   
+   
   ];
 
   // دالة لتحديد الصفحة بناءً على الـ index
@@ -40,26 +37,18 @@ class Containerindrawer extends StatelessWidget {
         GoRouter.of(context).go(Routes.signupseller);
         break;
       case 1:
-       GoRouter.of(context).push(Routes.addsellerProducts);
+       GoRouter.of(context).push(Routes.products);
         break;
       case 2:
         GoRouter.of(context).push(Routes.cart);
         break;
       case 3:
-         GoRouter.of(context).push(Routes.reviews);
+         GoRouter.of(context).push(Routes.ordersview);
         break;
       case 4:
-        GoRouter.of(context).go(Routes.checkout);
+        GoRouter.of(context).go(Routes.service);
         break;
-      case 5:
-      GoRouter.of(context).go(Routes.home);
-        break;
-      case 6:
-         GoRouter.of(context).go(Routes.home);
-        break;
-      case 7:
-        GoRouter.of(context).go(Routes.home);
-        break;
+     
       default:
          GoRouter.of(context).go(Routes.home);
     }

@@ -9,11 +9,11 @@ class CartUseCase {
 
   CartUseCase({required this.cartRepositry});
 
-  Future<Either<Failure, CartEntity>> addToCart(CartEntity cart) {
+  Future<Either<Failure, CartItemEntity>> addToCart(CartEntity cart) {
     return cartRepositry.addToCart(cart);
   }
 
-  Future<Either<Failure, List<CartItemEntity>>> getCartItems() {
+  Stream<Either<Failure, List<CartItemEntity>>> getCartItems() {
     return cartRepositry.getCartItems();
   }
 

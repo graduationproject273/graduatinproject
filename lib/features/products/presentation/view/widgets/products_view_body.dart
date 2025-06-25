@@ -15,7 +15,7 @@ class ProductsViewBody extends StatelessWidget {
       child: Column(
         spacing: 15.h,
         children: [
-          const listItemsCategories(),
+          const ListItemsCategories(),
           const DropdownDiscount(),
             CustomTextformfield(
             hintText: 'Search for product',

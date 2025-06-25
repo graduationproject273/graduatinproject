@@ -78,8 +78,8 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: Routes.productDetails,
-      builder: (context, state) => BlocProvider(
-        create: (context) => sl<CartCubit>(),
+      builder: (context, state) => BlocProvider.value(
+        value:  sl<CartCubit>(),
         child: ProductDetailesView(
           productEntity: state.extra as ProductEntity,
         ),
@@ -112,8 +112,8 @@ final GoRouter router = GoRouter(
     GoRoute(
       path: Routes.cart,
       builder: (context, state) {
-        return BlocProvider(
-          create: (context) =>
+        return BlocProvider.value(
+          value: 
               sl<CartCubit>()..getCartItems(), // استدعاء getCartItems
           child: CartView(),
         );

@@ -48,7 +48,7 @@ class ButtonsInDetailsPage extends StatelessWidget {
                   context.read<CartCubit>().addToCart(
                         CartEntity(
                           productId: productentity.id,
-                          quantity: productentity.quantityAvailable,
+                          quantity: 1,
                         ),
                       );
                 },

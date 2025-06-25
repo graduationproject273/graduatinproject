@@ -49,31 +49,25 @@ class _CheckoutPageState extends State<CheckoutPage> {
             ),
             SizedBox(height: 20),
 
-            /// Payment Method
-            BlocConsumer<CheckoutCubit, CheckoutState>(
-              listener: (context, state) {
-                if (state is CheckoutError) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(state.message)),
-                  );
-                }
-              },
-              builder: (context, state) {
-                final cubit = context.read<CheckoutCubit>();
+        BlocBuilder<CheckoutCubit, CheckoutState>(
+  buildWhen: (previous, current) => current is CheckoutPaymentMethodChanged,
+  builder: (context, state) {
+    final cubit = context.read<CheckoutCubit>();
 
-                return CheckoutPayment(
-                  cardNumberController: cubit.cardNumberController,
-                  expiryController: cubit.expiryController,
-                  cvvController: cubit.cvvController,
-                  selectedPaymentMethod: cubit.paymentMethod,
-                  onChanged: (String? value) {
-                    if (value != null) {
-                      cubit.setPaymentMethod(value);
-                    }
-                  },
-                );
-              },
-            ),
+    return CheckoutPayment(
+      cardNumberController: cubit.cardNumberController,
+      expiryController: cubit.expiryController,
+      cvvController: cubit.cvvController,
+      selectedPaymentMethod: cubit.paymentMethod,
+      onChanged: (String? value) {
+        if (value != null) {
+          cubit.setPaymentMethod(value);
+        }
+      },
+    );
+  },
+),
+
 
             SizedBox(height: 20),
             _buildCheckoutButton(),

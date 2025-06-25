@@ -15,19 +15,21 @@ class CheckoutCubit extends Cubit<CheckoutState> {
   final cardNumberController = TextEditingController();
   final expiryController = TextEditingController();
   final cvvController = TextEditingController();
-  final addressController = TextEditingController(); // ✅ أضف هذا
+  final addressController = TextEditingController();
   List<ItemOrderModel> items = [];
   String paymentMethod = 'cash';
-  bool saveAddress = false; // ✅ اختياري لو حبيت تحفط العنوان
+  bool saveAddress = false;
 
-  void setPaymentMethod(String method) {
-    paymentMethod = method;
-    emit(CheckoutPaymentMethodChanged(method));
+  void setPaymentMethod(String value) {
+    if (paymentMethod != value) {
+      paymentMethod = value;
+      emit(CheckoutPaymentMethodChanged(value));
+    }
   }
 
   void toggleSaveAddress(bool value) {
     saveAddress = value;
-    emit(CheckoutAddressSavedToggled(value)); // حالة لتحديث واجهة الحفظ
+    emit(CheckoutAddressSavedToggled(value));
   }
 
   Future<void> checkout({
@@ -45,7 +47,7 @@ class CheckoutCubit extends Cubit<CheckoutState> {
 
     failureOrOrder.fold(
       (failure) => emit(CheckoutError(failure.errMessage)),
-      (order) => emit(CheckoutSuccess( order )),
+      (order) => emit(CheckoutSuccess(order)),
     );
   }
 }

@@ -27,19 +27,28 @@ class GetProductSellerCubit extends Cubit<GetProductSellerState> {
           '❗ $e '));
     }
   }
-  Future<void> deleteProduct(int id) async {
-    emit(GetProductSellerLoading());
-    try {
-      final result = await edi.deleteProduct(id);
-      result.fold(
-        (failure) => emit(GetAllProductError("❗ ${failure.errMessage}")),
-        (_) {
-          getAllProductfun(); // Refresh the product list after deletion
-        },
-      );
-    } catch (e) {
-      emit(GetAllProductError('❗$e '));
-    }
+ Future<void> deleteProduct(int id) async {
+  try {
+    final result = await edi.deleteProduct(id);
+    result.fold(
+      (failure) => emit(GetAllProductError("❗ ${failure.errMessage}")),
+      (_) {
+        removeProductLocally(id); // 👈 حذف المنتج محليًا
+      },
+    );
+  } catch (e) {
+    emit(GetAllProductError('❗$e '));
   }
+}
+
+
+  void removeProductLocally(int id) {
+  if (state is GetProductSellerSuccess) {
+    final currentList = List<ProductEntity>.from((state as GetProductSellerSuccess).products);
+    currentList.removeWhere((element) => element.id == id);
+    emit(GetProductSellerSuccess(currentList));
+  }
+}
+
   
 }

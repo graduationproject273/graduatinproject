@@ -41,7 +41,7 @@ class CustomTextformfield extends StatelessWidget {
       minLines: maxLines,
       controller: controller,
       obscureText: obscureText ?? false,
-      onSaved: onSaved,
+      onChanged: onSaved,
       keyboardType: keyboardType,
       validator: validator,
       cursorHeight: cursorHeight,

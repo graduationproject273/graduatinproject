@@ -41,4 +41,18 @@ class ProductsCubit extends Cubit<ProductsState> {
           '❗ $e '));
     }
   }
+
+  Future<void> getProductWithGridLoading(String endPoint) async {
+  try {
+    emit(ProductsGridLoading()); // ✅ عرض تحميل داخل الـ Grid فقط
+    final result = await getAllProduct.call(endPoint);
+    result.fold(
+      (failure) => emit(ProductsError("❗$failure")),
+      (success) => emit(ProductsLoaded(success)),
+    );
+  } catch (e) {
+    emit(ProductsError('❗ $e '));
+  }
+}
+
 }

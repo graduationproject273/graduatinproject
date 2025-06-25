@@ -16,3 +16,4 @@ final class ProductsError extends ProductsState {
   final String message;
    ProductsError(this.message);
 }
+class ProductsGridLoading extends ProductsState {} // ✅ جديد

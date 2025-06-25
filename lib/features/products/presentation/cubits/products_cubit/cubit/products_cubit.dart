@@ -12,11 +12,11 @@ class ProductsCubit extends Cubit<ProductsState> {
   final GetAllProduct getAllProduct;  
   ProductsCubit(this.getAllProduct) : super(ProductsInitial());
 
-
-  Future<void> getProduct ()async{
+ 
+  Future<void> getProduct (String endPoint)async{
   try {
     emit(ProductsLoading());
-      final result = await getAllProduct.call(EndPoints.products);
+      final result = await getAllProduct.call(     endPoint);
       result.fold(
         (C) => emit(ProductsError(
             "❗$C ")),

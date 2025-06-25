@@ -55,8 +55,11 @@ class ContainerTotalPrice extends StatelessWidget {
                 child: CustomButton(
                   text: 'Checkout',
                   onTap: () {
-                    GoRouter.of(context)
-                        .push(Routes.checkout, extra: cartEntity);
+                    if (cartEntity.isNotEmpty) {
+                      context.read<CartCubit>().clearCart();
+  GoRouter.of(context)
+      .push(Routes.checkout, extra: cartEntity);
+}
                   },
                   buttonbodycolor: maincolor,
                   textcolor: Colors.white,

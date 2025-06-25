@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gradution/core/databases/api/end_points.dart';
 import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/depency_injection.dart';
 import 'package:gradution/features/products/presentation/cubits/products_cubit/cubit/products_cubit.dart';
@@ -12,7 +13,7 @@ class BestSelling extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => sl<ProductsCubit>()..getProduct(),
+      create: (context) => sl<ProductsCubit>()..getProduct(EndPoints.products),
       child: Column(
         //spacing: 10.h,
         //mainAxisSize: MainAxisSize.min,

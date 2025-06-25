@@ -1,57 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gradution/constants/images.dart';
-import 'package:gradution/core/styles/colors.dart';
-import 'package:gradution/features/home/data/models/categories_model.dart';
-import 'package:gradution/features/products/presentation/view/widgets/item_category.dart';
 
-// ignore: camel_case_types
-class listItemsCategories extends StatefulWidget {
-  const listItemsCategories({
-    super.key,
-  });
+import 'package:gradution/core/databases/api/end_points.dart';
+import 'package:gradution/core/styles/colors.dart';
+import 'package:gradution/depency_injection.dart';
+import 'package:gradution/features/products/presentation/cubits/products_cubit/cubit/products_cubit.dart';
+import 'package:gradution/features/products/presentation/view/widgets/item_category.dart';
+import 'package:gradution/features/sellerDashboard/presentation/cubit/get_all_category_cubit/get_all_category_cubit.dart';
+
+class ListItemsCategories extends StatefulWidget {
+  const ListItemsCategories({super.key});
 
   @override
-  State<listItemsCategories> createState() => _listItemsCategoriesState();
+  State<ListItemsCategories> createState() => _ListItemsCategoriesState();
 }
 
-// ignore: camel_case_types
-class _listItemsCategoriesState extends State<listItemsCategories> {
+class _ListItemsCategoriesState extends State<ListItemsCategories> {
   int selectedIndex = 0;
-  final List<CategoriesModel> categories = [
-    CategoriesModel(name: 'All', Assets.imagesCameres),
-    CategoriesModel(name: 'Cameres', Assets.imagesCameres),
-    CategoriesModel(name: 'Home Security', Assets.imagesHomesecurity),
-    CategoriesModel(name: 'Network', Assets.imagesNetwork),
-    CategoriesModel(name: 'Smart lighting', Assets.imagesSmartlighting),
-    CategoriesModel(name: 'Thermostat', Assets.imagesThermostat),
-    CategoriesModel(name: 'Smart Centeral Control Panels', Assets.imagesSmarcenteralcontrolpanels),
-    // CategoriesModel(name: 'Category 7', imageUrl: Assets.imagesThermostat),
-  ];
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-       height: 40.h,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 7,
-        itemBuilder: (BuildContext context, int index) {
-          return GestureDetector(
-            onTap: () {
-              setState(() {
-                selectedIndex = index;
-              });
-            },
-            child: itemCategory(
-              text: categories[index].name,
-              color: selectedIndex == index ? maincolor : coloritemcat,
-            ),
-          );
-        },
+    return BlocProvider.value(
+      value: sl<GetAllCategoryCubit>()..getAllcategoryfunction(),
+      child: SizedBox(
+        height: 40.h,
+        child: BlocBuilder<GetAllCategoryCubit, GetAllCategoryState>(
+          builder: (context, state) {
+            if (state is GetAllCategoyError) {
+              return Center(
+                child: Text(
+                  state.error,
+                  style: const TextStyle(color: Colors.red),
+                ),
+              );
+            } else if (state is GetAllCategorySuccess) {
+              final categories = state.categories;
+
+              if (categories.isEmpty) {
+                return const Center(child: Text("لا توجد تصنيفات"));
+              }
+
+              return ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: categories.length,
+                itemBuilder: (BuildContext context, int index) {
+                  final category = categories[index];
+                  return Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 4.w),
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(20.r),
+                      onTap: () {
+                        setState(() {
+                          selectedIndex = index;
+                        });
+                        context.read<ProductsCubit>().getProduct(
+                          '${EndPoints.products}/filter?categoryId=${category.id}',
+                        );
+                      },
+                      child: itemCategory(
+                        text: category.name,
+                        color:
+                            selectedIndex == index ? maincolor : coloritemcat,
+                      ),
+                    ),
+                  );
+                },
+              );
+            } else {
+              return const Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
       ),
     );
   }
 }
-
-// ignore: camel_case_types

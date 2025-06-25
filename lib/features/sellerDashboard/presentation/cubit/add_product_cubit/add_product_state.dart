@@ -62,3 +62,5 @@ final class GetFi extends AddProductState {
   @override
   List<Object> get props => [error];
 }
+
+final class StatusLoading extends AddProductState {}

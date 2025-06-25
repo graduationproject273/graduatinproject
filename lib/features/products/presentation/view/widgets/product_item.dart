@@ -15,12 +15,15 @@ class ProductItem extends StatefulWidget {
     super.key,
     required this.productEntity,
     this.onFavoritePressed,
-    this.showFavoriteButton = true,
+    this.showFavoriteButton = true, this.onTap,
+    
   });
 
   final ProductEntity productEntity;
   final VoidCallback? onFavoritePressed;
   final bool showFavoriteButton;
+  final VoidCallback? onTap;
+
 
   @override
   State<ProductItem> createState() => _ProductItemState();
@@ -41,14 +44,20 @@ class _ProductItemState extends State<ProductItem> {
     return roles?.contains("ROLE_SELLER") ?? false;
   }
 
-  void _handleProductTap() {
-    if (_isSeller) {
-      context.push(Routes.sellerProductsEdit, extra: widget.productEntity);
-    } else {
-      context.push(Routes.productDetails, extra: widget.productEntity);
-    }
-  }
+  void _handleProductTap() async {
+  if (_isSeller) {
+    final result = await context.push<bool>(
+      Routes.sellerProductsEdit,
+      extra: widget.productEntity,
+    );
 
+    if (result == true && mounted) {
+      context.read<GetProductSellerCubit>().getAllProductfun();
+    }
+  } else {
+    context.push(Routes.productDetails, extra: widget.productEntity);
+  }
+}
 
 
   Future<void> _handleDelete() async {
@@ -57,9 +66,14 @@ class _ProductItemState extends State<ProductItem> {
       setState(() {
         _isDeleting = true;
       });
-      
+
       try {
-        await context.read<GetProductSellerCubit>().deleteProduct(widget.productEntity.id);
+        await context
+            .read<GetProductSellerCubit>()
+            .deleteProduct(widget.productEntity.id);
+        context
+            .read<GetProductSellerCubit>()
+            .removeProductLocally(widget.productEntity.id);
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -83,17 +97,47 @@ class _ProductItemState extends State<ProductItem> {
     return showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Delete Product'),
-        content: Text('Are you sure you want to delete "${widget.productEntity.name}"?'),
+        backgroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.r),
+        ),
+        title: Text(
+          'Delete Product',
+          style: TextStyle(
+            color: Colors.black87,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        content: Text(
+          'Are you sure you want to delete "${widget.productEntity.name}"?',
+          style: TextStyle(
+            color: Colors.black54,
+            fontSize: 14.sp,
+          ),
+        ),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Cancel'),
+            child: Text(
+              'Cancel',
+              style: TextStyle(
+                color: Colors.grey[600],
+                fontWeight: FontWeight.w500,
+              ),
+            ),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('Delete'),
+            style: TextButton.styleFrom(
+              foregroundColor: Colors.red,
+            ),
+            child: Text(
+              'Delete',
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
         ],
       ),
@@ -102,11 +146,10 @@ class _ProductItemState extends State<ProductItem> {
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    
     return Semantics(
       button: true,
-      label: 'Product: ${widget.productEntity.name}, Price: ${widget.productEntity.price} EGP',
+      label:
+          'Product: ${widget.productEntity.name}, Price: ${widget.productEntity.price} EGP',
       child: GestureDetector(
         onTap: _handleProductTap,
         child: Card(
@@ -124,24 +167,19 @@ class _ProductItemState extends State<ProductItem> {
               aspectRatio: 270 / 150,
               child: Stack(
                 children: [
-                  // Main content
                   Positioned.fill(
                     child: Padding(
                       padding: EdgeInsets.all(12.w),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          // Image section
                           Expanded(
                             flex: 3,
                             child: Center(
                               child: _buildProductImage(),
                             ),
                           ),
-                          
                           SizedBox(height: 8.h),
-                          
-                          // Product details
                           Expanded(
                             flex: 2,
                             child: Column(
@@ -157,12 +195,7 @@ class _ProductItemState extends State<ProductItem> {
                       ),
                     ),
                   ),
-                  
-                  // Action buttons
                   if (_isSeller) _buildDeleteButton(),
-                  
-                  // Loading overlay for delete operation
-                  if (_isDeleting) _buildLoadingOverlay(),
                 ],
               ),
             ),
@@ -226,7 +259,6 @@ class _ProductItemState extends State<ProductItem> {
     );
   }
 
- 
   Widget _buildDeleteButton() {
     return Positioned(
       top: 8.h,
@@ -263,40 +295,6 @@ class _ProductItemState extends State<ProductItem> {
                     size: 20.sp,
                     color: Colors.red[600],
                   ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildLoadingOverlay() {
-    return Positioned.fill(
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(12.r),
-          color: Colors.black26,
-        ),
-        child: Center(
-          child: Container(
-            padding: EdgeInsets.all(16.w),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8.r),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CircularProgressIndicator(),
-                SizedBox(height: 8.h),
-                Text(
-                  'Deleting...',
-                  style: TextStyle(
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-              ],
-            ),
           ),
         ),
       ),

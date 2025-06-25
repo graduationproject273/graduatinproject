@@ -9,8 +9,8 @@ class AddProductSellerView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<AddProductCubit>(),
+    return BlocProvider.value(
+      value:  sl<AddProductCubit>(),
       child: BlocBuilder<AddProductCubit, AddProductState>(
         builder: (context, state) {
           return ModalProgressHUD(inAsyncCall: state is AddProductLoading,

@@ -40,6 +40,7 @@ class AddProductCubit extends Cubit<AddProductState> {
     }
 
     try {
+      emit(StatusLoading());
       CloudinaryResponse response = await cloudinary.uploadFile(
         CloudinaryFile.fromFile(
           pickedFile.path,
@@ -61,15 +62,13 @@ class AddProductCubit extends Cubit<AddProductState> {
       final result = await addproductUsecase.call(add);
       print(result);
       result.fold(
-        (failure) => emit(AddProductFailure(
-            "❗ ${failure.errMessage}")),
+        (failure) => emit(AddProductFailure("❗ ${failure.errMessage}")),
         (success) {
           emit(AddProductSuccess(success));
         },
       );
     } catch (e) {
-      emit(AddProductFailure(
-          '❗$e '));
+      emit(AddProductFailure('❗$e '));
     }
   }
 }

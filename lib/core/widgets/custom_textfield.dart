@@ -16,8 +16,12 @@ class CustomTextformfield extends StatelessWidget {
   final Color? colorborder;
   final InputBorder? border;
  final int? minLines;
+ final Widget? prefix;
+  final Widget? prefixIcon;
   const CustomTextformfield({
     super.key,
+    this.prefix,
+    this.prefixIcon,
     required this.hintText,
     required this.keyboardType,
     this.controller,
@@ -38,6 +42,7 @@ class CustomTextformfield extends StatelessWidget {
     final inputBorder = border ?? buildBorder();
 
     return TextFormField(
+      
       minLines: maxLines,
       controller: controller,
       obscureText: obscureText ?? false,
@@ -48,6 +53,8 @@ class CustomTextformfield extends StatelessWidget {
       cursorColor: maincolor,
       maxLines: obscureText == true ? 1 : maxLines,
       decoration: InputDecoration(
+        prefixIcon: prefixIcon,
+        prefix:prefix,
         hintStyle: hintStyle,
         suffixIcon: suffixIcon,
         suffixIconColor: const Color(0xFFC9CECF),

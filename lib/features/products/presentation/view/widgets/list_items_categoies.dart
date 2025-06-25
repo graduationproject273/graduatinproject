@@ -10,7 +10,12 @@ import 'package:gradution/features/products/presentation/view/widgets/item_categ
 import 'package:gradution/features/sellerDashboard/presentation/cubit/get_all_category_cubit/get_all_category_cubit.dart';
 
 class ListItemsCategories extends StatefulWidget {
-  const ListItemsCategories({super.key});
+  final ValueChanged<String> onCategorySelected;
+
+  const ListItemsCategories({
+    super.key,
+    required this.onCategorySelected,
+  });
 
   @override
   State<ListItemsCategories> createState() => _ListItemsCategoriesState();
@@ -28,12 +33,7 @@ class _ListItemsCategoriesState extends State<ListItemsCategories> {
         child: BlocBuilder<GetAllCategoryCubit, GetAllCategoryState>(
           builder: (context, state) {
             if (state is GetAllCategoyError) {
-              return Center(
-                child: Text(
-                  state.error,
-                  style: const TextStyle(color: Colors.red),
-                ),
-              );
+              return Center(child: Text(state.error, style: const TextStyle(color: Colors.red)));
             } else if (state is GetAllCategorySuccess) {
               final categories = state.categories;
 
@@ -44,24 +44,27 @@ class _ListItemsCategoriesState extends State<ListItemsCategories> {
               return ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: categories.length,
-                itemBuilder: (BuildContext context, int index) {
+                itemBuilder: (context, index) {
                   final category = categories[index];
                   return Padding(
                     padding: EdgeInsets.symmetric(horizontal: 4.w),
                     child: InkWell(
                       borderRadius: BorderRadius.circular(20.r),
-                      onTap: () {
-                        setState(() {
-                          selectedIndex = index;
-                        });
-                        context.read<ProductsCubit>().getProduct(
-                          '${EndPoints.products}/filter?categoryId=${category.id}',
-                        );
-                      },
+                  onTap: () {
+  setState(() {
+    selectedIndex = index;
+  });
+
+  widget.onCategorySelected(category.name);
+
+  context.read<ProductsCubit>().getProductWithGridLoading(
+    '${EndPoints.products}/filter?categoryId=${category.id}',
+  );
+},
+
                       child: itemCategory(
                         text: category.name,
-                        color:
-                            selectedIndex == index ? maincolor : coloritemcat,
+                        color: selectedIndex == index ? maincolor : coloritemcat,
                       ),
                     ),
                   );

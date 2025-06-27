@@ -5,6 +5,7 @@ import 'package:gradution/core/styles/colors.dart';
 import 'package:gradution/features/cart/domain/entities/cart_entity.dart';
 import 'package:gradution/features/cart/presentation/cubits/cubit/cart_cubit.dart';
 import 'package:gradution/features/products/domain/entities/product_entity.dart';
+import 'package:gradution/features/products/presentation/view/widgets/favorite_button.dart';
 
 class ButtonsInDetailsPage extends StatefulWidget {
   const ButtonsInDetailsPage({super.key, required this.productentity});
@@ -16,7 +17,7 @@ class ButtonsInDetailsPage extends StatefulWidget {
 
 class _ButtonsInDetailsPageState extends State<ButtonsInDetailsPage>
     with TickerProviderStateMixin {
-  bool _isFavorite = false;
+  
   bool _isAddingToCart = false;
   late AnimationController _favoriteAnimationController;
   late AnimationController _cartAnimationController;
@@ -61,51 +62,7 @@ class _ButtonsInDetailsPageState extends State<ButtonsInDetailsPage>
     super.dispose();
   }
 
-  void _toggleFavorite() {
-    setState(() {
-      _isFavorite = !_isFavorite;
-    });
-    
-    if (_isFavorite) {
-      _favoriteAnimationController.forward();
-    } else {
-      _favoriteAnimationController.reverse();
-    }
-    
-    // Show confirmation message
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Container(
-          padding: EdgeInsets.symmetric(vertical: 4.h),
-          child: Row(
-            children: [
-              Icon(
-                _isFavorite ? Icons.favorite : Icons.heart_broken,
-                color: Colors.white,
-                size: 20.w,
-              ),
-              SizedBox(width: 12.w),
-              Text(
-                _isFavorite ? 'Product added to favorites!' : 'Product removed from favorites',
-                style: TextStyle(
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-        ),
-        backgroundColor: _isFavorite ? Colors.red[600] : Colors.grey[600],
-        duration: const Duration(seconds: 2),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        margin: EdgeInsets.all(16.w),
-      ),
-    );
-  }
-
+ 
   void _addToCart() {
     if (_isAddingToCart) return;
     
@@ -210,55 +167,7 @@ class _ButtonsInDetailsPageState extends State<ButtonsInDetailsPage>
               builder: (context, child) {
                 return Transform.scale(
                   scale: _favoriteScaleAnimation.value,
-                  child: Container(
-                    width: 60.w,
-                    height: 60.h,
-                    decoration: BoxDecoration(
-                      gradient: _isFavorite
-                          ? LinearGradient(
-                              colors: [
-                                Colors.red[400]!,
-                                Colors.red[600]!,
-                              ],
-                              begin: Alignment.topLeft,
-                              end: Alignment.bottomRight,
-                            )
-                          : LinearGradient(
-                              colors: [
-                                Colors.grey[200]!,
-                                Colors.grey[300]!,
-                              ],
-                            ),
-                      borderRadius: BorderRadius.circular(20),
-                      boxShadow: [
-                        BoxShadow(
-                          color: _isFavorite 
-                            ? Colors.red.withOpacity(0.3)
-                            : Colors.grey.withOpacity(0.2),
-                          blurRadius: 8,
-                          offset: const Offset(0, 4),
-                        ),
-                      ],
-                    ),
-                    child: Material(
-                      color: Colors.transparent,
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(20),
-                        onTap: _toggleFavorite,
-                        child: Center(
-                          child: AnimatedSwitcher(
-                            duration: const Duration(milliseconds: 200),
-                            child: Icon(
-                              _isFavorite ? Icons.favorite : Icons.favorite_border,
-                              key: ValueKey(_isFavorite),
-                              color: _isFavorite ? Colors.white : Colors.grey[600],
-                              size: 24.w,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
+                  child: FavoriteButton(id: widget.productentity.id),
                 );
               },
             ),
@@ -352,3 +261,4 @@ class _ButtonsInDetailsPageState extends State<ButtonsInDetailsPage>
     );
   }
 }
+

@@ -9,7 +9,7 @@ abstract class ApiConsumer {
 
   Future<Either<String, Response>> post({
     String? path,
-    Object? data,
+    dynamic? data,
     Map<String, dynamic>? queryParameters,
     bool isFormData = false,
     Map<String, String>? headers,

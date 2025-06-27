@@ -8,3 +8,22 @@ abstract class FavoriteState extends Equatable {
 }
 
 class FavoriteInitial extends FavoriteState {}
+class FavoriteLoading extends FavoriteState {}
+class FavoriteIsTrue extends FavoriteState {}
+class FavoriteIsFalse extends FavoriteState {}
+class FavoriteError extends FavoriteState {
+  final String message;
+
+  const FavoriteError({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
+class FavoriteAdded extends FavoriteState {
+  final FavoriteEntity favorite;
+
+  const FavoriteAdded({required this.favorite});
+
+  @override
+  List<Object> get props => [favorite];
+}

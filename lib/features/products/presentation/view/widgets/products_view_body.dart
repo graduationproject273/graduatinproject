@@ -264,9 +264,11 @@ class _ProductsViewBodyState extends State<ProductsViewBody>
       child: CustomTextformfield(
         hintText: 'Search for products...',
         onSaved: (value) {
+          // ignore: unnecessary_null_comparison
           setState(() {
             searchQuery = value ?? '';
           });
+          return null;
         },
         keyboardType: TextInputType.text,
         prefixIcon: Container(

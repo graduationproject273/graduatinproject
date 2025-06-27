@@ -48,7 +48,8 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: Routes.splash,
-  builder: (context, state) => SplashView(),    ),
+      builder: (context, state) => SplashView(),
+    ),
     GoRoute(
       path: Routes.onBoarding,
       builder: (context, state) => OnboardingView(),
@@ -176,10 +177,7 @@ final GoRouter router = GoRouter(
       path: Routes.dashboardhome,
       builder: (context, state) => const DasboardWidet(),
     ),
-    GoRoute(
-      path: Routes.favorite,
-      builder: (context, state) => const FavoriteView(),
-    ),
+ 
     GoRoute(
       path: Routes.profileSeller,
       name: Routes.profile,

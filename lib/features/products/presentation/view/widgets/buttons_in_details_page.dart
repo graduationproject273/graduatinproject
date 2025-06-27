@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gradution/core/styles/colors.dart';
-import 'package:gradution/core/widgets/custom_button.dart';
 import 'package:gradution/features/cart/domain/entities/cart_entity.dart';
 import 'package:gradution/features/cart/presentation/cubits/cubit/cart_cubit.dart';
 import 'package:gradution/features/products/domain/entities/product_entity.dart';
@@ -23,7 +22,6 @@ class _ButtonsInDetailsPageState extends State<ButtonsInDetailsPage>
   late AnimationController _cartAnimationController;
   late Animation<double> _favoriteScaleAnimation;
   late Animation<double> _cartScaleAnimation;
-  late Animation<Color?> _favoriteColorAnimation;
 
   @override
   void initState() {
@@ -53,10 +51,7 @@ class _ButtonsInDetailsPageState extends State<ButtonsInDetailsPage>
       curve: Curves.easeInOut,
     ));
     
-    _favoriteColorAnimation = ColorTween(
-      begin: Colors.grey[400],
-      end: Colors.red,
-    ).animate(_favoriteAnimationController);
+    
   }
 
   @override

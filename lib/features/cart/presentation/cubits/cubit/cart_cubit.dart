@@ -44,10 +44,10 @@ class CartCubit extends Cubit<CartState> {
         emit(AddtoCartLoaded());
         // ✅ تحديث فوري للـ UI
         if (currentState is CartLoaded) {
-          final currentItems = (currentState as CartLoaded).productitems;
+          final currentItems = (currentState).productitems;
           _updateCartWithNewItem(currentItems, addedItem);
         } else if (currentState is CartUpdated) {
-          final currentItems = (currentState as CartUpdated).productitems;
+          final currentItems = (currentState ).productitems;
           _updateCartWithNewItem(currentItems, addedItem);
         } else {
           // إعادة تحميل إذا لم تكن السلة محملة
@@ -195,9 +195,9 @@ class CartCubit extends Cubit<CartState> {
 extension CartItemCopy on CartItemEntity {
   CartItemEntity copyWith({int? quantity}) {
     return CartItemEntity(
-      id: this.id,
+      id: id,
       quantity: quantity ?? this.quantity,
-      productcartentity: this.productcartentity,
+      productcartentity: productcartentity,
     );
   }
 }

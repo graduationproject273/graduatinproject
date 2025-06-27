@@ -2,11 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gradution/core/styles/colors.dart';
-import 'package:gradution/core/styles/extention.dart';
-import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/features/products/domain/entities/product_entity.dart';
 import 'package:gradution/features/products/presentation/view/widgets/buttons_in_details_page.dart';
-import 'package:gradution/features/products/presentation/view/widgets/number_reviews.dart';
 import 'package:gradution/features/products/presentation/view/widgets/prices_in_details_product.dart';
 
 class ProductsDetailsViewBody extends StatefulWidget {
@@ -101,6 +98,7 @@ class _ProductsDetailsViewBodyState extends State<ProductsDetailsViewBody>
                             ),
                             boxShadow: [
                               BoxShadow(
+                                // ignore: deprecated_member_use
                                 color: Colors.black.withOpacity(0.05),
                                 blurRadius: 20,
                                 offset: const Offset(0, -5),

@@ -49,6 +49,15 @@ class FavoriteListLoaded extends FavoriteState {
   List<Object?> get props => [favorites];
 }
 
+class FavoriteLoaded extends FavoriteState {
+  final List<FavoriteEntity> favorite;
+
+  const FavoriteLoaded({required this.favorite});
+
+  @override
+  List<Object> get props => [favorite];
+}
+
 /// Empty favorites list
 class FavoriteListEmpty extends FavoriteState {}
 

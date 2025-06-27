@@ -50,7 +50,11 @@ import 'package:gradution/features/authintication/sinup/presentation/cubit/user_
 import 'package:gradution/features/sellerDashboard/presentation/cubit/getorders/getorders_cubit.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/edit_product_cubit/edit_product_seller_cubit.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/get_all_category_cubit/get_all_category_cubit.dart';
-import 'package:gradution/features/sellerDashboard/presentation/cubit/profile/profile_cubit.dart'; // تأكد من مسار DioConsumer
+import 'package:gradution/features/sellerDashboard/presentation/cubit/profile/profile_cubit.dart';
+import 'package:gradution/features/services/data/repostries/offer_repositry_Impl.dart';
+import 'package:gradution/features/services/domain/repositries/offer_repositry.dart';
+import 'package:gradution/features/services/domain/usecases/offer_usecase.dart';
+import 'package:gradution/features/services/presentation/cubit/services_cubit.dart'; // تأكد من مسار DioConsumer
 
 final sl = GetIt.instance;
 
@@ -68,35 +72,47 @@ void setup() {
 
   sl.registerLazySingleton<GetAllCategoryDatasourseLocal>(
       () => GetAllCategoryDatasourseLocal(cache: CacheHelper()));
-  sl.registerLazySingleton<GetAllCategoryDatasourseRemote>(() => GetAllCategoryDatasourseRemote(dioConsumer: sl()));
+  sl.registerLazySingleton<GetAllCategoryDatasourseRemote>(
+      () => GetAllCategoryDatasourseRemote(dioConsumer: sl()));
 
-  sl.registerLazySingleton<OrderDataSourseLocal>(() => OrderDataSourseLocal(cache: CacheHelper()));
-  sl.registerLazySingleton<OrderDataSourseRemote>(() => OrderDataSourseRemote( sl()));
+  sl.registerLazySingleton<OrderDataSourseLocal>(
+      () => OrderDataSourseLocal(cache: CacheHelper()));
+  sl.registerLazySingleton<OrderDataSourseRemote>(
+      () => OrderDataSourseRemote(sl()));
 
- // Repositry
+  // Repositry
   sl.registerLazySingleton<ProductsRepositry>(() => ProductRepositryImpli(
       networkInfo: sl(),
       productDataSourseLocal: sl(),
       productDataSourseRemote: sl()));
   sl.registerLazySingleton<SignupRepositry>(() => UserRepoImpl(sl()));
-   sl.registerLazySingleton<CartRepositry>(() => CartRepositryImpl(dioConsumer:  sl()));
-      sl.registerLazySingleton<OrderRepositry>(() => OrderRepositoryImpl(localDataSource:  sl(), remoteDataSource:  sl(),networkInfo: NetworkInfoImpl(DataConnectionChecker())));
-     sl.registerLazySingleton<UserProfileRepo>(() => UserProfileRepoImpl(dioConsumer:  sl()));
-     sl.registerLazySingleton<CheckoutRepositry>(()=>CheckoutRepoImpl(sl() ));
+  sl.registerLazySingleton<CartRepositry>(
+      () => CartRepositryImpl(dioConsumer: sl()));
+  sl.registerLazySingleton<OrderRepositry>(() => OrderRepositoryImpl(
+      localDataSource: sl(),
+      remoteDataSource: sl(),
+      networkInfo: NetworkInfoImpl(DataConnectionChecker())));
+  sl.registerLazySingleton<UserProfileRepo>(
+      () => UserProfileRepoImpl(dioConsumer: sl()));
+  sl.registerLazySingleton<CheckoutRepositry>(() => CheckoutRepoImpl(sl()));
   sl.registerLazySingleton<SellerRepositry>(
       () => SellerRepositryImpl(sl(), sl(), sl(), sl()));
+  sl.registerLazySingleton<OfferRepositry>(
+      () => OfferRepositryImpl(dioConsumer: sl()));
 
   // Usecase
   sl.registerLazySingleton(() => GetAllCategory(productsRepositry: sl()));
   sl.registerLazySingleton(() => GetAllProduct(repository: sl()));
   sl.registerLazySingleton(() => CartUseCase(cartRepositry: sl()));
-  sl.registerLazySingleton(() => ProfileUsecase( sl()));
-  sl.registerLazySingleton(() => UserProfileUsecase( sl()));
-  sl.registerLazySingleton(() => GetordersUsecase( sl()));
-  sl.registerLazySingleton(() => UpdateStatusOrder( sl()));
-   sl.registerLazySingleton(() => GetAllOrder( sl()));
-  sl.registerLazySingleton<EditProduct>(() => EditProduct(sellerRepositry: sl()));
-   sl.registerLazySingleton(() => CheckoutUsecase( sl()));
+  sl.registerLazySingleton(() => ProfileUsecase(sl()));
+  sl.registerLazySingleton(() => UserProfileUsecase(sl()));
+  sl.registerLazySingleton(() => GetordersUsecase(sl()));
+  sl.registerLazySingleton(() => UpdateStatusOrder(sl()));
+  sl.registerLazySingleton(() => GetAllOrder(sl()));
+  sl.registerLazySingleton(() => OfferUsecase(offerRepositry: sl()));
+  sl.registerLazySingleton<EditProduct>(
+      () => EditProduct(sellerRepositry: sl()));
+  sl.registerLazySingleton(() => CheckoutUsecase(sl()));
 
   sl.registerLazySingleton(() => AddproductUsecase(productsRepositry: sl()));
 
@@ -108,7 +124,7 @@ void setup() {
   sl.registerLazySingleton(() => SellerUsecase(signupRepositry: sl()));
   sl.registerLazySingleton(() => SignupSellerUsecase(sl()));
   sl.registerLazySingleton(() => LoginUsecase(sl()));
-    sl.registerLazySingleton(() => EditProductSellerCubit(sl()));
+  sl.registerLazySingleton(() => EditProductSellerCubit(sl()));
 
   sl.registerFactory(() => GetProductSellerCubit(sl(), sl()));
   sl.registerFactory(() => GetAllCategoryCubit(sl<GetAllCategory>()));
@@ -122,10 +138,9 @@ void setup() {
 
   sl.registerLazySingleton<ProfileCubit>(() => ProfileCubit(sl()));
 
- sl.registerLazySingleton<UserprofileCubit>(() => UserprofileCubit(sl()));
- sl.registerLazySingleton<GetordersCubit>(() => GetordersCubit( sl(), sl()));
- sl.registerFactory(() => OrdersCubit(sl()));
- sl.registerFactory(() => CheckoutCubit(sl()));
-
-  
+  sl.registerLazySingleton<UserprofileCubit>(() => UserprofileCubit(sl()));
+  sl.registerLazySingleton<GetordersCubit>(() => GetordersCubit(sl(), sl()));
+  sl.registerFactory(() => OrdersCubit(sl()));
+  sl.registerFactory(() => CheckoutCubit(sl()));
+  sl.registerFactory(() => ServicesCubit(sl()));
 }

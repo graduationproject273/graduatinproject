@@ -27,3 +27,12 @@ class FavoriteAdded extends FavoriteState {
   @override
   List<Object> get props => [favorite];
 }
+
+class FavoriteLoaded extends FavoriteState {
+  final List<FavoriteEntity> favorite;
+
+  const FavoriteLoaded({required this.favorite});
+
+  @override
+  List<Object> get props => [favorite];
+}

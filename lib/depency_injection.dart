@@ -14,6 +14,10 @@ import 'package:gradution/features/checkout/data/repositries/checkout_repo_Impl.
 import 'package:gradution/features/checkout/domain/repostries/checkout_repositry.dart';
 import 'package:gradution/features/checkout/domain/usecases/checkout_usecase.dart';
 import 'package:gradution/features/checkout/presentation/cubit/cubit/checkout_cubit.dart';
+import 'package:gradution/features/favorite/data/repositories/favorite_repositroy_impl.dart';
+import 'package:gradution/features/favorite/domain/repositories/favourite_repsitry.dart';
+import 'package:gradution/features/favorite/domain/usecases/favorite_usecase.dart';
+import 'package:gradution/features/favorite/presentation/cubit/favorite_cubit.dart';
 import 'package:gradution/features/home/data/repostries/user_profile_repo_Impl.dart';
 import 'package:gradution/features/home/domain/repositries/user_profile_repo.dart';
 import 'package:gradution/features/home/domain/usecases/user_profile_usecase.dart';
@@ -99,6 +103,8 @@ void setup() {
       () => SellerRepositryImpl(sl(), sl(), sl(), sl()));
   sl.registerLazySingleton<OfferRepositry>(
       () => OfferRepositryImpl(dioConsumer: sl()));
+      sl.registerLazySingleton<FavoriteRepository>(
+      () => FavoriteRepositroyImpl(dioConsumer: sl()));
 
   // Usecase
   sl.registerLazySingleton(() => GetAllCategory(productsRepositry: sl()));
@@ -115,6 +121,7 @@ void setup() {
   sl.registerLazySingleton(() => CheckoutUsecase(sl()));
 
   sl.registerLazySingleton(() => AddproductUsecase(productsRepositry: sl()));
+  sl.registerLazySingleton(() => FavoriteUsecase( sl()));
 
   // Cubit
   sl.registerLazySingleton(() => AddProductCubit(
@@ -135,6 +142,7 @@ void setup() {
         sl(),
       ));
   sl.registerFactory(() => ProductsCubit(sl()));
+  sl.registerFactory(() => FavoriteCubit(sl()));
 
   sl.registerLazySingleton<ProfileCubit>(() => ProfileCubit(sl()));
 

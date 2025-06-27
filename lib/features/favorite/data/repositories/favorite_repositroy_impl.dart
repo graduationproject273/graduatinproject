@@ -50,13 +50,12 @@ Future<bool> isFavourite(int id) async {
       path: '${EndPoints.favorites}/check?productId=$id',
     );
 
-    // Assuming response is an Either type
     return response.fold(
       (l) => false, // or handle error as needed
-      (r) => r.data != null && r.data.contains(id) ? true : false,
+      (r) => r.data ,
     );
   } catch (e) {
-    return false; // or handle error as needed
+    throw Failure(errMessage: e.toString()); // or handle error as needed
   }
 }
 

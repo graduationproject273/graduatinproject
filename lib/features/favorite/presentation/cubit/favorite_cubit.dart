@@ -28,6 +28,7 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   }
   Future<void> isFavourite(int id) async {
     final result = await favoriteUsecase.isFavourite(id);
+    print('isFavourite result: $result');
     if (result) {
       emit(FavoriteIsTrue());
     } else {

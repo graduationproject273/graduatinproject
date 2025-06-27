@@ -47,7 +47,7 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: Routes.splash,
-      builder: (context, state) => ServicesView(),
+      builder: (context, state) => SplashView(),
     ),
     GoRoute(
       path: Routes.onBoarding,

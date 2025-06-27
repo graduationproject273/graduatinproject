@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gradution/core/styles/colors.dart';
+import 'package:gradution/features/services/presentation/cubit/services_cubit.dart';
 import 'package:gradution/features/services/presentation/widgets/row_selection_numbers.dart';
 import 'package:gradution/features/services/presentation/widgets/text_in_checkbox.dart';
 
@@ -15,6 +17,8 @@ class _SmartShutterWidgetState extends State<SmartShutterWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<ServicesCubit>();
+
     return Column(
       children: [
         Row(
@@ -25,6 +29,7 @@ class _SmartShutterWidgetState extends State<SmartShutterWidget> {
               onChanged: (value) {
                 setState(() {
                   shutterSelected = value!;
+                  cubit.optionalFeatures['shutter'] = value ? 'enabled' : 'disabled';
                 });
               },
             ),
@@ -32,7 +37,7 @@ class _SmartShutterWidgetState extends State<SmartShutterWidget> {
             Expanded(child: TextInCheckbox(text: 'Smart Shutter')),
           ],
         ),
-        if (shutterSelected) RowNumbersInSelection(),
+        if (shutterSelected) const RowNumbersInSelection(),
       ],
     );
   }

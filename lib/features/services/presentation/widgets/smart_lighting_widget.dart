@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gradution/core/styles/colors.dart';
+import 'package:gradution/features/services/presentation/cubit/services_cubit.dart';
 import 'package:gradution/features/services/presentation/widgets/text_in_checkbox.dart';
 
 class SmartLightingWidget extends StatefulWidget {
@@ -26,6 +28,8 @@ class _SmartLightingWidgetState extends State<SmartLightingWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<ServicesCubit>();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -37,6 +41,9 @@ class _SmartLightingWidgetState extends State<SmartLightingWidget> {
               onChanged: (value) {
                 setState(() {
                   lightingSelected = value!;
+                  if (!lightingSelected) {
+                    selectedLightingOptions.clear();
+                  }
                 });
               },
             ),
@@ -70,6 +77,13 @@ class _SmartLightingWidgetState extends State<SmartLightingWidget> {
                             } else {
                               selectedLightingOptions.remove(option);
                             }
+
+                            cubit.optionalFeatures['lighting'] =
+                                selectedLightingOptions.join(', ');
+
+                            if (option == 'Other' && !selectedLightingOptions.contains('Other')) {
+                              otherLightingController.clear();
+                            }
                           });
                         },
                       ),
@@ -77,12 +91,15 @@ class _SmartLightingWidgetState extends State<SmartLightingWidget> {
                     ],
                   ),
                 );
-              }),
+              }).toList(),
               if (selectedLightingOptions.contains('Other'))
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20.0),
                   child: TextField(
                     controller: otherLightingController,
+                    onChanged: (value) {
+                      cubit.optionalFeatures['lighting_other'] = value;
+                    },
                     decoration: const InputDecoration(
                       hintText: "Please specify?",
                     ),

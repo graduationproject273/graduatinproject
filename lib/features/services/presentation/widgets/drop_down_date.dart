@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 class DropdownDatePicker extends StatefulWidget {
-  const DropdownDatePicker({super.key});
+  final void Function(DateTime)? onDateSelected;
+
+  const DropdownDatePicker({super.key, this.onDateSelected});
 
   @override
-  // ignore: library_private_types_in_public_api
   _DropdownDatePickerState createState() => _DropdownDatePickerState();
 }
 
@@ -15,8 +16,7 @@ class _DropdownDatePickerState extends State<DropdownDatePicker> {
 
   List<int> days = List.generate(31, (index) => index + 1);
   List<int> months = List.generate(12, (index) => index + 1);
-  List<int> years =
-      List.generate(100, (index) => 2025 - index); // from 2025 to 1926
+  List<int> years = List.generate(100, (index) => 2025 - index);
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +29,8 @@ class _DropdownDatePickerState extends State<DropdownDatePicker> {
               child: DropdownButton<int>(
                 dropdownColor: Colors.white,
                 value: selectedDay,
-                hint: Text("Day"),
-                icon: Icon(Icons.keyboard_arrow_down_rounded),
+                hint: const Text("Day"),
+                icon: const Icon(Icons.keyboard_arrow_down_rounded),
                 iconSize: 30,
                 isExpanded: true,
                 items: days.map((day) {
@@ -41,20 +41,20 @@ class _DropdownDatePickerState extends State<DropdownDatePicker> {
                 }).toList(),
                 onChanged: (value) {
                   setState(() => selectedDay = value);
+                  _updateDateIfComplete();
                 },
               ),
             ),
-
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
 
             // Month
             Expanded(
               child: DropdownButton<int>(
                 dropdownColor: Colors.white,
                 value: selectedMonth,
-                icon: Icon(Icons.keyboard_arrow_down_rounded),
+                hint: const Text("Month"),
+                icon: const Icon(Icons.keyboard_arrow_down_rounded),
                 iconSize: 30,
-                hint: Text("Month"),
                 isExpanded: true,
                 items: months.map((month) {
                   return DropdownMenuItem(
@@ -64,20 +64,20 @@ class _DropdownDatePickerState extends State<DropdownDatePicker> {
                 }).toList(),
                 onChanged: (value) {
                   setState(() => selectedMonth = value);
+                  _updateDateIfComplete();
                 },
               ),
             ),
-
-            SizedBox(width: 10),
+            const SizedBox(width: 10),
 
             // Year
             Expanded(
               child: DropdownButton<int>(
                 dropdownColor: Colors.white,
                 value: selectedYear,
-                icon: Icon(Icons.keyboard_arrow_down_rounded),
+                hint: const Text("Year"),
+                icon: const Icon(Icons.keyboard_arrow_down_rounded),
                 iconSize: 30,
-                hint: Text("Year"),
                 isExpanded: true,
                 items: years.map((year) {
                   return DropdownMenuItem(
@@ -87,37 +87,33 @@ class _DropdownDatePickerState extends State<DropdownDatePicker> {
                 }).toList(),
                 onChanged: (value) {
                   setState(() => selectedYear = value);
+                  _updateDateIfComplete();
                 },
               ),
             ),
           ],
         ),
         const SizedBox(height: 30),
-        if (selectedDay != null &&
-            selectedMonth != null &&
-            selectedYear != null)
+        if (selectedDay != null && selectedMonth != null && selectedYear != null)
           Text(
             "Selected Date: $selectedDay / $selectedMonth / $selectedYear",
-            style: TextStyle(fontSize: 18),
+            style: const TextStyle(fontSize: 18),
           ),
       ],
     );
   }
 
+  void _updateDateIfComplete() {
+    if (selectedDay != null && selectedMonth != null && selectedYear != null) {
+      final selectedDate = DateTime(selectedYear!, selectedMonth!, selectedDay!);
+      widget.onDateSelected?.call(selectedDate);
+    }
+  }
+
   String _monthName(int month) {
     const englishMonths = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December"
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
     ];
     return englishMonths[month - 1];
   }

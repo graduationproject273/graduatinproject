@@ -75,6 +75,7 @@ class _CustomAppbarInhomeState extends State<CustomAppbarInhome>
                     GoRouter.of(context).push(Routes.userprofile);
                   },
                   child: CircleAvatar(
+                    backgroundColor: maincolor,
                             radius: 30,
                             child: Image.asset(Assets.imagesAvatar)),
                 ),
@@ -84,9 +85,9 @@ class _CustomAppbarInhomeState extends State<CustomAppbarInhome>
                     GoRouter.of(context).push(Routes.cart);
                    },
                    child: CircleAvatar(
-                   
+                   backgroundColor: maincolor,
                             radius: 30,
-                            child:Icon(Icons.shopping_cart_outlined)),
+                            child:Icon(Icons.shopping_cart_outlined,color: Colors.white,)),
                  ),
               ],
             )

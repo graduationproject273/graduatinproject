@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gradution/core/styles/colors.dart';
 import 'package:gradution/core/styles/extention.dart';
+import 'package:gradution/features/services/presentation/cubit/services_cubit.dart';
 
 class SmartSensorsGridview extends StatefulWidget {
   const SmartSensorsGridview({super.key});
@@ -19,10 +21,10 @@ class _SmartSensorsGridviewState extends State<SmartSensorsGridview> {
     "Water Leakage Sensor",
   ];
 
-  final List<bool> selected = List.generate(6, (_) => false);
-
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<ServicesCubit>();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -40,19 +42,26 @@ class _SmartSensorsGridviewState extends State<SmartSensorsGridview> {
             ),
             itemCount: sensors.length,
             itemBuilder: (BuildContext context, int index) {
+              final sensor = sensors[index];
+              final isSelected = cubit.smartSensors.contains(sensor);
+
               return Row(
                 children: [
                   Checkbox(
                     activeColor: maincolor,
-                    value: selected[index],
+                    value: isSelected,
                     onChanged: (bool? value) {
                       setState(() {
-                        selected[index] = value!;
+                        if (value == true) {
+                          cubit.smartSensors.add(sensor);
+                        } else {
+                          cubit.smartSensors.remove(sensor);
+                        }
                       });
                     },
                   ),
                   Expanded(
-                    child: Text(sensors[index]),
+                    child: Text(sensor),
                   ),
                 ],
               );

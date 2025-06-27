@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:gradution/features/checkout/data/item_oreder_model.dart';
 import 'package:gradution/features/checkout/presentation/cubit/cubit/checkout_cubit.dart';
@@ -49,25 +51,25 @@ class _CheckoutPageState extends State<CheckoutPage> {
             ),
             SizedBox(height: 20),
 
-        BlocBuilder<CheckoutCubit, CheckoutState>(
-  buildWhen: (previous, current) => current is CheckoutPaymentMethodChanged,
-  builder: (context, state) {
-    final cubit = context.read<CheckoutCubit>();
+            BlocBuilder<CheckoutCubit, CheckoutState>(
+              buildWhen: (previous, current) =>
+                  current is CheckoutPaymentMethodChanged,
+              builder: (context, state) {
+                final cubit = context.read<CheckoutCubit>();
 
-    return CheckoutPayment(
-      cardNumberController: cubit.cardNumberController,
-      expiryController: cubit.expiryController,
-      cvvController: cubit.cvvController,
-      selectedPaymentMethod: cubit.paymentMethod,
-      onChanged: (String? value) {
-        if (value != null) {
-          cubit.setPaymentMethod(value);
-        }
-      },
-    );
-  },
-),
-
+                return CheckoutPayment(
+                  cardNumberController: cubit.cardNumberController,
+                  expiryController: cubit.expiryController,
+                  cvvController: cubit.cvvController,
+                  selectedPaymentMethod: cubit.paymentMethod,
+                  onChanged: (String? value) {
+                    if (value != null) {
+                      cubit.setPaymentMethod(value);
+                    }
+                  },
+                );
+              },
+            ),
 
             SizedBox(height: 20),
             _buildCheckoutButton(),
@@ -85,7 +87,9 @@ class _CheckoutPageState extends State<CheckoutPage> {
         listener: (context, state) {
           if (state is CheckoutSuccess) {
             // ✅ أضف الطلب الجديد محليًا بدل إعادة تحميل كل الطلبات
-            context.read<GetordersCubit>().addOrderLocally(state.order as OrdersDetailsEntity);
+            context
+                .read<GetordersCubit>()
+                .addOrderLocally(state.order as OrdersDetailsEntity);
 
             // ✅ إشعار نجاح
             ScaffoldMessenger.of(context).showSnackBar(
@@ -111,10 +115,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 context.read<CheckoutCubit>().checkout(
                       paymentMethod:
                           context.read<CheckoutCubit>().paymentMethod,
-                      shippingAddress: context
-                          .read<CheckoutCubit>()
-                          .addressController
-                          .text,
+                      shippingAddress:
+                          context.read<CheckoutCubit>().addressController.text,
                       items: context.read<CheckoutCubit>().items,
                     );
               }
@@ -128,15 +130,20 @@ class _CheckoutPageState extends State<CheckoutPage> {
             ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
+              children: [
                 Icon(Icons.check_circle, color: Colors.white),
                 SizedBox(width: 8),
-                Text(
-                  'Confirm Order',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                GestureDetector(
+                  onTap: () {
+                    GoRouter.of(context).push(Routes.ordersview);
+                  },
+                  child: Text(
+                    'Confirm Order',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],

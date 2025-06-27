@@ -16,6 +16,7 @@ class EndPoints {
   static const String getAllcatecgory = "categories";
   static String getSellerProfile(int id) => "sellers/$id";
   static const String userProfile = "profile";
+  static const String offers = "offers";
   static const String getOrdersForseller = "order-items/seller";
   static String updateOrderItemStatus(int orderItemId) =>
       "order-items/$orderItemId/status";

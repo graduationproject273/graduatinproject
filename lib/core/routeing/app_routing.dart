@@ -14,13 +14,13 @@ import 'package:gradution/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:gradution/features/cart/presentation/cubits/cubit/cart_cubit.dart';
 import 'package:gradution/features/cart/presentation/views/cart_view.dart';
 import 'package:gradution/features/checkout/presentation/views/checkout_view.dart';
+import 'package:gradution/features/favorite/presentation/pages/favorite_view.dart';
 import 'package:gradution/features/home/presentation/cubit/cubit/userprofile_cubit.dart';
 import 'package:gradution/features/home/presentation/views/categories_view.dart';
 import 'package:gradution/features/home/presentation/views/home_view.dart';
 import 'package:gradution/features/home/presentation/views/user_profile.dart';
 import 'package:gradution/features/onbording/presentation/views/auth_buttons_view.dart';
 import 'package:gradution/features/onbording/presentation/views/onboarding_view.dart';
-import 'package:gradution/features/onbording/presentation/views/splash_view.dart';
 import 'package:gradution/features/order-success/presentation/views/order_success_view.dart';
 import 'package:gradution/features/orders/domain/entities/order_entity.dart';
 import 'package:gradution/features/orders/presentation/pages/order_details_view.dart';
@@ -47,7 +47,7 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: Routes.splash,
-      builder: (context, state) => SplashView(),
+      builder: (context, state) => ServicesView(),
     ),
     GoRoute(
       path: Routes.onBoarding,
@@ -72,14 +72,15 @@ final GoRouter router = GoRouter(
       path: Routes.products,
       builder: (context, state) => const ProductView(),
     ),
-     GoRoute(
+    GoRoute(
       path: Routes.sellerProductsEdit,
-      builder: (context, state) => EditProductSeller (productEntity: state.extra as ProductEntity),
+      builder: (context, state) =>
+          EditProductSeller(productEntity: state.extra as ProductEntity),
     ),
     GoRoute(
       path: Routes.productDetails,
       builder: (context, state) => BlocProvider.value(
-        value:  sl<CartCubit>(),
+        value: sl<CartCubit>(),
         child: ProductDetailesView(
           productEntity: state.extra as ProductEntity,
         ),
@@ -96,9 +97,11 @@ final GoRouter router = GoRouter(
       path: Routes.service,
       builder: (context, state) => const ServicesView(),
     ),
-      GoRoute(
+    GoRoute(
       path: Routes.categories,
-      builder: (context, state) =>  CategoriesView(id: state.extra as int,),
+      builder: (context, state) => CategoriesView(
+        id: state.extra as int,
+      ),
     ),
     GoRoute(
       path: Routes.order,
@@ -106,31 +109,29 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: Routes.orderDetails,
-      builder: (context, state) =>  OrderDetailsScreen(order: state.extra as OrderEntity,),
+      builder: (context, state) => OrderDetailsScreen(
+        order: state.extra as OrderEntity,
+      ),
     ),
-   
     GoRoute(
       path: Routes.cart,
       builder: (context, state) {
         return BlocProvider.value(
-          value: 
-              sl<CartCubit>()..getCartItems(), // استدعاء getCartItems
+          value: sl<CartCubit>()..getCartItems(), // استدعاء getCartItems
           child: CartView(),
         );
       },
     ),
     GoRoute(
       path: Routes.checkout,
-      builder: (context, state) =>  CheckoutView(cartItems: state.extra as List<CartItemEntity>,),
+      builder: (context, state) => CheckoutView(
+        cartItems: state.extra as List<CartItemEntity>,
+      ),
     ),
     GoRoute(
       path: Routes.orderSuccess,
       builder: (context, state) => const OrderSuccessView(),
     ),
-
-  
-    
-
     GoRoute(
       path: Routes.authbuttonsview,
       builder: (context, state) => const AuthButtonsView(),
@@ -175,31 +176,33 @@ final GoRouter router = GoRouter(
       path: Routes.dashboardhome,
       builder: (context, state) => const DasboardWidet(),
     ),
-GoRoute(
-  path: Routes.profileSeller,
-  name: Routes.profile,
-  pageBuilder: (context, state) {
-    return MaterialPage(
-      child: BlocProvider.value(
-        value: sl<ProfileCubit>(),
-        child: const ProfileSellerWidget(), // StatefulWidget فيه initState
-      ),
-    );
-  },
-),
- GoRoute(
-      path: Routes.userprofile,
-      pageBuilder: (context, state) {
-        return MaterialPage(child: BlocProvider.value(value: sl<UserprofileCubit>(), child: const UserProfile()));
-      }
+    GoRoute(
+      path: Routes.favorite,
+      builder: (context, state) => const FavoriteView(),
     ),
-
-
+    GoRoute(
+      path: Routes.profileSeller,
+      name: Routes.profile,
+      pageBuilder: (context, state) {
+        return MaterialPage(
+          child: BlocProvider.value(
+            value: sl<ProfileCubit>(),
+            child: const ProfileSellerWidget(), // StatefulWidget فيه initState
+          ),
+        );
+      },
+    ),
+    GoRoute(
+        path: Routes.userprofile,
+        pageBuilder: (context, state) {
+          return MaterialPage(
+              child: BlocProvider.value(
+                  value: sl<UserprofileCubit>(), child: const UserProfile()));
+        }),
     GoRoute(
       path: Routes.ordersview,
       builder: (context, state) => OrdersPage(),
     ),
-    
   ],
   errorBuilder: (context, state) => const Scaffold(
     body: Center(child: Text('Page not found')),

@@ -10,6 +10,7 @@ class Routes {
   static const String blog = '/blog';
   static const String blogDetails = '/blog-details';
   static const String cart = '/cart';
+  static const String favorite = '/favorite';
   static const String checkout = '/checkout';
   static const String orderSuccess = '/order-success';
   static const String profile = '/profile';

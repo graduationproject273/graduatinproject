@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:gradution/features/favorite/domain/entities/fivorite_entity.dart';
@@ -7,7 +8,9 @@ part 'favorite_state.dart';
 
 class FavoriteCubit extends Cubit<FavoriteState> {
   FavoriteCubit(this.favoriteUsecase) : super(FavoriteInitial());
+  
   final FavoriteUsecase favoriteUsecase;
+
   Future<void> addToFavourite(int id) async {
     final result = await favoriteUsecase.addToFavourite(id);
     result.fold(
@@ -45,4 +48,5 @@ class FavoriteCubit extends Cubit<FavoriteState> {
   });
 }
 
+  
 }

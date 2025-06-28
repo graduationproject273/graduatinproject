@@ -65,7 +65,7 @@ Future<bool> isFavourite(int id) async {
   Future<Either<Failure, void>> removeFromFavourite(int id) async {
     try {
       final response = await dioConsumer.delete(
-        path: EndPoints.favorites,
+        path: "${EndPoints.favorites}/$id",
        
       );
 

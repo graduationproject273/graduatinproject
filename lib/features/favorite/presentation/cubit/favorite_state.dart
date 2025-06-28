@@ -1,3 +1,4 @@
+// Updated states
 part of 'favorite_cubit.dart';
 
 abstract class FavoriteState extends Equatable {
@@ -7,63 +8,39 @@ abstract class FavoriteState extends Equatable {
   List<Object?> get props => [];
 }
 
-/// Initial state
 class FavoriteInitial extends FavoriteState {}
 
-/// Loading state
 class FavoriteLoading extends FavoriteState {}
 
-/// Item is favorite
-class FavoriteIsTrue extends FavoriteState {}
-
-/// Item is not favorite
-class FavoriteIsFalse extends FavoriteState {}
-
-/// Item successfully added to favorites
 class FavoriteAdded extends FavoriteState {
+  final FavoriteEntity favorite;
+  
   const FavoriteAdded({required this.favorite});
   
-  final FavoriteEntity favorite;
-
   @override
   List<Object?> get props => [favorite];
 }
 
-/// Item successfully removed from favorites
-class FavoriteRemoved extends FavoriteState {
-  const FavoriteRemoved({required this.id});
-  
-  final int id;
+class FavoriteRemoved extends FavoriteState {}
 
-  @override
-  List<Object?> get props => [id];
-}
+class FavoriteIsTrue extends FavoriteState {}
 
-/// List of all favorites loaded
-class FavoriteListLoaded extends FavoriteState {
-  const FavoriteListLoaded({required this.favorites});
-  
-  final List<FavoriteEntity> favorites;
-
-  @override
-  List<Object?> get props => [favorites];
-}
+class FavoriteIsFalse extends FavoriteState {}
 
 class FavoriteLoaded extends FavoriteState {
   final List<ProductEntity> products;
-
+  
   const FavoriteLoaded({required this.products});
+  
+  @override
+  List<Object?> get props => [products];
 }
 
-/// Empty favorites list
-class FavoriteListEmpty extends FavoriteState {}
-
-/// Error state
 class FavoriteError extends FavoriteState {
-  const FavoriteError({required this.message});
+  final String? message;
   
-  final String message;
-
+  const FavoriteError({this.message});
+  
   @override
   List<Object?> get props => [message];
 }

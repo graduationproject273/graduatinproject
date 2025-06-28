@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gradution/core/routeing/routes.dart';
@@ -12,10 +13,11 @@ class ProfileSellerWidget extends StatefulWidget {
 }
 
 class _ProfileSellerWidgetState extends State<ProfileSellerWidget> {
+  final Color primaryColor = const Color(0xFF00917C);
+
   @override
   void initState() {
     super.initState();
-
     final cubit = context.read<ProfileCubit>();
     if (cubit.state is! GetProfile) {
       cubit.getProfile();
@@ -28,140 +30,238 @@ class _ProfileSellerWidgetState extends State<ProfileSellerWidget> {
       listener: (context, state) {
         if (state is ProfileFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.failure.errMessage)),
+            SnackBar(
+              content: Text(state.failure.errMessage),
+              backgroundColor: Colors.red.shade600,
+              behavior: SnackBarBehavior.floating,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.r),
+              ),
+            ),
           );
         }
       },
       builder: (context, state) {
         if (state is ProfileLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return Scaffold(
+            backgroundColor: Colors.grey.shade50,
+            body: Center(
+              child: CircularProgressIndicator(color: primaryColor),
+            ),
+          );
         } else if (state is GetProfile) {
           return Scaffold(
-            backgroundColor: Colors.grey[50],
-            appBar: AppBar(
-              title: const Text(
-                'Profile',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              backgroundColor: const Color(0xFF00917C),
-              elevation: 0,
-              centerTitle: true,
-            ),
-            body: SingleChildScrollView(
-              child: Column(
-                children: [
-                  // Header section with curved background
-                  Container(
-                    height: 120,
-                    decoration: const BoxDecoration(
-                      color: Color(0xFF00917C),
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(30),
-                        bottomRight: Radius.circular(30),
+            backgroundColor: Colors.grey.shade50,
+            body: CustomScrollView(
+              slivers: [
+                // Custom App Bar
+                SliverAppBar(
+                  expandedHeight: 180.h,
+                  floating: false,
+                  pinned: true,
+                  backgroundColor: primaryColor,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: Container(
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            primaryColor,
+                            primaryColor.withOpacity(0.8),
+                          ],
+                        ),
+                      ),
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            top: -50.h,
+                            right: -50.w,
+                            child: Container(
+                              width: 120.w,
+                              height: 100.h,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white.withOpacity(0.1),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 50.h,
+                            left: -30.w,
+                            child: Container(
+                              width: 80.w,
+                              height: 80.h,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: Colors.white.withOpacity(0.1),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
+                    title: Text(
+                      'My Profile',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    centerTitle: true,
                   ),
-
-                  // Profile content
-                  Transform.translate(
-                    offset: const Offset(0, -60),
+                ),
+                
+                // Spacer
+                SliverToBoxAdapter(
+                  child: SizedBox(height: 50.h),
+                ),
+                // Profile Content
+                SliverToBoxAdapter(
+                  child: Transform.translate(
+                    offset: Offset(0, -40.h),
                     child: Column(
                       children: [
-                        // Avatar section
+                        // Profile Avatar
                         Container(
-                          padding: const EdgeInsets.all(4),
+                          padding: EdgeInsets.all(4.r),
                           decoration: BoxDecoration(
                             color: Colors.white,
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
+                                color: primaryColor.withOpacity(0.3),
                                 blurRadius: 20,
                                 offset: const Offset(0, 10),
                               ),
                             ],
                           ),
                           child: CircleAvatar(
-                            radius: 60,
-                            backgroundColor:
-                                const Color(0xFF00917C).withOpacity(0.1),
-                            child: const Icon(
+                            radius: 50.r,
+                            backgroundColor: primaryColor.withOpacity(0.1),
+                            child: Icon(
                               Icons.person,
-                              size: 60,
-                              color: Color(0xFF00917C),
+                              size: 50.sp,
+                              color: primaryColor,
                             ),
-                            // Uncomment below to use network image
-                            // backgroundImage: NetworkImage('https://your-avatar-url.com'),
                           ),
                         ),
-
-                        const SizedBox(height: 20),
-
-                        // Profile info cards
+                        
+                        SizedBox(height: 15.h),
+                        
+                        // User Name
+                        Text(
+                          '${state.profile.user.firstname} ${state.profile.user.lastname}',
+                          style: TextStyle(
+                            fontSize: 22.sp,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black87,
+                          ),
+                        ),
+                        
+                        SizedBox(height: 5.h),
+                        
+                        Container(
+                          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 4.h),
+                          decoration: BoxDecoration(
+                            color: primaryColor.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(20.r),
+                          ),
+                          child: Text(
+                            'Seller',
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              color: primaryColor,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ),
+                        
+                        SizedBox(height: 30.h),
+                        
+                        // Profile Info Section
                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
                           child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              // Name card
+                              Text(
+                                'Personal Information',
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              
+                              SizedBox(height: 15.h),
+                              
+                              // Info Cards
                               _buildInfoCard(
                                 icon: Icons.person_outline,
                                 title: 'First Name',
-                                subtitle: state.profile.user
-                                    .firstname, // Replace with actual first + last name
+                                subtitle: state.profile.user.firstname,
                               ),
-
-                              const SizedBox(height: 15),
+                              
+                              SizedBox(height: 12.h),
+                              
                               _buildInfoCard(
                                 icon: Icons.person_outline,
                                 title: 'Last Name',
-                                subtitle: state.profile.user
-                                    .lastname, // Replace with actual first + last name
+                                subtitle: state.profile.user.lastname,
                               ),
-
-                              const SizedBox(height: 15),
-
-                              // Email card
+                              
+                              SizedBox(height: 12.h),
+                              
                               _buildInfoCard(
                                 icon: Icons.email_outlined,
-                                title: 'Email',
-                                subtitle: state.profile.user
-                                    .email, // Replace with actual email
+                                title: 'Email Address',
+                                subtitle: state.profile.user.email,
                               ),
-
-                              const SizedBox(height: 30),
-
+                              
+                              SizedBox(height: 30.h),
+                              
+                              // Account Actions Section
+                              Text(
+                                'Account Actions',
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black87,
+                                ),
+                              ),
+                              
+                              SizedBox(height: 15.h),
+                              
                               BlocListener<ProfileCubit, ProfileState>(
                                 listener: (context, state) {
                                   if (state is RemoveSeller) {
                                     GoRouter.of(context).go(Routes.login);
                                   } else if (state is ProfileFailure) {
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                          content:
-                                              Text(state.failure.errMessage)),
+                                      SnackBar(content: Text(state.failure.errMessage)),
                                     );
                                   }
                                 },
-                                child: _buildOptionTile(
+                                child: _buildActionCard(
                                   icon: Icons.logout_outlined,
                                   title: 'Logout',
-                                  onTap: () {
-                                    showLogoutDialog(context);
-                                  },
+                                  subtitle: 'Sign out from your account',
+                                  onTap: () => showLogoutDialog(context),
                                   isDestructive: true,
                                 ),
                               ),
+                              
+                              SizedBox(height: 30.h),
                             ],
                           ),
                         ),
                       ],
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           );
         }
@@ -176,34 +276,36 @@ class _ProfileSellerWidgetState extends State<ProfileSellerWidget> {
     required String subtitle,
   }) {
     return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
+      padding: EdgeInsets.all(16.r),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(15),
+        borderRadius: BorderRadius.circular(15.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withOpacity(0.04),
             blurRadius: 10,
-            offset: const Offset(0, 5),
+            offset: const Offset(0, 3),
           ),
         ],
       ),
       child: Row(
         children: [
           Container(
-            padding: const EdgeInsets.all(12),
+            width: 45.w,
+            height: 45.h,
             decoration: BoxDecoration(
-              color: const Color(0xFF00917C).withOpacity(0.1),
-              borderRadius: BorderRadius.circular(12),
+              color: primaryColor.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(12.r),
             ),
             child: Icon(
               icon,
-              color: const Color(0xFF00917C),
-              size: 24,
+              color: primaryColor,
+              size: 22.sp,
             ),
           ),
-          const SizedBox(width: 15),
+          
+          SizedBox(width: 15.w),
+          
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -211,16 +313,18 @@ class _ProfileSellerWidgetState extends State<ProfileSellerWidget> {
                 Text(
                   title,
                   style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey[600],
+                    fontSize: 12.sp,
+                    color: Colors.grey.shade600,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                const SizedBox(height: 4),
+                
+                SizedBox(height: 4.h),
+                
                 Text(
                   subtitle,
-                  style: const TextStyle(
-                    fontSize: 16,
+                  style: TextStyle(
+                    fontSize: 15.sp,
                     fontWeight: FontWeight.w600,
                     color: Colors.black87,
                   ),
@@ -233,79 +337,204 @@ class _ProfileSellerWidgetState extends State<ProfileSellerWidget> {
     );
   }
 
-  Widget _buildOptionTile({
+  Widget _buildActionCard({
     required IconData icon,
     required String title,
+    required String subtitle,
     required VoidCallback onTap,
     bool isDestructive = false,
   }) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      child: ListTile(
-        onTap: onTap,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15),
-        ),
-        tileColor: Colors.white,
-        leading: Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: isDestructive
-                ? Colors.red.withOpacity(0.1)
-                : const Color(0xFF00917C).withOpacity(0.1),
-            borderRadius: BorderRadius.circular(8),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(15.r),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.04),
+            blurRadius: 10,
+            offset: const Offset(0, 3),
           ),
-          child: Icon(
-            icon,
-            color: isDestructive ? Colors.red : const Color(0xFF00917C),
-            size: 20,
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(15.r),
+          child: Padding(
+            padding: EdgeInsets.all(16.r),
+            child: Row(
+              children: [
+                Container(
+                  width: 45.w,
+                  height: 45.h,
+                  decoration: BoxDecoration(
+                    color: isDestructive
+                        ? Colors.red.withOpacity(0.1)
+                        : primaryColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12.r),
+                  ),
+                  child: Icon(
+                    icon,
+                    color: isDestructive ? Colors.red.shade600 : primaryColor,
+                    size: 22.sp,
+                  ),
+                ),
+                
+                SizedBox(width: 15.w),
+                
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        title,
+                        style: TextStyle(
+                          fontSize: 15.sp,
+                          fontWeight: FontWeight.w600,
+                          color: isDestructive ? Colors.red.shade600 : Colors.black87,
+                        ),
+                      ),
+                      
+                      SizedBox(height: 2.h),
+                      
+                      Text(
+                        subtitle,
+                        style: TextStyle(
+                          fontSize: 12.sp,
+                          color: Colors.grey.shade600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                
+                Icon(
+                  Icons.arrow_forward_ios,
+                  size: 16.sp,
+                  color: Colors.grey.shade400,
+                ),
+              ],
+            ),
           ),
-        ),
-        title: Text(
-          title,
-          style: TextStyle(
-            fontWeight: FontWeight.w500,
-            color: isDestructive ? Colors.red : Colors.black87,
-          ),
-        ),
-        trailing: Icon(
-          Icons.arrow_forward_ios,
-          size: 16,
-          color: Colors.grey[400],
         ),
       ),
     );
   }
 }
 
-void showLogoutDialog(BuildContext parentcontext) {
+void showLogoutDialog(BuildContext parentContext) {
   showDialog(
-    context: parentcontext,
+    context: parentContext,
+    barrierDismissible: false,
     builder: (context) => AlertDialog(
-      backgroundColor: Colors.white, // 👈 تغيير الخلفية هنا
-      title: const Text(
-        "Confirm Logout",
-        style: TextStyle(color: Colors.black), // لون النص
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20.r),
       ),
-      content: const Text(
-        "Are you sure you want to logout?",
-        style: TextStyle(color: Colors.black), // لون النص
+      backgroundColor: Colors.white,
+      contentPadding: EdgeInsets.zero,
+      content: Container(
+        padding: EdgeInsets.all(24.r),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Icon
+            Container(
+              width: 60.w,
+              height: 60.h,
+              decoration: BoxDecoration(
+                color: Colors.red.shade50,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.logout_outlined,
+                color: Colors.red.shade600,
+                size: 30.sp,
+              ),
+            ),
+            
+            SizedBox(height: 20.h),
+            
+            // Title
+            Text(
+              'Confirm Logout',
+              style: TextStyle(
+                fontSize: 18.sp,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
+            ),
+            
+            SizedBox(height: 10.h),
+            
+            // Content
+            Text(
+              'Are you sure you want to logout from your account?',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 14.sp,
+                color: Colors.grey.shade600,
+                height: 1.4,
+              ),
+            ),
+            
+            SizedBox(height: 25.h),
+            
+            // Buttons
+            Row(
+              children: [
+                Expanded(
+                  child: TextButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.symmetric(vertical: 12.h),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.r),
+                        side: BorderSide(color: Colors.grey.shade300),
+                      ),
+                    ),
+                    child: Text(
+                      'Cancel',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.grey.shade700,
+                      ),
+                    ),
+                  ),
+                ),
+                
+                SizedBox(width: 12.w),
+                
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      parentContext.read<ProfileCubit>().clearSeller();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.red.shade600,
+                      padding: EdgeInsets.symmetric(vertical: 12.h),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.r),
+                      ),
+                      elevation: 0,
+                    ),
+                    child: Text(
+                      'Logout',
+                      style: TextStyle(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
-      actions: [
-        TextButton(
-          onPressed: () => Navigator.of(context).pop(),
-          child: const Text("Cancel",
-              style:
-                  TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-        ),
-        TextButton(
-          onPressed: () {
-            parentcontext.read<ProfileCubit>().clearSeller();
-          },
-          child: const Text("Logout",
-              style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
-        ),
-      ],
     ),
   );
 }

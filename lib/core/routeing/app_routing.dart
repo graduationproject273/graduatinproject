@@ -21,6 +21,7 @@ import 'package:gradution/features/home/presentation/views/home_view.dart';
 import 'package:gradution/features/home/presentation/views/user_profile.dart';
 import 'package:gradution/features/onbording/presentation/views/auth_buttons_view.dart';
 import 'package:gradution/features/onbording/presentation/views/onboarding_view.dart';
+import 'package:gradution/features/onbording/presentation/views/splash_view.dart';
 import 'package:gradution/features/order-success/presentation/views/order_success_view.dart';
 import 'package:gradution/features/orders/domain/entities/order_entity.dart';
 import 'package:gradution/features/orders/presentation/pages/order_details_view.dart';
@@ -47,7 +48,7 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: Routes.splash,
-      builder: (context, state) => OcrScreen(),
+      builder: (context, state) => const SplashView(),
     ),
     GoRoute(
       path: Routes.onBoarding,

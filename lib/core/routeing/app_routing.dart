@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/depency_injection.dart';
+import 'package:gradution/features/ai/presentation/pages/ocr_view.dart';
 import 'package:gradution/features/authintication/login/presentation/pages/login_view.dart';
 import 'package:gradution/features/authintication/login/presentation/widgets/otp_widget.dart';
 import 'package:gradution/features/authintication/sinup/presentation/cubit/seller_cubit/cubit/seller_cubit.dart';
@@ -14,7 +15,6 @@ import 'package:gradution/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:gradution/features/cart/presentation/cubits/cubit/cart_cubit.dart';
 import 'package:gradution/features/cart/presentation/views/cart_view.dart';
 import 'package:gradution/features/checkout/presentation/views/checkout_view.dart';
-import 'package:gradution/features/favorite/presentation/pages/favorite_view.dart';
 import 'package:gradution/features/home/presentation/cubit/cubit/userprofile_cubit.dart';
 import 'package:gradution/features/home/presentation/views/categories_view.dart';
 import 'package:gradution/features/home/presentation/views/home_view.dart';
@@ -47,7 +47,8 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: Routes.splash,
-  builder: (context, state) => FavoriteView(),    ),
+      builder: (context, state) => OcrScreen(),
+    ),
     GoRoute(
       path: Routes.onBoarding,
       builder: (context, state) => OnboardingView(),
@@ -175,7 +176,6 @@ final GoRouter router = GoRouter(
       path: Routes.dashboardhome,
       builder: (context, state) => const DasboardWidet(),
     ),
- 
     GoRoute(
       path: Routes.profileSeller,
       name: Routes.profile,
@@ -199,6 +199,13 @@ final GoRouter router = GoRouter(
       path: Routes.ordersview,
       builder: (context, state) => OrdersPage(),
     ),
+    GoRoute(
+      path: Routes.ocr,
+      builder: (context, state) => const OcrScreen(),
+    ),
+   
+
+
   ],
   errorBuilder: (context, state) => const Scaffold(
     body: Center(child: Text('Page not found')),

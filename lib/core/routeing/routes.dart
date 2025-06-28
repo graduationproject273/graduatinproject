@@ -15,6 +15,8 @@ class Routes {
   static const String orderSuccess = '/order-success';
   static const String profile = '/profile';
   static const String refall = '/refall';
+  static const String ocr = '/ocr';
+  static const String enhanced = '/enhanced';
 
   static const String reviews = '/reviews';
   static const String authbuttonsview = '/authbuttonsview';

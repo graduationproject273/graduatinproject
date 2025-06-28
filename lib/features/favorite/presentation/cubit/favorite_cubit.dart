@@ -35,14 +35,14 @@ class FavoriteCubit extends Cubit<FavoriteState> {
       emit(FavoriteIsFalse());
     }
   }
-  void getAllFavourites() {
-    emit(FavoriteLoading());
-    favoriteUsecase.getAllFavourites().listen((result) {
-      result.fold(
-        (failure) => emit(FavoriteError(message: failure.errMessage)),
-        (favorites) => emit(FavoriteIsTrue()),
-      );
-    });
-  }
+ void getAllFavourites() {
+  emit(FavoriteLoading());
+  favoriteUsecase.getAllFavourites().listen((result) {
+    result.fold(
+      (failure) => emit(FavoriteError(message: failure.errMessage)),
+      (products) => emit(FavoriteLoaded(products: products)),
+    );
+  });
+}
 
 }

@@ -6,5 +6,5 @@ abstract class FavoriteRepository {
   Future<Either<Failure, FavoriteEntity>> addToFavourite(int id);
   Future<Either<Failure,void>> removeFromFavourite(int id);
   Future<bool> isFavourite(int id);
-  Stream<Either<Failure,List<FavoriteEntity>>> getAllFavourites();
+  Stream<Either<Failure,List<ProductEntity>>> getAllFavourites();
 }

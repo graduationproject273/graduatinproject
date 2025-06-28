@@ -30,7 +30,7 @@ class FavoritreViewBody extends StatelessWidget {
           builder: (context, state) {
             if (state is FavoriteLoaded) {
                return GridView.builder(
-              itemCount: state.favorite.length,
+              itemCount: state.products.length,
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 crossAxisSpacing: 12,
@@ -38,7 +38,6 @@ class FavoritreViewBody extends StatelessWidget {
                 childAspectRatio: 0.75,
               ),
               itemBuilder: (context, index) {
-                final item = state.favorite[index];
                 return Container(
                   decoration: BoxDecoration(
                     color: Colors.white,
@@ -58,7 +57,7 @@ class FavoritreViewBody extends StatelessWidget {
                         borderRadius: const BorderRadius.vertical(
                             top: Radius.circular(16)),
                         child: Image.network(
-                          item.product.image,
+                          state.products[index].image,
                           height: 120,
                           fit: BoxFit.cover,
                         ),
@@ -69,13 +68,13 @@ class FavoritreViewBody extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              item.product.name,
+                              state.products[index].name,
                               style:
                                   const TextStyle(fontWeight: FontWeight.bold),
                             ),
                             const SizedBox(height: 4),
                             Text(
-                              '${item.product.price} EGP',
+                              '${state.products[index].price} EGP',
                               style: const TextStyle(color: Colors.grey),
                             ),
                             const SizedBox(height: 8),

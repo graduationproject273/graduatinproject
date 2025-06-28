@@ -11,7 +11,7 @@ class FavoriteUsecase {
       favoriteRepository.addToFavourite(id);
  Future<Either<Failure,void>> removeFromFavourite(int id) =>
       favoriteRepository.removeFromFavourite(id);
-  Stream<Either<Failure, List<FavoriteEntity>>> getAllFavourites() =>
+  Stream<Either<Failure, List<ProductEntity>>> getAllFavourites() =>
       favoriteRepository.getAllFavourites();
   Future<bool> isFavourite(int id) => favoriteRepository.isFavourite(id);
 }

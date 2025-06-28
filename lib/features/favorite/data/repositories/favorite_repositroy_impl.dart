@@ -15,33 +15,35 @@ class FavoriteRepositroyImpl  implements FavoriteRepository{
 
 
   @override
-  Stream<Either<Failure,List<FavoriteEntity>>> getAllFavourites() async* {
-    try {
-      final response = await dioConsumer.get(path: EndPoints.favorites);
-      yield response.fold(
-        (l) => Left(Failure(errMessage: l)),
-        (r) {
-          try {
-            final data = r.data;
-            if (data == null || (data is List && data.isEmpty)) {
-              return Right(<FavoriteEntity>[]);
-            }
+Stream<Either<Failure, List<ProductEntity>>> getAllFavourites() async* {
+  try {
+    final response = await dioConsumer.get(path: EndPoints.favorites);
 
-            final items = (data as List)
-                .map((item) => FavoriteModel.fromJson(item))
-                .cast<FavoriteEntity>()
-                .toList();
-
-            return Right(items);
-          } catch (e) {
-            return Left(Failure(errMessage: 'خطأ في تحليل البيانات: ${e.toString()}'));
-          }
-        },
-      );
-    } catch (e) {
-      yield Left(Failure(errMessage: e.toString()));
+    if (response.isLeft()) {
+      final errorMessage = response.fold((l) => l, (_) => '');
+      yield Left(Failure(errMessage: errorMessage));
+      return;
     }
+
+    final data = response.fold((l) => null, (r) => r.data);
+
+    if (data == null || (data is List && data.isEmpty)) {
+      yield const Right([]);
+    } else {
+      try {
+        final products = (data as List)
+            .map((item) => ProductModel.fromJson(item))
+            .toList();
+        yield Right(products);
+      } catch (e) {
+        yield Left(Failure(errMessage: 'خطأ في تحليل البيانات: ${e.toString()}'));
+      }
+    }
+  } catch (e) {
+    yield Left(Failure(errMessage: 'خطأ غير متوقع: ${e.toString()}'));
   }
+}
+
 
 @override
 Future<bool> isFavourite(int id) async {

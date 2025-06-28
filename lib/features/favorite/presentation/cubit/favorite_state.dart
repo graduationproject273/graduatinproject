@@ -29,10 +29,7 @@ class FavoriteAdded extends FavoriteState {
 }
 
 class FavoriteLoaded extends FavoriteState {
-  final List<FavoriteEntity> favorite;
+  final List<ProductEntity> products;
 
-  const FavoriteLoaded({required this.favorite});
-
-  @override
-  List<Object> get props => [favorite];
+  const FavoriteLoaded({required this.products});
 }

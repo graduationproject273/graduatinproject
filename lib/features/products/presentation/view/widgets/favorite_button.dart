@@ -118,7 +118,7 @@ class FavoriteButton extends StatelessWidget {
     final cubit = context.read<FavoriteCubit>();
     
     // Use the new toggle method for better handling
-    cubit.toggleFavorite(id);
+    //cubit.toggleFavorite(id);
   }
 }
 

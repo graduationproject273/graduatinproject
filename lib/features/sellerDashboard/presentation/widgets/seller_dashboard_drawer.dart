@@ -22,7 +22,6 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
     Icons.production_quantity_limits_outlined,
     CupertinoIcons.cart_fill,
     Icons.payment,
-    Icons.transform,
   ];
 
   final List<String> titles = [
@@ -30,7 +29,6 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
     'Products',
     'Add Products',
     'Payments',
-    'Transactions',
   ];
 
   final List<IconData> icons2 = [
@@ -57,9 +55,8 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
       case 3:
         GoRouter.of(context).push(Routes.payments);
         break;
-      case 4:
-        GoRouter.of(context).push(Routes.transactions);
-        break;
+
+     
       default:
         GoRouter.of(context).go(Routes.dashboardseller);
     }

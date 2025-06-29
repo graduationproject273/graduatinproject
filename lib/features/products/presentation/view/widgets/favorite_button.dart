@@ -54,8 +54,8 @@ class _FavoriteButtonState extends State<FavoriteButton>
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider.value(
-      value: _favoriteCubit,
+    return BlocProvider(
+      create:(context) =>  _favoriteCubit,
       child: BlocConsumer<FavoriteCubit, FavoriteState>(
         listener: (context, state) {
           if (state is FavoriteAdded) {
@@ -208,6 +208,7 @@ class _FavoriteButtonState extends State<FavoriteButton>
     if (isFavorite) {
       cubit.removeFromFavourite(widget.id);
     } else {
+      print('addToFavourite id: ${widget.id}');
       cubit.addToFavourite(widget.id);
     }
   }

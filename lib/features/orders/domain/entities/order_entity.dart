@@ -1,6 +1,9 @@
+// 📁 order_entity.dart
+
+import 'package:equatable/equatable.dart';
 import 'package:gradution/features/orders/domain/entities/order_item_entity.dart';
 
-class OrderEntity {
+class OrderEntity extends Equatable {
   final int id;
   final int userId;
   final String userEmail;
@@ -30,4 +33,21 @@ class OrderEntity {
     this.trackingNumber,
     required this.orderItems,
   });
+
+  @override
+  List<Object?> get props => [
+        id,
+        userId,
+        userEmail,
+        orderDate,
+        totalAmount,
+        couponCode,
+        originalAmount,
+        discountAmount,
+        status,
+        shippingAddress,
+        paymentMethod,
+        trackingNumber,
+        orderItems,
+      ];
 }

@@ -79,16 +79,8 @@ class _CustomAppbarInhomeState extends State<CustomAppbarInhome>
                             radius: 30,
                             child: Image.asset(Assets.imagesAvatar)),
                 ),
-                const SizedBox(width: 8),
-                 GestureDetector(
-                   onTap: (){
-                    GoRouter.of(context).push(Routes.cart);
-                   },
-                   child: CircleAvatar(
-                   backgroundColor: maincolor,
-                            radius: 30,
-                            child:Icon(Icons.shopping_cart_outlined,color: Colors.white,)),
-                 ),
+               
+             
               ],
             )
 

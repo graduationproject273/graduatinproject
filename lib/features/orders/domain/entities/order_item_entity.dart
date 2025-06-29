@@ -1,10 +1,12 @@
-class OrderItemEntity {
+// 📁 order_item_entity.dart
+
+import 'package:equatable/equatable.dart';
+import 'package:gradution/features/products/domain/entities/product_entity.dart';
+
+class OrderItemEntity extends Equatable {
   final int id;
   final int orderId;
-  final int productId;
-  final String productName;
-  final int quantity;
-  final double unitPrice;
+  final ProductEntity product;
   final double subtotal;
   final String status;
   final DateTime createdAt;
@@ -15,10 +17,7 @@ class OrderItemEntity {
   const OrderItemEntity({
     required this.id,
     required this.orderId,
-    required this.productId,
-    required this.productName,
-    required this.quantity,
-    required this.unitPrice,
+    required this.product,
     required this.subtotal,
     required this.status,
     required this.createdAt,
@@ -26,4 +25,17 @@ class OrderItemEntity {
     required this.userEmail,
     required this.userName,
   });
+
+  @override
+  List<Object?> get props => [
+        id,
+        orderId,
+        product,
+        subtotal,
+        status,
+        createdAt,
+        userId,
+        userEmail,
+        userName,
+      ];
 }

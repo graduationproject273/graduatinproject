@@ -1,6 +1,7 @@
-import 'package:gradution/features/orders/data/models/order_item_model.dart';
+// 📁 order_model.dart
+
 import 'package:gradution/features/orders/domain/entities/order_entity.dart';
-import 'package:gradution/features/orders/domain/entities/order_item_entity.dart';
+import 'package:gradution/features/orders/data/models/order_item_model.dart';
 
 class OrderModel extends OrderEntity {
   const OrderModel({
@@ -16,8 +17,8 @@ class OrderModel extends OrderEntity {
     required super.shippingAddress,
     required super.paymentMethod,
     super.trackingNumber,
-    required List<OrderItemEntity> orderItems,
-  }) : super(orderItems: orderItems);
+    required super.orderItems,
+  });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     return OrderModel(

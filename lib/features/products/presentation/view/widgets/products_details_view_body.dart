@@ -54,6 +54,19 @@ class _ProductsDetailsViewBodyState extends State<ProductsDetailsViewBody>
     super.dispose();
   }
 
+  void _navigateToFeedback() {
+    // استبدل 'FeedbackPage' باسم صفحة الـ feedback الخاصة بك
+    Navigator.pushNamed(context, '/feedback', arguments: widget.productEntity);
+    
+    // أو إذا كانت صفحة الـ feedback تحتاج معلومات المنتج:
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => FeedbackPage(product: widget.productEntity),
+    //   ),
+    // );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,9 +85,35 @@ class _ProductsDetailsViewBodyState extends State<ProductsDetailsViewBody>
                 backgroundColor: Colors.white,
                 foregroundColor: Colors.black,
                 elevation: 0,
-             automaticallyImplyLeading: false,
-                
-                
+                automaticallyImplyLeading: false,
+                // إضافة زر الـ feedback في الـ AppBar
+                actions: [
+                  Container(
+                    margin: EdgeInsets.only(right: 16.w),
+                    child: IconButton(
+                      onPressed: _navigateToFeedback,
+                      icon: Container(
+                        padding: EdgeInsets.all(8.w),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.9),
+                          borderRadius: BorderRadius.circular(12),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
+                        ),
+                        child: Icon(
+                          Icons.feedback_outlined,
+                          color: maincolor,
+                          size: 20.w,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
                 flexibleSpace: FlexibleSpaceBar(
                   background: _buildProductImageSection(),
                 ),
@@ -127,8 +166,12 @@ class _ProductsDetailsViewBodyState extends State<ProductsDetailsViewBody>
                                 SizedBox(height: 16.h),
                                 _buildPriceSection(),
                                 SizedBox(height: 20.h),
-                             
                                 _buildDescriptionSection(),
+                                SizedBox(height: 20.h),
+                                
+                                // إضافة زر الـ feedback كقسم منفصل
+                                _buildFeedbackSection(),
+                                
                                 SizedBox(height: 120.h), // Space for bottom buttons
                               ],
                             ),
@@ -170,6 +213,21 @@ class _ProductsDetailsViewBodyState extends State<ProductsDetailsViewBody>
           ),
         ],
       ),
+      // إضافة Floating Action Button للـ feedback
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: _navigateToFeedback,
+        backgroundColor: maincolor,
+        foregroundColor: Colors.white,
+        icon: const Icon(Icons.rate_review),
+        label: Text(
+          'Give Feedback',
+          style: TextStyle(
+            fontSize: 14.sp,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
@@ -258,7 +316,7 @@ class _ProductsDetailsViewBodyState extends State<ProductsDetailsViewBody>
           child: Text(
             'In Stock',
             style: TextStyle(
-              color:maincolor,
+              color: maincolor,
               fontSize: 12.sp,
               fontWeight: FontWeight.w600,
             ),
@@ -311,6 +369,77 @@ class _ProductsDetailsViewBodyState extends State<ProductsDetailsViewBody>
               color: Colors.grey[700],
               height: 1.6,
               fontWeight: FontWeight.w400,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // قسم الـ feedback الجديد
+  Widget _buildFeedbackSection() {
+    return Container(
+      padding: EdgeInsets.all(20.w),
+      decoration: BoxDecoration(
+        color: maincolor.withOpacity(0.05),
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: maincolor.withOpacity(0.2),
+          width: 1,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.star_outline_rounded,
+                color: maincolor,
+                size: 24.w,
+              ),
+              SizedBox(width: 8.w),
+              Text(
+                'Share Your Experience',
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 8.h),
+          Text(
+            'Help others by sharing your feedback about this product',
+            style: TextStyle(
+              fontSize: 14.sp,
+              color: Colors.grey[600],
+              height: 1.4,
+            ),
+          ),
+          SizedBox(height: 16.h),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton.icon(
+              onPressed: _navigateToFeedback,
+              style: ElevatedButton.styleFrom(
+                backgroundColor: maincolor,
+                foregroundColor: Colors.white,
+                padding: EdgeInsets.symmetric(vertical: 12.h),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                elevation: 2,
+              ),
+              icon: const Icon(Icons.rate_review, size: 20),
+              label: Text(
+                'Write Review',
+                style: TextStyle(
+                  fontSize: 16.sp,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
             ),
           ),
         ],

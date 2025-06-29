@@ -4,6 +4,7 @@ import 'package:gradution/features/feedback/data/models/send_feedback.dart';
 import 'package:gradution/features/feedback/domain/entities/feedback_entity.dart';
 import 'package:gradution/features/feedback/domain/usecases/feedback_usecase.dart';
 
+
 part 'feedback_state.dart';
 
 class FeedbackCubit extends Cubit<FeedbackState> {
@@ -30,4 +31,5 @@ class FeedbackCubit extends Cubit<FeedbackState> {
   }
 
 
+  
 }

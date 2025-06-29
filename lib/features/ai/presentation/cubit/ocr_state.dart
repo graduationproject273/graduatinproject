@@ -2,6 +2,7 @@
 
 import 'package:equatable/equatable.dart';
 import 'package:gradution/features/ai/data/models/ocr_model.dart';
+import 'package:gradution/features/ai/data/models/recomedmodel.dart';
 import 'package:gradution/features/ai/data/models/room_analysis.dart';
 import 'package:gradution/features/favorite/domain/entities/fivorite_entity.dart';
 
@@ -64,4 +65,23 @@ class RoomAnalysisSuccess extends OcrState {
 
   @override
   List<Object?> get props => [analysis, products];
+}
+
+class RecomendSuccess extends OcrState {
+  final RecommendationModel analysis;
+
+
+  const RecomendSuccess(this.analysis);
+
+  @override
+  List<Object?> get props => [analysis];
+}
+
+class ImageValidationError extends OcrState {
+  final String message;
+
+  const ImageValidationError(this.message);
+
+  @override
+  List<Object?> get props => [message];
 }

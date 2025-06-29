@@ -87,17 +87,131 @@ class OcrCubit extends Cubit<OcrState> {
     }
   }
 
-  Future<void> analyzeImageAndGetRecommendations(File imageFile) async {
-    emit(OcrLoading());
+  Future<void> RegenerateReplacement() async {
+  emit(OcrLoading());
+  try {
+    // استدعاء API للحصول على التوصيات الجديدة مع الصورة
+    final Map<String, dynamic> newData = await _ocrService.RegenerateReplacement();
+    
+    // تحويل البيانات إلى قائمة توصيات
+    final List<RecommendationModel> newRecommendations = 
+        (newData['recommendations'] as List<dynamic>?)
+            ?.map((item) => RecommendationModel.fromJson(item))
+            .toList() ?? [];
+    
+    // الحصول على الصورة الجديدة
+    final String newImageUrl = newData['imageUrl'] ?? '';
+
+    // استبدال التوصيات الحالية بالجديدة
+    _currentRecommendations = newRecommendations;
+
+    // التأكد من وجود تحليل سابق قبل التحديث
+    if (_currentAnalysis != null) {
+      final updatedAnalysis = _currentAnalysis!.copyWith(
+        recommendations: _currentRecommendations,
+        image: newImageUrl, // تحديث الصورة
+      );
+      
+      _currentAnalysis = updatedAnalysis;
+      emit(RoomAnalysisSuccess(updatedAnalysis, _currentProducts));
+    } else {
+      // إنشاء تحليل جديد إذا لم يكن موجود
+      _currentAnalysis = RoomAnalysisModel(
+        detectedObjects: [],
+        recommendations: _currentRecommendations,
+        image: newImageUrl,
+      );
+      emit(RoomAnalysisSuccess(_currentAnalysis!, _currentProducts));
+    }
+  } catch (e) {
+    emit(OcrError('Regeneration failed: $e'));
+  }
+}
+
+Future<void> analyzeImageAndGetRecommendations(File imageFile) async {
+  emit(OcrLoading());
+  try {
+    final RoomAnalysisModel analysis = await _ocrService.uploadanalysesimage(imageFile);
+    _currentAnalysis = analysis;
+    _currentRecommendations = analysis.recommendations;
+    emit(RoomAnalysisSuccess(analysis, _currentProducts));
+  } catch (e) {
+    emit(OcrError('Image analysis failed: $e'));
+  }
+}
+
+// Add this method to handle removing recommendations from cart
+Future<void> removeRecommendationFromCart(int index) async {
+  if (index >= 0 && index < _currentRecommendations.length) {
+    final recommendation = _currentRecommendations[index];
+    if (!recommendation.isAddedToCart) return;
+
     try {
-      final RoomAnalysisModel analysis = await _ocrService.uploadanalysesimage(imageFile);
-      _currentAnalysis = analysis;
-      _currentRecommendations = analysis.recommendations;
-      emit(RoomAnalysisSuccess(analysis, _currentProducts));
+      // Remove from cart using CartCubit
+      await _cartCubit.clearItemCart(recommendation.id);
+      
+      // Update recommendation status
+      _currentRecommendations[index] = recommendation.copyWith(isAddedToCart: false);
+      
+      // Update analysis with new recommendations
+      if (_currentAnalysis != null) {
+        final updatedAnalysis = _currentAnalysis!.copyWith(
+          recommendations: List.from(_currentRecommendations)
+        );
+        
+        emit(RoomAnalysisSuccess(updatedAnalysis, _currentProducts));
+        emit(CartActionSuccess('${recommendation.name} removed from cart!'));
+        
+        Future.delayed(const Duration(milliseconds: 1000), () {
+          if (!isClosed) {
+            emit(RoomAnalysisSuccess(updatedAnalysis, _currentProducts));
+          }
+        });
+      }
     } catch (e) {
-      emit(OcrError('Image analysis failed: $e'));
+      emit(OcrError('Failed to remove ${recommendation.name} from cart: $e'));
     }
   }
+}
+
+// Also update the addRecommendationToCart method to handle the image display properly
+Future<void> addRecommendationToCart(int index) async {
+  if (index >= 0 && index < _currentRecommendations.length) {
+    final recommendation = _currentRecommendations[index];
+    
+    if (recommendation.isAddedToCart) return; // Already in cart
+    
+    try {
+      emit(OcrLoading());
+      
+      final cartItem = CartEntity(productId: recommendation.id, quantity: 1);
+      await _cartCubit.addToCartSilently(cartItem);
+      
+      // Update recommendation status
+      _currentRecommendations[index] = recommendation.copyWith(isAddedToCart: true);
+      
+      // Update analysis with new recommendations
+      if (_currentAnalysis != null) {
+        final updatedAnalysis = _currentAnalysis!.copyWith(
+          recommendations: List.from(_currentRecommendations)
+        );
+        
+        _currentAnalysis = updatedAnalysis;
+        
+        emit(RoomAnalysisSuccess(updatedAnalysis, _currentProducts));
+        emit(CartActionSuccess('${recommendation.name} added to cart successfully!'));
+        
+        Future.delayed(const Duration(milliseconds: 1500), () {
+          if (!isClosed) {
+            emit(RoomAnalysisSuccess(updatedAnalysis, _currentProducts));
+          }
+        });
+      }
+    } catch (e) {
+      emit(OcrError('Failed to add ${recommendation.name} to cart: $e'));
+    }
+  }
+}
 
   // OCR Products Cart Management
   Future<void> addProductToCart(int index) async {
@@ -248,40 +362,7 @@ class OcrCubit extends Cubit<OcrState> {
     }
   }
 
-  // Room Analysis Recommendations Cart Management
-  Future<void> addRecommendationToCart(int index) async {
-    if (index >= 0 && index < _currentRecommendations.length) {
-      final recommendation = _currentRecommendations[index];
-      
-      try {
-        emit(OcrLoading());
-        
-        final cartItem = CartEntity(productId: recommendation.id, quantity: 1);
-        await _cartCubit.addToCartSilently(cartItem);
-        
-        // Update recommendation status
-        _currentRecommendations[index] = recommendation.copyWith(isAddedToCart: true);
-        
-        // Update analysis with new recommendations
-        if (_currentAnalysis != null) {
-          final updatedAnalysis = _currentAnalysis!.copyWith(
-            recommendations: List.from(_currentRecommendations)
-          );
-          
-          emit(RoomAnalysisSuccess(updatedAnalysis, _currentProducts));
-          emit(CartActionSuccess('${recommendation.name} added to cart successfully!'));
-          
-          Future.delayed(const Duration(milliseconds: 1500), () {
-            if (!isClosed) {
-              emit(RoomAnalysisSuccess(updatedAnalysis, _currentProducts));
-            }
-          });
-        }
-      } catch (e) {
-        emit(OcrError('Failed to add ${recommendation.name} to cart: $e'));
-      }
-    }
-  }
+ 
 
   Future<void> addAllRecommendationsToCart() async {
     if (_currentRecommendations.isEmpty) return;
@@ -395,6 +476,8 @@ class OcrCubit extends Cubit<OcrState> {
     return _currentProducts.any((p) => p.id == productId && p.isAddedToCart) ||
            _currentRecommendations.any((r) => r.id == productId && r.isAddedToCart);
   }
+
+
 
   void reset() {
     _currentProducts.clear();

@@ -4,6 +4,9 @@ import 'package:get_it/get_it.dart';
 import 'package:gradution/core/connection/network_info.dart';
 import 'package:gradution/core/databases/api/dio_consumer.dart';
 import 'package:gradution/core/databases/cache/cache_helper.dart';
+import 'package:gradution/features/ai/data/repositories/ocr_Impl.dart';
+import 'package:gradution/features/ai/domain/services/ocr_service.dart';
+import 'package:gradution/features/ai/presentation/cubit/ocr_cubit.dart';
 import 'package:gradution/features/authintication/sinup/data/repositries/user_repo_Impl.dart';
 import 'package:gradution/features/authintication/sinup/domain/repositries/signup_repositry.dart';
 import 'package:gradution/features/cart/data/repositries/cart_repositry_Impl.dart';
@@ -137,6 +140,13 @@ void setup() {
   sl.registerFactory(() => GetAllCategoryCubit(sl<GetAllCategory>()));
   sl.registerFactory(() => SinupCubit(sl(), sl()));
   sl.registerFactory(() => SellerCubit(sl()));
+  // Services
+sl.registerLazySingleton<OcrService>(() => OcrImpl(dioConsumer: sl())); // ضف هذا لو مش موجود
+
+
+// OcrCubit
+sl.registerFactory(() => OcrCubit(sl<OcrService>(), sl<CartCubit>()));
+
 
   sl.registerLazySingleton(() => CartCubit(
         sl(),
@@ -145,7 +155,7 @@ void setup() {
   sl.registerFactory(() => FavoriteCubit(sl()));
 
   sl.registerLazySingleton<ProfileCubit>(() => ProfileCubit(sl()));
-
+  
   sl.registerLazySingleton<UserprofileCubit>(() => UserprofileCubit(sl()));
   sl.registerLazySingleton<GetordersCubit>(() => GetordersCubit(sl(), sl()));
   sl.registerFactory(() => OrdersCubit(sl()));

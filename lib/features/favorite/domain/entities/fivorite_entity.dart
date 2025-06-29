@@ -21,7 +21,8 @@ class ProductEntity {
   final int discountPrice;
   final CategoryEntity category;
   final SellerEntity seller;
-
+    final bool isAddedToCart;
+      
   const ProductEntity({
     required this.id,
     required this.name,
@@ -35,6 +36,8 @@ class ProductEntity {
     required this.discountPrice,
     required this.category,
     required this.seller,
+    this.isAddedToCart = false,
+   
   });
 }
 
@@ -72,4 +75,26 @@ class SellerEntity {
     required this.swiftCode,
     required this.tin,
   });
+
+  
+}
+extension ProductEntityCopy on ProductEntity {
+  ProductEntity copyWith({bool? isAddedToCart}) {
+    return ProductEntity(
+      id: id,
+      name: name,
+      price: price,
+      sellingPrice: sellingPrice,
+      description: description,
+      image: image,
+      quantityAvailable: quantityAvailable,
+      specialOffer: specialOffer,
+      hardwareSpecifications: hardwareSpecifications,
+      discountPrice: discountPrice,
+      category: category,
+      seller: seller,
+      isAddedToCart: isAddedToCart ?? this.isAddedToCart,
+     
+    );
+  }
 }

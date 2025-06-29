@@ -15,6 +15,8 @@ class EndPoints {
 
   static const String getCartItems = "cart-items";
   static const String clearCart = "cart-items/clearAll";
+  static const String aiOcr = "ai/upload/ocr-match";
+  static const String getAllProducts = "products";
   static const String addProduct = "products/seller";
   static const String getAllcatecgory = "categories";
   static String getSellerProfile(int id) => "sellers/$id";

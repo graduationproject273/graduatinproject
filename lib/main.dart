@@ -5,6 +5,7 @@ import 'package:gradution/core/databases/cache/cache_helper.dart';
 import 'package:gradution/core/routeing/app_routing.dart';
 import 'package:gradution/depency_injection.dart';
 
+
 /// The entry point of the application.
 void main() async {
   setup();
@@ -17,25 +18,26 @@ void main() async {
     ),
   );
 }
-
 class EZhome extends StatelessWidget {
   const EZhome({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-        designSize: const Size(360, 690),
-        minTextAdapt: true,
-        splitScreenMode: true,
-        builder: (_, child) {
-          return MaterialApp.router(
-            theme: ThemeData(
-              fontFamily: 'Poppins',
-            ),
-            title: 'EZhome',
-            debugShowCheckedModeBanner: false,
-            routerConfig: router,
-          );
-        });
+      designSize: const Size(360, 690),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (_, child) {
+        return MaterialApp.router(
+          theme: ThemeData(
+            fontFamily: 'Poppins',
+          ),
+          title: 'EZhome',
+          debugShowCheckedModeBanner: false,
+          routerConfig: router,
+        );
+      },
+    );
   }
 }
+

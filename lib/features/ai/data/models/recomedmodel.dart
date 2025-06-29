@@ -1,7 +1,7 @@
 class RecommendationModel {
   final int id;
   final String name;
-  final int price;
+  final double price;
   final String image;
   final String explanation;
   final PlacementModel placement;
@@ -14,25 +14,37 @@ class RecommendationModel {
     required this.image,
     required this.explanation,
     required this.placement,
-    this.isAddedToCart = false, // default value
+    this.isAddedToCart = false,
   });
 
   factory RecommendationModel.fromJson(Map<String, dynamic> json) {
     return RecommendationModel(
-      id: _toInt(json['id']),
-      name: (json['name'] ?? '').toString(),
-      price: _toInt(json['price']),
-      image: (json['image'] ?? '').toString(),
-      explanation: (json['explanation'] ?? '').toString(),
+      id: json['id'] ?? 0,
+      name: json['name'] ?? '',
+      price: (json['price'] ?? 0).toDouble(),
+      image: json['image'] ?? '',
+      explanation: json['explanation'] ?? '',
       placement: PlacementModel.fromJson(json['placement'] ?? {}),
-      isAddedToCart: json['isAddedToCart'] == true, // safe boolean conversion
+      isAddedToCart: json['isAddedToCart'] ?? false,
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'price': price,
+      'image': image,
+      'explanation': explanation,
+      'placement': placement.toJson(),
+      'isAddedToCart': isAddedToCart,
+    };
   }
 
   RecommendationModel copyWith({
     int? id,
     String? name,
-    int? price,
+    double? price,
     String? image,
     String? explanation,
     PlacementModel? placement,
@@ -63,18 +75,17 @@ class PlacementModel {
 
   factory PlacementModel.fromJson(Map<String, dynamic> json) {
     return PlacementModel(
-      x: _toInt(json['x']),
-      y: _toInt(json['y']),
-      label: (json['label'] ?? '').toString(),
+      x: json['x'] ?? 0,
+      y: json['y'] ?? 0,
+      label: json['label'] ?? '',
     );
   }
-}
 
-/// تحويل آمن لأي قيمة إلى int
-int _toInt(dynamic value) {
-  if (value == null) return 0;
-  if (value is int) return value;
-  if (value is double) return value.toInt();
-  if (value is String) return int.tryParse(value) ?? 0;
-  return 0;
+  Map<String, dynamic> toJson() {
+    return {
+      'x': x,
+      'y': y,
+      'label': label,
+    };
+  }
 }

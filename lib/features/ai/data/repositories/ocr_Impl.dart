@@ -126,4 +126,35 @@ class OcrImpl implements OcrService {
     if (value is String) return int.tryParse(value) ?? 0;
     return 0;
   }
+
+  // تحديث دالة RegenerateReplacement في OcrImpl
+
+@override
+Future<Map<String, dynamic>> RegenerateReplacement() async {
+  try {
+    final result = await dioConsumer.post(
+      path: "http://10.0.2.2:8080/ai/regenerate-placements",
+    );
+
+    if (result.isRight()) {
+      final response = result.getOrElse(() => throw Exception('No response'));
+      if (response.statusCode == 200) {
+        final data = response.data;
+        
+        // إرجاع البيانات كاملة بدلاً من تحويلها لـ RecommendationModel واحد
+        return {
+          'recommendations': data['recommendations'] ?? [],
+          'imageUrl': data['imageUrl'] ?? '',
+        };
+      } else {
+        throw Exception('Invalid status code: ${response.statusCode}');
+      }
+    } else {
+      throw Exception(result.swap().getOrElse(() => 'Unknown error'));
+    }
+  } catch (e) {
+    rethrow;
+  }
+}
+
 }

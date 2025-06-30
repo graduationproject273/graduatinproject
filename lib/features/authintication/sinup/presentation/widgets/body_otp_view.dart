@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gradution/features/authintication/login/presentation/widgets/column_text_and_image_login.dart';
 import 'package:gradution/features/authintication/login/presentation/widgets/section_textfiled_and_button.dart';
 
-class BodyLoginView extends StatelessWidget {
-  const BodyLoginView({super.key});
+class BodyOTPView extends StatelessWidget {
+  const BodyOTPView({super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -5,7 +5,7 @@ import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/depency_injection.dart';
 import 'package:gradution/features/ai/presentation/pages/ocr_view.dart';
-import 'package:gradution/features/authintication/login/presentation/pages/generate_otp__by_email.dart';
+import 'package:gradution/features/authintication/sinup/presentation/pages/generate_otp__by_email.dart';
 import 'package:gradution/features/authintication/sinup/presentation/cubit/seller_cubit/cubit/seller_cubit.dart';
 import 'package:gradution/features/authintication/sinup/presentation/pages/seller_sinup.dart';
 import 'package:gradution/features/authintication/typeUser/presentation/views/usertype_view.dart';

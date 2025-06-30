@@ -9,6 +9,8 @@ import 'package:gradution/features/ai/domain/services/ocr_service.dart';
 import 'package:gradution/features/ai/presentation/cubit/ocr_cubit.dart';
 import 'package:gradution/features/authintication/sinup/data/repositries/user_repo_Impl.dart';
 import 'package:gradution/features/authintication/sinup/domain/repositries/signup_repositry.dart';
+import 'package:gradution/features/authintication/sinup/domain/usecases/generateotpbyemail_usecase.dart';
+import 'package:gradution/features/authintication/sinup/presentation/cubit/generat_otp/otp_cubit.dart';
 import 'package:gradution/features/cart/data/repositries/cart_repositry_Impl.dart';
 import 'package:gradution/features/cart/domain/repositries/cart_repositry.dart';
 import 'package:gradution/features/cart/domain/usecases/cart_usecase.dart';
@@ -142,6 +144,7 @@ void setup() {
   sl.registerLazySingleton(() => AddproductUsecase(productsRepositry: sl()));
   sl.registerLazySingleton(() => FavoriteUsecase(sl()));
   sl.registerLazySingleton(() => PaymentsUsecase(paymentsRepositry: sl()));
+  sl.registerLazySingleton(() => GenerateotpbyemailUsecase(repository: sl()));
 
   // Cubit
   sl.registerLazySingleton(() => AddProductCubit(
@@ -177,4 +180,6 @@ void setup() {
   sl.registerFactory(() => ServicesCubit(sl()));
   sl.registerFactory(() => PaymentsCubit(sl()));
   sl.registerFactory(() => FeedbackCubit(sl()));
+    sl.registerFactory(() => OtpCubit(sl()));
+
 }

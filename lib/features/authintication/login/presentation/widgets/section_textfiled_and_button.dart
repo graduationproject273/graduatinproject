@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gradution/core/routeing/routes.dart' show Routes;
 import 'package:gradution/core/styles/colors.dart';
 import 'package:gradution/core/widgets/custom_textfield.dart';
+import 'package:gradution/features/authintication/sinup/presentation/cubit/generat_otp/otp_cubit.dart';
 
 class SectionTextFiledAndButton extends StatefulWidget {
   const SectionTextFiledAndButton({
@@ -10,7 +12,8 @@ class SectionTextFiledAndButton extends StatefulWidget {
   });
 
   @override
-  State<SectionTextFiledAndButton> createState() => _SectionTextFiledAndButtonState();
+  State<SectionTextFiledAndButton> createState() =>
+      _SectionTextFiledAndButtonState();
 }
 
 class _SectionTextFiledAndButtonState extends State<SectionTextFiledAndButton> {
@@ -38,12 +41,12 @@ class _SectionTextFiledAndButtonState extends State<SectionTextFiledAndButton> {
     });
 
     if (mounted) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('OTP sent to your phone!')),
+      context.read<OtpCubit>().generateOtp(
+             phoneController.text,
+
       );
-      
+
       // الانتقال لشاشة التحقق من OTP
-      GoRouter.of(context).push(Routes.register);
     }
   }
 
@@ -69,7 +72,6 @@ class _SectionTextFiledAndButtonState extends State<SectionTextFiledAndButton> {
                 blurRadius: 10,
                 offset: const Offset(0, 5),
               ),
-              
             ],
             border: Border.all(
               color: textcolorinauthpagebuttons.withOpacity(0.1),
@@ -108,16 +110,16 @@ class _SectionTextFiledAndButtonState extends State<SectionTextFiledAndButton> {
               CustomTextformfield(
                 controller: phoneController,
                 hintText: 'tomas257@gmail.com',
-                keyboardType: TextInputType.phone,
+                keyboardType: TextInputType.emailAddress,
                 color: Colors.grey[50]!,
                 colorborder: textcolorinauthpagebuttons.withOpacity(0.3),
               ),
             ],
           ),
         ),
-        
+
         const SizedBox(height: 30),
-        
+
         // Enhanced button with loading state
         Container(
           width: double.infinity,
@@ -125,12 +127,12 @@ class _SectionTextFiledAndButtonState extends State<SectionTextFiledAndButton> {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             gradient: LinearGradient(
-              colors: isLoading 
-                ? [Colors.grey, Colors.grey[400]!]
-                : [
-                    textcolorinauthpagebuttons,
-                    textcolorinauthpagebuttons.withOpacity(0.8),
-                  ],
+              colors: isLoading
+                  ? [Colors.grey, Colors.grey[400]!]
+                  : [
+                      textcolorinauthpagebuttons,
+                      textcolorinauthpagebuttons.withOpacity(0.8),
+                    ],
             ),
             boxShadow: [
               BoxShadow(
@@ -140,61 +142,80 @@ class _SectionTextFiledAndButtonState extends State<SectionTextFiledAndButton> {
               ),
             ],
           ),
-          child: Material(
-            color: Colors.transparent,
-            child: InkWell(
-              borderRadius: BorderRadius.circular(16),
-              onTap: isLoading ? null : _sendOtp,
-              child: Container(
-                alignment: Alignment.center,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    if (isLoading) ...[
-                      const SizedBox(
-                        width: 20,
-                        height: 20,
-                        child: CircularProgressIndicator(
-                          strokeWidth: 2,
-                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+          child: BlocConsumer<OtpCubit, OtpState>(
+            listener: (context, state) {
+              
+              if (state is OtpError) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(state.error)),
+                );
+              }
+              if (state is OtpLoaded) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('OTP sent successfully!')),
+                );
+                // Navigate to the OTP verification page
+                context.go(Routes.home);
+              }
+            },
+            builder: (context, state) =>
+               Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(16),
+                  onTap: isLoading ? null : _sendOtp,
+                  child: Container(
+                    alignment: Alignment.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if ( state is OtpLoading) ...[
+                          const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.white),
+                            ),
+                          ),
+                          const SizedBox(width: 12),
+                        ] else ...[
+                          const Icon(
+                            Icons.send,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                          const SizedBox(width: 8),
+                        ],
+                        Text(
+                           state is OtpLoading ? 'Sending OTP...' : 'Send OTP',
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            letterSpacing: 0.5,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 12),
-                    ] else ...[
-                      const Icon(
-                        Icons.send,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                      const SizedBox(width: 8),
-                    ],
-                    Text(
-                      isLoading ? 'Sending OTP...' : 'Send OTP',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        letterSpacing: 0.5,
-                      ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
-              ),
-            ),
+              )
+            
           ),
         ),
-        
+
         const SizedBox(height: 20),
-        
+
         // Additional info
         Container(
           padding: const EdgeInsets.all(12),
           decoration: BoxDecoration(
-                        color: maincolor.withOpacity(.1),
+            color: maincolor.withOpacity(.1),
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
-                        color: maincolor.withOpacity(.5),
-
+              color: maincolor.withOpacity(.5),
               width: 1,
             ),
           ),

@@ -20,14 +20,22 @@ class ProductsDetailsViewBody extends StatefulWidget {
 class _ProductsDetailsViewBodyState extends State<ProductsDetailsViewBody>
     with TickerProviderStateMixin {
   late AnimationController _animationController;
+  late AnimationController _feedbackAnimationController;
   late Animation<double> _fadeAnimation;
   late Animation<Offset> _slideAnimation;
+  late Animation<double> _pulseAnimation;
+  late Animation<double> _scaleAnimation;
 
   @override
   void initState() {
     super.initState();
     _animationController = AnimationController(
       duration: const Duration(milliseconds: 800),
+      vsync: this,
+    );
+    
+    _feedbackAnimationController = AnimationController(
+      duration: const Duration(milliseconds: 2000),
       vsync: this,
     );
     
@@ -46,30 +54,39 @@ class _ProductsDetailsViewBodyState extends State<ProductsDetailsViewBody>
       parent: _animationController,
       curve: Curves.easeOutCubic,
     ));
+
+    _pulseAnimation = Tween<double>(
+      begin: 1.0,
+      end: 1.1,
+    ).animate(CurvedAnimation(
+      parent: _feedbackAnimationController,
+      curve: Curves.easeInOut,
+    ));
+
+    _scaleAnimation = Tween<double>(
+      begin: 0.8,
+      end: 1.0,
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.elasticOut,
+    ));
     
     _animationController.forward();
+    _feedbackAnimationController.repeat(reverse: true);
   }
 
   @override
   void dispose() {
     _animationController.dispose();
+    _feedbackAnimationController.dispose();
     super.dispose();
   }
 
-  void _navigateToFeedback() {
-    // استبدل 'FeedbackPage' باسم صفحة الـ feedback الخاصة بك
+  void _navigateToFeedback() {    
     GoRouter.of(context).push(
       Routes.reviews,
-      extra: widget.productEntity.id, // تمرير معرف المنتج
+      extra: widget.productEntity.id,
     );
-    
-    // أو إذا كانت صفحة الـ feedback تحتاج معلومات المنتج:
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => FeedbackPage(product: widget.productEntity),
-    //   ),
-    // );
   }
 
   @override
@@ -91,33 +108,9 @@ class _ProductsDetailsViewBodyState extends State<ProductsDetailsViewBody>
                 foregroundColor: Colors.black,
                 elevation: 0,
                 automaticallyImplyLeading: false,
-                // إضافة زر الـ feedback في الـ AppBar
+                // زر feedback محسن في الـ AppBar
                 actions: [
-                  Container(
-                    margin: EdgeInsets.only(right: 16.w),
-                    child: IconButton(
-                      onPressed: _navigateToFeedback,
-                      icon: Container(
-                        padding: EdgeInsets.all(8.w),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.9),
-                          borderRadius: BorderRadius.circular(12),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.1),
-                              blurRadius: 8,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: Icon(
-                          Icons.feedback_outlined,
-                          color: maincolor,
-                          size: 20.w,
-                        ),
-                      ),
-                    ),
-                  ),
+                  _buildAnimatedFeedbackButton(),
                 ],
                 flexibleSpace: FlexibleSpaceBar(
                   background: _buildProductImageSection(),
@@ -142,7 +135,6 @@ class _ProductsDetailsViewBodyState extends State<ProductsDetailsViewBody>
                             ),
                             boxShadow: [
                               BoxShadow(
-                                // ignore: deprecated_member_use
                                 color: Colors.black.withOpacity(0.05),
                                 blurRadius: 20,
                                 offset: const Offset(0, -5),
@@ -171,11 +163,12 @@ class _ProductsDetailsViewBodyState extends State<ProductsDetailsViewBody>
                                 SizedBox(height: 16.h),
                                 _buildPriceSection(),
                                 SizedBox(height: 20.h),
-                                _buildDescriptionSection(),
-                                SizedBox(height: 20.h),
                                 
-                                // إضافة زر الـ feedback كقسم منفصل
-                                _buildFeedbackSection(widget.productEntity.id), 
+                                // قسم الـ feedback المحسن 
+                                _buildEnhancedFeedbackSection(),
+                                
+                                SizedBox(height: 20.h),
+                                _buildDescriptionSection(),
                                 
                                 SizedBox(height: 120.h), // Space for bottom buttons
                               ],
@@ -218,21 +211,55 @@ class _ProductsDetailsViewBodyState extends State<ProductsDetailsViewBody>
           ),
         ],
       ),
-      // إضافة Floating Action Button للـ feedback
-      floatingActionButton: FloatingActionButton.extended(
+      // Floating Action Button محسن
+      floatingActionButton: _buildPulsatingFAB(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+
+  // زر feedback بسيط في الـ AppBar
+  Widget _buildAnimatedFeedbackButton() {
+    return Container(
+      margin: EdgeInsets.only(right: 16.w),
+      child: IconButton(
         onPressed: _navigateToFeedback,
-        backgroundColor: maincolor,
-        foregroundColor: Colors.white,
-        icon: const Icon(Icons.rate_review),
-        label: Text(
-          'Give Feedback',
-          style: TextStyle(
-            fontSize: 14.sp,
-            fontWeight: FontWeight.w600,
+        icon: Container(
+          padding: EdgeInsets.all(8.w),
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(0.9),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.1),
+                blurRadius: 8,
+                offset: const Offset(0, 2),
+              ),
+            ],
+          ),
+          child: Icon(
+            Icons.rate_review,
+            color: maincolor,
+            size: 20.w,
           ),
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+
+  // FAB بسيط
+  Widget _buildPulsatingFAB() {
+    return FloatingActionButton.extended(
+      onPressed: _navigateToFeedback,
+      backgroundColor: maincolor,
+      foregroundColor: Colors.white,
+      icon: const Icon(Icons.rate_review),
+      label: Text(
+        'Give Feedback',
+        style: TextStyle(
+          fontSize: 14.sp,
+          fontWeight: FontWeight.w600,
+        ),
+      ),
     );
   }
 
@@ -381,8 +408,8 @@ class _ProductsDetailsViewBodyState extends State<ProductsDetailsViewBody>
     );
   }
 
-  // قسم الـ feedback الجديد
-  Widget _buildFeedbackSection(int id) {
+  // قسم الـ feedback بسيط
+  Widget _buildEnhancedFeedbackSection() {
     return InkWell(
       onTap: _navigateToFeedback,
       child: Container(
@@ -451,6 +478,83 @@ class _ProductsDetailsViewBodyState extends State<ProductsDetailsViewBody>
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  // قسم تقييم سريع
+  Widget _buildQuickRatingSection() {
+    return Container(
+      padding: EdgeInsets.all(20.w),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        border: Border.all(
+          color: Colors.grey.withOpacity(0.2),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(
+                Icons.star_half_rounded,
+                color: Colors.amber,
+                size: 24.w,
+              ),
+              SizedBox(width: 8.w),
+              Text(
+                'Quick Rating',
+                style: TextStyle(
+                  fontSize: 18.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 12.h),
+          Text(
+            'Rate this product quickly:',
+            style: TextStyle(
+              fontSize: 14.sp,
+              color: Colors.grey[600],
+            ),
+          ),
+          SizedBox(height: 16.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: List.generate(5, (index) {
+              return GestureDetector(
+                onTap: () {
+                  // Handle quick rating
+                  _navigateToFeedback();
+                },
+                child: Container(
+                  padding: EdgeInsets.all(8.w),
+                  decoration: BoxDecoration(
+                    color: Colors.amber.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Icon(
+                    Icons.star_rounded,
+                    color: Colors.amber,
+                    size: 28.w,
+                  ),
+                ),
+              );
+            }),
+          ),
+        ],
       ),
     );
   }

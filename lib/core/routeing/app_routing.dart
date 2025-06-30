@@ -16,9 +16,7 @@ import 'package:gradution/features/cart/presentation/cubits/cubit/cart_cubit.dar
 import 'package:gradution/features/cart/presentation/views/cart_view.dart';
 import 'package:gradution/features/checkout/presentation/views/checkout_view.dart';
 import 'package:gradution/features/favorite/presentation/pages/favorite_view.dart';
-import 'package:gradution/features/feedback/presentation/pages/add_feedback_view.dart';
 import 'package:gradution/features/feedback/presentation/pages/all_feeedback.dart';
-import 'package:gradution/features/feedback/presentation/widgets/add_feedback_view_body.dart';
 import 'package:gradution/features/home/presentation/cubit/cubit/userprofile_cubit.dart';
 import 'package:gradution/features/home/presentation/views/categories_view.dart';
 import 'package:gradution/features/home/presentation/views/home_view.dart';
@@ -26,7 +24,6 @@ import 'package:gradution/features/home/presentation/views/user_profile.dart';
 import 'package:gradution/features/onbording/presentation/views/auth_buttons_view.dart';
 import 'package:gradution/features/onbording/presentation/views/onboarding_view.dart';
 import 'package:gradution/features/onbording/presentation/views/splash_view.dart';
-import 'package:gradution/features/order-success/presentation/views/order_success_view.dart';
 import 'package:gradution/features/orders/domain/entities/order_entity.dart';
 import 'package:gradution/features/orders/presentation/pages/order_details_view.dart';
 import 'package:gradution/features/orders/presentation/pages/orders_view.dart';

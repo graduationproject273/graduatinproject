@@ -30,4 +30,7 @@ class EndPoints {
   static String getProductByCategoryId(int id) => "categories/${id}/products";
   static const String validateCoupon = "coupons/validate";
   static const String stripeSession = "payments/create-checkout-session";
+
+  static const String generateotp = "v1/auth/request-otp";
+  static const String verifyotp = "v1/auth/verify-otp";
 }

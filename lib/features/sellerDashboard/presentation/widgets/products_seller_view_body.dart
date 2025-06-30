@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/core/styles/textstyles.dart';
-import 'package:gradution/features/authintication/sinup/presentation/cubit/seller_cubit/cubit/seller_cubit.dart';
-import 'package:gradution/features/products/presentation/cubits/products_cubit/cubit/products_cubit.dart';
 import 'package:gradution/features/products/presentation/view/widgets/product_item.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/cubit/get_product_seller_cubit.dart';
 
@@ -60,22 +58,17 @@ class ProductsSellerViewBody extends StatelessWidget {
                             itemCount: state.products.length,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: (){
-                                  context.read<GetProductSellerCubit>().deleteProduct(state.products[index].id);
+                              return ProductItem(
+                                productEntity: state.products[index],
+                                onTap: () async {
+                                  final result = await GoRouter.of(context).push<bool>(
+                                    Routes.sellerProductsEdit,
+                                    extra: state.products[index],
+                                  );
+                                  if (result == true) {
+                                    context.read<GetProductSellerCubit>().getAllProductfun();
+                                  }
                                 },
-                                child: ProductItem(
-                                  productEntity: state.products[index],
-                                  onTap: () async {
-                                    final result = await GoRouter.of(context).push<bool>(
-                                      Routes.sellerProductsEdit,
-                                      extra: state.products[index],
-                                    );
-                                    if (result == true) {
-                                      context.read<GetProductSellerCubit>().getAllProductfun();
-                                    }
-                                  },
-                                ),
                               );
                             },
                           ),

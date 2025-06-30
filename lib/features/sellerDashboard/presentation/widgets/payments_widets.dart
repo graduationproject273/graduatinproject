@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gradution/core/styles/textstyles.dart';
-import 'package:gradution/core/widgets/custom_button.dart';
-import 'package:gradution/features/sellerDashboard/presentation/widgets/table_payment_and_transaction.dart';
 
 class PaymentsWidets extends StatelessWidget {
   const PaymentsWidets({super.key});

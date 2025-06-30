@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gradution/core/styles/textstyles.dart';
 import 'package:gradution/features/authintication/login/presentation/widgets/body_login_view.dart';
 
 class LoginView extends StatelessWidget {

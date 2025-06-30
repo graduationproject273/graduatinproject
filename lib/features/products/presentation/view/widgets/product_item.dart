@@ -312,7 +312,7 @@ import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/core/styles/colors.dart';
 import 'package:gradution/core/styles/extention.dart';
 import 'package:gradution/features/products/domain/entities/product_entity.dart';
-import 'package:gradution/features/sellerDashboard/presentation/cubit/cubit/get_product_seller_cubit.dart';
+import 'package:gradution/features/sellerDashboard/presentation/cubit/get_product_seller_cubit/get_product_seller_cubit.dart';
 
 class ProductItem extends StatefulWidget {
   const ProductItem({

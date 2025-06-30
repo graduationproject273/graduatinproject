@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gradution/depency_injection.dart';
 import 'package:gradution/features/products/domain/entities/product_entity.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/add_product_cubit/add_product_cubit.dart';
-import 'package:gradution/features/sellerDashboard/presentation/cubit/cubit/get_product_seller_cubit.dart';
+import 'package:gradution/features/sellerDashboard/presentation/cubit/get_product_seller_cubit/get_product_seller_cubit.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/edit_product_cubit/edit_product_seller_cubit.dart';
 import 'package:gradution/features/sellerDashboard/presentation/widgets/edit_product_seller_body.dart';
 

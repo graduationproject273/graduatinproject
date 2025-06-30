@@ -10,9 +10,9 @@ class EndPoints {
   static const String loginUser = "v1/auth/authenticate";
   static const String sellersignup = "sellers";
   static const String addtocart = "cart-items";
-    static const String favorites = "favourites";
-    static const String feedback = "feedbacks";
-
+  static const String favorites = "favourites";
+  static const String feedback = "feedbacks";
+  static const String sellerSummery = "order-items/seller/stats";
   static const String getCartItems = "cart-items";
   static const String clearCart = "cart-items/clearAll";
   static const String aiOcr = "ai/upload/ocr-match";

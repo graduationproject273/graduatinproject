@@ -12,9 +12,11 @@ import 'package:gradution/features/sellerDashboard/data/models/add_product_model
 import 'package:gradution/features/sellerDashboard/data/models/get_all_category_model.dart';
 import 'package:gradution/features/sellerDashboard/data/models/orders_details.dart';
 import 'package:gradution/features/sellerDashboard/data/models/profile_model.dart';
+import 'package:gradution/features/sellerDashboard/data/models/seller_summary_model.dart';
 import 'package:gradution/features/sellerDashboard/domain/entities/add_product_entity.dart';
 import 'package:gradution/features/sellerDashboard/domain/entities/orders_details_entity.dart';
 import 'package:gradution/features/sellerDashboard/domain/entities/profile_entity.dart';
+import 'package:gradution/features/sellerDashboard/domain/entities/seller_summary_entity.dart';
 import 'package:gradution/features/sellerDashboard/domain/repositries/seller_repositry.dart';
 
 class SellerRepositryImpl extends SellerRepositry {
@@ -184,6 +186,25 @@ class SellerRepositryImpl extends SellerRepositry {
         (r) {
           
           return Right(null);
+        },
+      );
+    } catch (e) {
+      return Left(Failure(errMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, SellerSummaryEntity>> getsellerSummary()async {
+ try {
+      final response = await dioConsumer.get(
+        path: EndPoints.sellerSummery,
+      );
+
+      return response.fold(
+        (l) => Left(Failure(errMessage: l)),
+        (r) {
+        
+          return Right(SellerSummaryModel.fromJson(r.data));
         },
       );
     } catch (e) {

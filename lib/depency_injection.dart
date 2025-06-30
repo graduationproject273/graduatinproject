@@ -55,10 +55,12 @@ import 'package:gradution/features/sellerDashboard/domain/usecases/addproduct_us
 import 'package:gradution/features/sellerDashboard/domain/usecases/edit_product.dart';
 import 'package:gradution/features/sellerDashboard/domain/usecases/get_all_category.dart';
 import 'package:gradution/features/sellerDashboard/domain/usecases/getorders_usecase.dart';
+import 'package:gradution/features/sellerDashboard/domain/usecases/gets_eller_summary_usecase.dart';
 import 'package:gradution/features/sellerDashboard/domain/usecases/profile_usecase.dart';
 import 'package:gradution/features/sellerDashboard/domain/usecases/update_status_order.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/add_product_cubit/add_product_cubit.dart';
-import 'package:gradution/features/sellerDashboard/presentation/cubit/cubit/get_product_seller_cubit.dart';
+import 'package:gradution/features/sellerDashboard/presentation/cubit/cubit/seller_summary_cubit.dart';
+import 'package:gradution/features/sellerDashboard/presentation/cubit/get_product_seller_cubit/get_product_seller_cubit.dart';
 import 'package:gradution/features/authintication/sinup/domain/usecases/seller_usecase.dart';
 import 'package:gradution/features/authintication/sinup/domain/usecases/signup_seller.dart';
 import 'package:gradution/features/authintication/sinup/presentation/cubit/seller_cubit/cubit/seller_cubit.dart';
@@ -115,18 +117,16 @@ void setup() {
   sl.registerLazySingleton<OfferRepositry>(
       () => OfferRepositryImpl(dioConsumer: sl()));
 
-
-
-      sl.registerLazySingleton<FeedbackRepository>(
+  sl.registerLazySingleton<FeedbackRepository>(
       () => FeedbackRepoImpli(dioConsumer: sl()));
-      sl.registerLazySingleton<FavoriteRepository>(
+  sl.registerLazySingleton<FavoriteRepository>(
       () => FavoriteRepositroyImpl(dioConsumer: sl()));
   sl.registerLazySingleton<PaymentsRepositry>(
     () => PaymentsRepositryImpl(dioConsumer: sl()),
   );
 
   // Usecase
-    sl.registerLazySingleton(() => FeedbackUsecase(feedbackRepository: sl()));
+  sl.registerLazySingleton(() => FeedbackUsecase(feedbackRepository: sl()));
 
   sl.registerLazySingleton(() => GetAllCategory(productsRepositry: sl()));
   sl.registerLazySingleton(() => GetAllProduct(repository: sl()));
@@ -145,6 +145,7 @@ void setup() {
   sl.registerLazySingleton(() => FavoriteUsecase(sl()));
   sl.registerLazySingleton(() => PaymentsUsecase(paymentsRepositry: sl()));
   sl.registerLazySingleton(() => GenerateotpbyemailUsecase(repository: sl()));
+  sl.registerLazySingleton(() => GetsEllerSummaryUsecase(sl()));
 
   // Cubit
   sl.registerLazySingleton(() => AddProductCubit(
@@ -180,6 +181,6 @@ void setup() {
   sl.registerFactory(() => ServicesCubit(sl()));
   sl.registerFactory(() => PaymentsCubit(sl()));
   sl.registerFactory(() => FeedbackCubit(sl()));
-    sl.registerFactory(() => OtpCubit(sl()));
-
+  sl.registerFactory(() => OtpCubit(sl()));
+  sl.registerFactory(() => SellerSummaryCubit(sl()));
 }

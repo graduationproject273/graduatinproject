@@ -58,22 +58,17 @@ class ProductsSellerViewBody extends StatelessWidget {
                             itemCount: state.products.length,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
-                              return GestureDetector(
-                                onTap: (){
-                                  context.read<GetProductSellerCubit>().deleteProduct(state.products[index].id);
+                              return ProductItem(
+                                productEntity: state.products[index],
+                                onTap: () async {
+                                  final result = await GoRouter.of(context).push<bool>(
+                                    Routes.sellerProductsEdit,
+                                    extra: state.products[index],
+                                  );
+                                  if (result == true) {
+                                    context.read<GetProductSellerCubit>().getAllProductfun();
+                                  }
                                 },
-                                child: ProductItem(
-                                  productEntity: state.products[index],
-                                  onTap: () async {
-                                    final result = await GoRouter.of(context).push<bool>(
-                                      Routes.sellerProductsEdit,
-                                      extra: state.products[index],
-                                    );
-                                    if (result == true) {
-                                      context.read<GetProductSellerCubit>().getAllProductfun();
-                                    }
-                                  },
-                                ),
                               );
                             },
                           ),

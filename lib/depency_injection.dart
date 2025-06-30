@@ -57,11 +57,9 @@ import 'package:gradution/features/sellerDashboard/domain/usecases/profile_useca
 import 'package:gradution/features/sellerDashboard/domain/usecases/update_status_order.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/add_product_cubit/add_product_cubit.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/cubit/get_product_seller_cubit.dart';
-import 'package:gradution/features/authintication/sinup/domain/usecases/login_usecase.dart';
 import 'package:gradution/features/authintication/sinup/domain/usecases/seller_usecase.dart';
 import 'package:gradution/features/authintication/sinup/domain/usecases/signup_seller.dart';
 import 'package:gradution/features/authintication/sinup/presentation/cubit/seller_cubit/cubit/seller_cubit.dart';
-import 'package:gradution/features/authintication/sinup/presentation/cubit/user_cubit/sinup_cubit.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/getorders/getorders_cubit.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/edit_product_cubit/edit_product_seller_cubit.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/get_all_category_cubit/get_all_category_cubit.dart';
@@ -152,12 +150,10 @@ void setup() {
 
   sl.registerLazySingleton(() => SellerUsecase(signupRepositry: sl()));
   sl.registerLazySingleton(() => SignupSellerUsecase(sl()));
-  sl.registerLazySingleton(() => LoginUsecase(sl()));
   sl.registerLazySingleton(() => EditProductSellerCubit(sl()));
 
   sl.registerFactory(() => GetProductSellerCubit(sl(), sl()));
   sl.registerFactory(() => GetAllCategoryCubit(sl<GetAllCategory>()));
-  sl.registerFactory(() => SinupCubit(sl(), sl()));
   sl.registerFactory(() => SellerCubit(sl()));
   // Services
   sl.registerLazySingleton<OcrService>(

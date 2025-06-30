@@ -16,35 +16,7 @@ class UserRepoImpl extends SignupRepositry {
   UserRepoImpl(this.dioConsumer);
   
   
-  @override
-  Future<Either<Failure, UserEntity>> loginUser(UserEntity user) async {
-    try {
-      final response = await dioConsumer.post(
-        path: EndPoints.loginUser,
-        data: UserModel(
-          email: user.email,
-          password: user.password,
-          token: '',
-          roles: [],
-        ).toJson(),
-      );
-      
-      return response.fold(
-        (l) => Left(Failure(errMessage: l)),
-        (r) {
-          final raw = r.data;
-          if (raw == null || raw.toString().trim().isEmpty) {
-            return Left(Failure(errMessage: "Empty response from server"));
-          }
 
-          final jsonMap = raw is String ? json.decode(raw) : raw;
-          return Right(UserModel.fromJson(jsonMap));
-        },
-      );
-    } catch (e) {
-      return Left(Failure(errMessage: e.toString()));
-    }
-  }
   
   @override
 Future<Either<Failure, SellerEntity>> signupSeller(SellerEntity seller) async {
@@ -130,4 +102,16 @@ Future<Either<Failure, SellerEntity>> signupSeller(SellerEntity seller) async {
     return Left(Failure(errMessage: "Network error: $e"));
   }
 }
+
+  @override
+  Future<Either<Failure, UserEntity>> codePin(String emall, String code) {
+    // TODO: implement codePin
+    throw UnimplementedError();
+  }
+  
+  @override
+  Future<Either<Failure, void>> generateOTPByEmail(String emall) {
+    // TODO: implement generateOTPByEmail
+    throw UnimplementedError();
+  }
 }

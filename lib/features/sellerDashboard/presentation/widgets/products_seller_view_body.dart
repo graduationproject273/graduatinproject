@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/core/styles/textstyles.dart';
-import 'package:gradution/features/authintication/sinup/presentation/cubit/seller_cubit/cubit/seller_cubit.dart';
-import 'package:gradution/features/products/presentation/cubits/products_cubit/cubit/products_cubit.dart';
 import 'package:gradution/features/products/presentation/view/widgets/product_item.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/cubit/get_product_seller_cubit.dart';
 

@@ -5,6 +5,8 @@ import 'package:gradution/features/products/domain/entities/sub_entities/seller_
 
 abstract class SignupRepositry {
 
-  Future<Either<Failure, UserEntity>> loginUser(UserEntity user);
+  Future<Either<Failure, UserEntity>> codePin(String emall, String code);
+    Future<Either<Failure, void>> generateOTPByEmail(String emall);
+
   Future<Either<Failure, SellerEntity>> signupSeller(SellerEntity user);
 }

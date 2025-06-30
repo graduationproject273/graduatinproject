@@ -5,11 +5,9 @@ import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/depency_injection.dart';
 import 'package:gradution/features/ai/presentation/pages/ocr_view.dart';
-import 'package:gradution/features/authintication/login/presentation/pages/login_view.dart';
-import 'package:gradution/features/authintication/login/presentation/widgets/otp_widget.dart';
+import 'package:gradution/features/authintication/login/presentation/pages/generate_otp__by_email.dart';
 import 'package:gradution/features/authintication/sinup/presentation/cubit/seller_cubit/cubit/seller_cubit.dart';
 import 'package:gradution/features/authintication/sinup/presentation/pages/seller_sinup.dart';
-import 'package:gradution/features/authintication/sinup/presentation/pages/sinup_view.dart';
 import 'package:gradution/features/authintication/typeUser/presentation/views/usertype_view.dart';
 import 'package:gradution/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:gradution/features/cart/presentation/cubits/cubit/cart_cubit.dart';
@@ -74,11 +72,11 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: Routes.register,
-      builder: (context, state) => const SinupView(),
+      builder: (context, state) => const GenerateOTPByEmail(),
     ),
     GoRoute(
       path: Routes.login,
-      builder: (context, state) => const LoginView(),
+      builder: (context, state) => const GenerateOTPByEmail(),
     ),
     GoRoute(
       path: Routes.products,
@@ -152,10 +150,7 @@ final GoRouter router = GoRouter(
       path: Routes.usertype,
       builder: (context, state) => const UsertypeView(),
     ),
-    GoRoute(
-      path: Routes.otpwidget,
-      builder: (context, state) => const OtpWidget(),
-    ),
+  
     GoRoute(
       path: Routes.signupseller,
       builder: (context, state) => BlocProvider(

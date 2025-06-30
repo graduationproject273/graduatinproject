@@ -31,13 +31,14 @@ class Routes {
   static const String sellerProductsEdit = '/sellerProductsEdit';
   static const String addsellerProducts = '/addsellerProducts';
   static const String order = '/order';
-    static const String orderDetails = '/orderdetails';
+  static const String orderDetails = '/orderdetails';
 
-  static const String payments= '/payments';
-  static const String transactions= '/transactions';
-  static const String dashboardhome= '/dashboardhome';
-  static const String profileSeller= '/profileSeller';
-  static const String ordersview= '/ordersview';
-  static const String userprofile= '/userprofile';
+  static const String payments = '/payments';
+  static const String transactions = '/transactions';
+  static const String dashboardhome = '/dashboardhome';
+  static const String profileSeller = '/profileSeller';
+  static const String ordersview = '/ordersview';
+  static const String userprofile = '/userprofile';
 
+  static const String verifyOtp = '/verifyotp';
 }

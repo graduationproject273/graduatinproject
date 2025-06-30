@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:gradution/core/databases/api/dio_consumer.dart';

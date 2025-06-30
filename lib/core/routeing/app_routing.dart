@@ -10,6 +10,7 @@ import 'package:gradution/features/authintication/login/presentation/widgets/otp
 import 'package:gradution/features/authintication/sinup/presentation/cubit/seller_cubit/cubit/seller_cubit.dart';
 import 'package:gradution/features/authintication/sinup/presentation/pages/seller_sinup.dart';
 import 'package:gradution/features/authintication/sinup/presentation/pages/sinup_view.dart';
+import 'package:gradution/features/authintication/sinup/presentation/widgets/otp_widget.dart';
 import 'package:gradution/features/authintication/typeUser/presentation/views/usertype_view.dart';
 import 'package:gradution/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:gradution/features/cart/presentation/cubits/cubit/cart_cubit.dart';
@@ -51,7 +52,7 @@ final GoRouter router = GoRouter(
       path: Routes.splash,
 
       
-      builder: (context, state) =>  const SplashView(
+      builder: (context, state) =>  const OTPVerificationPage(
      
       ),),
       GoRoute(
@@ -215,6 +216,9 @@ final GoRouter router = GoRouter(
       path: Routes.ocr,
       builder: (context, state) => const OcrScreen(),
     ),
+    GoRoute(path: Routes.verifyOtp
+    , builder: (context , state)=> OTPVerificationPage()
+    )
   ],
   errorBuilder: (context, state) => const Scaffold(
     body: Center(child: Text('Page not found')),

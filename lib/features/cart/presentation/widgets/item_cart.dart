@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,6 +20,7 @@ class ItemCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('ItemCart: ${product.productcartentity.image}');
     return Material(
       color: Colors.white,
       borderRadius: BorderRadius.circular(20),
@@ -38,12 +40,13 @@ class ItemCart extends StatelessWidget {
               // التعامل الآمن مع تحميل الصورة
               ClipRRect(
                 borderRadius: BorderRadius.circular(8),
-                child: Image.network(
-                  product.productcartentity.image.isNotEmpty ? product.productcartentity.image : 'https://via.placeholder.com/100',
+                child: CachedNetworkImage(
+
+                  imageUrl:   product.productcartentity.image.isNotEmpty ? product.productcartentity.image : 'https://via.placeholder.com/100',
                   width: 100.w,
                   height: 100.h,
                   fit: BoxFit.cover,
-                  errorBuilder: (context, error, stackTrace) {
+                  errorWidget: (context, error, stackTrace) {
                     return Container(
                       width: 100.w,
                       height: 100.h,
@@ -55,22 +58,14 @@ class ItemCart extends StatelessWidget {
                       ),
                     );
                   },
-                  loadingBuilder: (context, child, loadingProgress) {
-                    if (loadingProgress == null) return child;
-                    return Container(
-                      width: 100.w,
-                      height: 100.h,
-                      color: Colors.grey[300],
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          value: loadingProgress.expectedTotalBytes != null
-                              ? loadingProgress.cumulativeBytesLoaded /
-                                  loadingProgress.expectedTotalBytes!
-                              : null,
-                        ),
-                      ),
-                    );
-                  },
+                  placeholder: (context, url) => Container(
+                    width: 100.w,
+                    height: 100.h,
+                    color: Colors.grey[300],
+                    child: const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
                 ),
               ),
               

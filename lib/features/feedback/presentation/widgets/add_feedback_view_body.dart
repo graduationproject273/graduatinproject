@@ -1,13 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:gradution/core/widgets/custom_textfield.dart';
+import 'package:gradution/depency_injection.dart';
+import 'package:gradution/features/feedback/data/models/send_feedback.dart';
+import 'package:gradution/features/feedback/presentation/cubit/feedback_cubit.dart';
 
-class FeedbackPage extends StatefulWidget {
-  const FeedbackPage({Key? key}) : super(key: key);
+class AddFeedbackPageBody extends StatefulWidget {
+  const AddFeedbackPageBody({super.key, required this.productId});
+  final int productId;
 
   @override
-  State<FeedbackPage> createState() => _FeedbackPageState();
+  State<AddFeedbackPageBody> createState() => _FeedbackPageState();
 }
 
-class _FeedbackPageState extends State<FeedbackPage> {
+class _FeedbackPageState extends State<AddFeedbackPageBody> {
   final TextEditingController _commentController = TextEditingController();
   int _selectedRating = 0;
   bool _isSubmitting = false;
@@ -43,13 +50,15 @@ class _FeedbackPageState extends State<FeedbackPage> {
       _isSubmitting = false;
     });
 
-    _showSnackBar('Feedback submitted successfully!');
-    
-    // Reset form
-    _commentController.clear();
-    setState(() {
-      _selectedRating = 0;
-    });
+    context.read<FeedbackCubit>().sendFeedback(
+          feedback: FeedbackSimpleModel(
+            comment: _commentController.text.trim(),
+            rating: _selectedRating,
+          ),
+          productId: widget.productId, // Replace with actual product ID
+        );
+
+    // Show success message
   }
 
   void _showSnackBar(String message, {bool isError = false}) {
@@ -87,21 +96,20 @@ class _FeedbackPageState extends State<FeedbackPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.grey[50],
-      appBar: AppBar(
-        title: const Text(
-          'Feedback',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: primaryColor,
-        elevation: 0,
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
+    return BlocListener<FeedbackCubit, FeedbackState>(
+      listener: (context, state) {
+        if (state is FeedbackSent) {
+          GoRouter.of(context).pop();
+          _showSnackBar('Feedback submitted successfully');
+          _commentController.clear();
+          setState(() {
+            _selectedRating = 0;
+          });
+        } else if (state is FeedbackError) {
+          _showSnackBar(state.message, isError: true);
+        }
+      },
+      child: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -222,26 +230,15 @@ class _FeedbackPageState extends State<FeedbackPage> {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  TextField(
-                    controller: _commentController,
+                  CustomTextformfield(
+                    hintText:
+                        'Share your thoughts, suggestions, or any issues you encountered...',
+                    keyboardType: TextInputType.multiline,
                     maxLines: 5,
-                    decoration: InputDecoration(
-                      hintText: 'Share your thoughts, suggestions, or any issues you encountered...',
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey[300]!),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: primaryColor, width: 2),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.grey[300]!),
-                      ),
-                      filled: true,
-                      fillColor: Colors.grey[50],
-                      contentPadding: const EdgeInsets.all(15),
+                    controller: _commentController,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.grey[300]!),
                     ),
                   ),
                 ],

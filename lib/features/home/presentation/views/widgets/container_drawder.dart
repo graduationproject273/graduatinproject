@@ -17,6 +17,8 @@ class Containerindrawer extends StatelessWidget {
     CupertinoIcons.cart_fill,
     CupertinoIcons.cart_badge_plus,
     CupertinoIcons.phone_fill,
+        Icons.favorite,
+
  
   ];
 
@@ -26,6 +28,7 @@ class Containerindrawer extends StatelessWidget {
     'Carts',
     'Orders',
     'Contact Us',
+    'Favorites',
    
    
   ];
@@ -46,11 +49,14 @@ class Containerindrawer extends StatelessWidget {
          GoRouter.of(context).push(Routes.ordersview);
         break;
       case 4:
-        GoRouter.of(context).go(Routes.service);
+        GoRouter.of(context).push(Routes.service);
+        break;
+        case 5:
+        GoRouter.of(context).push(Routes.favorite);
         break;
      
       default:
-         GoRouter.of(context).go(Routes.home);
+         GoRouter.of(context).push(Routes.home);
     }
   }
 

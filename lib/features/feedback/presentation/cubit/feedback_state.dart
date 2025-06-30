@@ -8,3 +8,13 @@ abstract class FeedbackState extends Equatable {
 }
 
 class FeedbackInitial extends FeedbackState {}
+class FeedbackLoading extends FeedbackState {}
+class FeedbackSent extends FeedbackState {}
+class FeedbackLoaded extends FeedbackState {
+  final List<FeedbackEntity> feedbacks;
+  const FeedbackLoaded(this.feedbacks);
+}
+class FeedbackError extends FeedbackState {
+  final String message;
+  const FeedbackError(this.message);
+}

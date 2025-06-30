@@ -83,7 +83,7 @@ Future<bool> isFavourite(int id) async {
   try {
       final response = await dioConsumer.post(
         path: EndPoints.favorites,
-        data:id
+        data: {"productId": id},
       );
 
       return response.fold(

@@ -129,7 +129,7 @@ class OrderCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Text(
-                      item.productName,
+                      item.product.name,
                       style: const TextStyle(
                         fontSize: 12,
                         color: Color(0xFF00917C),

@@ -15,6 +15,10 @@ import 'package:gradution/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:gradution/features/cart/presentation/cubits/cubit/cart_cubit.dart';
 import 'package:gradution/features/cart/presentation/views/cart_view.dart';
 import 'package:gradution/features/checkout/presentation/views/checkout_view.dart';
+import 'package:gradution/features/favorite/presentation/pages/favorite_view.dart';
+import 'package:gradution/features/feedback/presentation/pages/add_feedback_view.dart';
+import 'package:gradution/features/feedback/presentation/pages/all_feeedback.dart';
+import 'package:gradution/features/feedback/presentation/widgets/add_feedback_view_body.dart';
 import 'package:gradution/features/home/presentation/cubit/cubit/userprofile_cubit.dart';
 import 'package:gradution/features/home/presentation/views/categories_view.dart';
 import 'package:gradution/features/home/presentation/views/home_view.dart';
@@ -48,7 +52,17 @@ final GoRouter router = GoRouter(
   routes: [
     GoRoute(
       path: Routes.splash,
-      builder: (context, state) => const SplashView(),
+
+      
+      builder: (context, state) =>  const SplashView(
+     
+      ),),
+      GoRoute(
+      path: Routes.reviews,
+      builder: (context, state) =>  ProductFeedbackScreen(
+        productId: state.extra as int,
+      
+    ),
     ),
     GoRoute(
       path: Routes.onBoarding,
@@ -130,8 +144,8 @@ final GoRouter router = GoRouter(
       ),
     ),
     GoRoute(
-      path: Routes.orderSuccess,
-      builder: (context, state) => const OrderSuccessView(),
+      path: Routes.favorite,
+      builder: (context, state) => const FavoriteView(),
     ),
     GoRoute(
       path: Routes.authbuttonsview,

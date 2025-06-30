@@ -18,6 +18,10 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
 
   final List<IconData> iconss = [
     Icons.dashboard_outlined,
+
+    Icons.production_quantity_limits_outlined,
+    CupertinoIcons.cart_fill,
+    Icons.payment,
     Icons.inventory_2_outlined,
     CupertinoIcons.add_circled,
     Icons.payment_outlined,
@@ -54,6 +58,7 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
       case 3:
         GoRouter.of(context).push(Routes.payments);
         break;
+
       default:
         GoRouter.of(context).go(Routes.dashboardseller);
     }

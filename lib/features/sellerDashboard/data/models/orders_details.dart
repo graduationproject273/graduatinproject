@@ -18,25 +18,25 @@ class OrderDetails extends OrdersDetailsEntity {
   });
 
   factory OrderDetails.fromJson(Map<String, dynamic> json) {
-  return OrderDetails(
-    id: json['id'],
-    orderId: json['orderId'],
-    productId: json['productId'],
-    productName: json['productName'],
-    quantity: json['quantity'],
-    unitPrice: (json['unitPrice'] as num).toDouble(),
-    subtotal: (json['subtotal'] as num).toDouble(),
-    status: OrderItemStatus.values.firstWhere(
-      (e) => e.name.toUpperCase() == (json['status'] as String).toUpperCase(),
-      orElse: () => OrderItemStatus.PENDING,
-    ),
-    createdAt: DateTime.parse(json['createdAt']),
-    userId: json['userId'],
-    userEmail: json['userEmail'],
-    userName: json['userName'],
-  );
-}
-
+    final product = json['product'];
+    return OrderDetails(
+      id: json['id'],
+      orderId: json['orderId'],
+      productId: product['id'], // extract product id
+      productName: product['name'], // extract product name
+      quantity: 1, // 🔴 put 1 as default because quantity is missing in json
+      unitPrice: (product['price'] as num).toDouble(), // or sellingPrice as per your logic
+      subtotal: (json['subtotal'] as num).toDouble(),
+      status: OrderItemStatus.values.firstWhere(
+        (e) => e.name.toUpperCase() == (json['status'] as String).toUpperCase(),
+        orElse: () => OrderItemStatus.PENDING,
+      ),
+      createdAt: DateTime.parse(json['createdAt']),
+      userId: json['userId'],
+      userEmail: json['userEmail'],
+      userName: json['userName'],
+    );
+  }
 
   Map<String, dynamic> toJson() {
     return {

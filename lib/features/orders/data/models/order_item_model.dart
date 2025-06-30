@@ -1,13 +1,13 @@
+// 📁 order_item_model.dart
+
 import 'package:gradution/features/orders/domain/entities/order_item_entity.dart';
+import 'package:gradution/features/products/data/model/product_model.dart';
 
 class OrderItemModel extends OrderItemEntity {
   const OrderItemModel({
     required super.id,
     required super.orderId,
-    required super.productId,
-    required super.productName,
-    required super.quantity,
-    required super.unitPrice,
+    required super.product,
     required super.subtotal,
     required super.status,
     required super.createdAt,
@@ -20,10 +20,7 @@ class OrderItemModel extends OrderItemEntity {
     return OrderItemModel(
       id: json['id'],
       orderId: json['orderId'],
-      productId: json['productId'],
-      productName: json['productName'],
-      quantity: json['quantity'],
-      unitPrice: (json['unitPrice'] as num).toDouble(),
+      product: ProductModel.fromJson(json['product']),
       subtotal: (json['subtotal'] as num).toDouble(),
       status: json['status'],
       createdAt: DateTime.parse(json['createdAt']),
@@ -36,10 +33,7 @@ class OrderItemModel extends OrderItemEntity {
   Map<String, dynamic> toJson() => {
         'id': id,
         'orderId': orderId,
-        'productId': productId,
-        'productName': productName,
-        'quantity': quantity,
-        'unitPrice': unitPrice,
+        'product': (product as ProductModel).toJson(),
         'subtotal': subtotal,
         'status': status,
         'createdAt': createdAt.toIso8601String(),

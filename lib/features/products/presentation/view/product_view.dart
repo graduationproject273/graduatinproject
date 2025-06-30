@@ -12,8 +12,8 @@ class ProductView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<ProductsCubit>()..getProduct(EndPoints.products),
+    return BlocProvider<ProductsCubit>.value(
+      value: sl<ProductsCubit>()..getProduct(EndPoints.products),
       child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppberInProduct(

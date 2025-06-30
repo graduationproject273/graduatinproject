@@ -47,8 +47,8 @@ class _BestSellingState extends State<BestSelling>
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => sl<ProductsCubit>()..getProduct(EndPoints.products),
+    return BlocProvider.value(
+      value:  sl<ProductsCubit>()..getProduct(EndPoints.products),
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: Column(

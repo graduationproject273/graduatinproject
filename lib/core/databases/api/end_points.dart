@@ -11,6 +11,7 @@ class EndPoints {
   static const String sellersignup = "sellers";
   static const String addtocart = "cart-items";
     static const String favorites = "favourites";
+    static const String feedback = "feedbacks";
 
   static const String getCartItems = "cart-items";
   static const String clearCart = "cart-items/clearAll";

@@ -69,6 +69,7 @@ class _SectionTextFiledAndButtonState extends State<SectionTextFiledAndButton> {
                 blurRadius: 10,
                 offset: const Offset(0, 5),
               ),
+              
             ],
             border: Border.all(
               color: textcolorinauthpagebuttons.withOpacity(0.1),
@@ -87,14 +88,14 @@ class _SectionTextFiledAndButtonState extends State<SectionTextFiledAndButton> {
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: Icon(
-                      Icons.phone,
+                      Icons.email_outlined,
                       color: textcolorinauthpagebuttons,
                       size: 20,
                     ),
                   ),
                   const SizedBox(width: 12),
                   Text(
-                    'Phone Number',
+                    'Email ',
                     style: TextStyle(
                       color: textcolorinauthpagebuttons,
                       fontSize: 16,
@@ -106,7 +107,7 @@ class _SectionTextFiledAndButtonState extends State<SectionTextFiledAndButton> {
               const SizedBox(height: 16),
               CustomTextformfield(
                 controller: phoneController,
-                hintText: '+20 123 456 7890',
+                hintText: 'tomas257@gmail.com',
                 keyboardType: TextInputType.phone,
                 color: Colors.grey[50]!,
                 colorborder: textcolorinauthpagebuttons.withOpacity(0.3),

@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:gradution/features/cart/domain/entities/cart_item_entity.dart';
 
 class OrderSummery extends StatelessWidget {
- final List<CartItemEntity> cartItems ;
+  final List<CartItemEntity> cartItems;
   const OrderSummery({super.key, required this.cartItems});
 
   @override
   Widget build(BuildContext context) {
+    final double subtotal = _calculateSubtotal();
+    const double shipping = 50.0;
+    final double tax = subtotal * 0.05; // مثلاً 5% ضريبة
+    final double total = subtotal + shipping + tax;
+
     return Container(
       padding: EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -24,7 +29,7 @@ class OrderSummery extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            children: [
+            children: const [
               Icon(Icons.shopping_cart, color: Color(0xFF00917C)),
               SizedBox(width: 8),
               Text(
@@ -37,77 +42,82 @@ class OrderSummery extends StatelessWidget {
               ),
             ],
           ),
-          SizedBox(height: 16),
-       ListView.builder(
-         shrinkWrap: true,
-         physics: NeverScrollableScrollPhysics(),
-         itemCount: cartItems.length,
-         itemBuilder: (BuildContext context, int index) {
-           return Padding(
-      padding: EdgeInsets.symmetric(vertical: 8),
-      child: Row(
-        children: [
-          Container(
-            width: 50,
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Icon(Icons.chair, color: Color(0xFF00917C)),
-          ),
-          SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  cartItems[index].productcartentity.name,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
+          const SizedBox(height: 16),
+          ListView.builder(
+            shrinkWrap: true,
+            physics: NeverScrollableScrollPhysics(),
+            itemCount: cartItems.length,
+            itemBuilder: (BuildContext context, int index) {
+              final item = cartItems[index];
+              return Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 50,
+                      height: 50,
+                      decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(Icons.chair, color: Color(0xFF00917C)),
+                    ),
+                    SizedBox(width: 12),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            item.productcartentity.name,
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            'Quantity: ${item.quantity}',
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Colors.grey[600],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Text(
+                      '\$${(item.productcartentity.price * item.quantity).toStringAsFixed(2)}',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF00917C),
+                      ),
+                    ),
+                  ],
                 ),
-                Text(
-                  'Quantity: ${cartItems[index].quantity}',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: Colors.grey[600],
-                  ),
-                ),
-              ],
-            ),
+              );
+            },
           ),
-          Text(
-           cartItems[index].productcartentity.price.toString(),
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF00917C),
-            ),
-          ),
+          const Divider(height: 20),
+          _buildSummaryRow('Subtotal', subtotal),
+          _buildSummaryRow('Shipping', shipping),
+          _buildSummaryRow('Tax', tax),
+          const Divider(height: 20),
+          _buildSummaryRow('Total', total, isTotal: true),
         ],
       ),
     );
-
-         },
-       ),
-          Divider(height: 20),
-          _buildSummaryRow('Subtotal', 3590.00),
-          _buildSummaryRow('Shipping', 50.00),
-          _buildSummaryRow('Tax', 182.00),
-          Divider(height: 20),
-          _buildSummaryRow('Total', 3822.00, isTotal: true),
-        ],
-      ),
-    );
-  
   }
 
+  double _calculateSubtotal() {
+    return cartItems.fold(
+      0.0,
+      (sum, item) => sum + (item.productcartentity.price * item.quantity),
+    );
+  }
 
-   Widget _buildSummaryRow(String label, double amount, {bool isTotal = false}) {
+  Widget _buildSummaryRow(String label, double amount, {bool isTotal = false}) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 4),
+      padding: const EdgeInsets.symmetric(vertical: 4),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

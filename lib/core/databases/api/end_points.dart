@@ -28,4 +28,5 @@ class EndPoints {
   static String getCouponByCode(String code) => "coupons/code/$code";
   static String getProductByCategoryId(int id) => "categories/${id}/products";
   static const String validateCoupon = "coupons/validate";
+  static const String stripeSession = "payments/create-checkout-session";
 }

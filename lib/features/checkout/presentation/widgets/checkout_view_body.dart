@@ -10,6 +10,8 @@ import 'package:gradution/features/checkout/presentation/widgets/checkout_paymen
 import 'package:gradution/features/checkout/presentation/widgets/order_summery.dart';
 import 'package:gradution/features/sellerDashboard/domain/entities/orders_details_entity.dart';
 import 'package:gradution/features/sellerDashboard/presentation/cubit/getorders/getorders_cubit.dart';
+import 'package:gradution/features/payments/presentation/cubit/payments_cubit.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class CheckoutPage extends StatefulWidget {
   final List<CartItemEntity> cartItems;
@@ -37,11 +39,8 @@ class _CheckoutPageState extends State<CheckoutPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             OrderSummery(cartItems: widget.cartItems),
-
-            /// Delivery Address
             CheckoutAddress(
-              addressController:
-                  context.read<CheckoutCubit>().addressController,
+              addressController: context.read<CheckoutCubit>().addressController,
               saveAddress: context.read<CheckoutCubit>().saveAddress,
               onSaveAddressChanged: (bool? value) {
                 if (value != null) {
@@ -49,14 +48,12 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 }
               },
             ),
-            SizedBox(height: 20),
-
+            const SizedBox(height: 20),
             BlocBuilder<CheckoutCubit, CheckoutState>(
               buildWhen: (previous, current) =>
                   current is CheckoutPaymentMethodChanged,
               builder: (context, state) {
                 final cubit = context.read<CheckoutCubit>();
-
                 return CheckoutPayment(
                   cardNumberController: cubit.cardNumberController,
                   expiryController: cubit.expiryController,
@@ -70,8 +67,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                 );
               },
             ),
-
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             _buildCheckoutButton(),
           ],
         ),
@@ -80,24 +76,33 @@ class _CheckoutPageState extends State<CheckoutPage> {
   }
 
   Widget _buildCheckoutButton() {
+    final totalAmount = widget.cartItems.fold<double>(
+      0.0,
+      (sum, item) =>
+          sum + (item.productcartentity.price ?? 0.0) * (item.quantity ?? 0),
+    );
+
     return SizedBox(
       width: double.infinity,
       height: 56,
       child: BlocConsumer<CheckoutCubit, CheckoutState>(
         listener: (context, state) {
           if (state is CheckoutSuccess) {
-            // ✅ أضف الطلب الجديد محليًا بدل إعادة تحميل كل الطلبات
-            context
-                .read<GetordersCubit>()
-                .addOrderLocally(state.order as OrdersDetailsEntity);
+            // Add order locally only if it's a valid OrdersDetailsEntity
+            if (state.order is OrdersDetailsEntity) {
+              context
+                  .read<GetordersCubit>()
+                  .addOrderLocally(state.order as OrdersDetailsEntity);
+            }
 
-            // ✅ إشعار نجاح
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('Order added successfully!')),
             );
 
-            // ✅ اختياري: تروح لصفحة الطلبات
-            // Navigator.of(context).pushReplacementNamed('/orders');
+            // Navigate for cash payments
+            if (context.read<CheckoutCubit>().paymentMethod != 'stripe') {
+              GoRouter.of(context).push(Routes.ordersview);
+            }
           } else if (state is CheckoutError) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text(state.message)),
@@ -105,49 +110,110 @@ class _CheckoutPageState extends State<CheckoutPage> {
           }
         },
         builder: (context, state) {
-          return ElevatedButton(
-            onPressed: () {
-              if (context
-                  .read<CheckoutCubit>()
-                  .formKey
-                  .currentState!
-                  .validate()) {
-                context.read<CheckoutCubit>().checkout(
-                      paymentMethod:
-                          context.read<CheckoutCubit>().paymentMethod,
-                      shippingAddress:
-                          context.read<CheckoutCubit>().addressController.text,
-                      items: context.read<CheckoutCubit>().items,
+          final checkoutCubit = context.read<CheckoutCubit>();
+          final paymentsCubit = context.read<PaymentsCubit>();
+
+          return BlocConsumer<PaymentsCubit, PaymentsState>(
+            listener: (context, paymentState) async {
+              if (paymentState is PaymentsLoaded) {
+                final url = paymentState.session.url;
+                if (url != null && url.isNotEmpty) {
+                  try {
+                    final uri = Uri.parse(url);
+                    if (await canLaunchUrl(uri)) {
+                      await launchUrl(
+                        uri,
+                        mode: LaunchMode.externalApplication,
+                      );
+                    } else {
+                      throw 'Could not launch $url';
+                    }
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Error opening payment URL: $e')),
                     );
+                  }
+                }
+              } else if (paymentState is PaymentsError) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Stripe Error: ${paymentState.message}')),
+                );
               }
             },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xFF00917C),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12),
-              ),
-              elevation: 2,
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(Icons.check_circle, color: Colors.white),
-                SizedBox(width: 8),
-                GestureDetector(
-                  onTap: () {
-                    GoRouter.of(context).push(Routes.ordersview);
-                  },
-                  child: Text(
-                    'Confirm Order',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ),
+            builder: (context, paymentState) {
+              final isLoading = state is CheckoutLoading || paymentState is PaymentsLoading;
+
+              return ElevatedButton(
+                onPressed: isLoading
+                    ? null
+                    : () async {
+                        if (checkoutCubit.formKey.currentState?.validate() ?? false) {
+                          try {
+                            // First, create the checkout/order
+                            await checkoutCubit.checkout(
+                              paymentMethod: checkoutCubit.paymentMethod,
+                              shippingAddress: checkoutCubit.addressController.text,
+                              items: checkoutCubit.items,
+                            );
+
+                            // Wait for the checkout state to update
+                            await Future.delayed(Duration(milliseconds: 100));
+
+                            // If Stripe payment and checkout was successful
+                            if (checkoutCubit.state is CheckoutSuccess &&
+                                checkoutCubit.paymentMethod == 'stripe') {
+                              
+                              final successState = checkoutCubit.state as CheckoutSuccess;
+                              
+                              // Get order ID from the successful checkout
+                              int? orderId;
+                              if (successState.order is OrdersDetailsEntity) {
+                                orderId = (successState.order as OrdersDetailsEntity).id;
+                              } else if (successState.order.id != null) {
+                                orderId = successState.order.id is int 
+                                    ? successState.order.id as int
+                                    : int.tryParse(successState.order.id.toString());
+                              }
+
+                              await paymentsCubit.createCheckoutSession(
+                                amount: (totalAmount * 100).round(), // Convert to cents
+                                orderId: 120,
+                                currency: 'USD',
+                              );
+                            }
+                          } catch (e) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(content: Text('Error: ${e.toString()}')),
+                            );
+                          }
+                        }
+                      },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF00917C),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
                   ),
+                  elevation: 2,
                 ),
-              ],
-            ),
+                child: isLoading
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const [
+                          Icon(Icons.check_circle, color: Colors.white),
+                          SizedBox(width: 8),
+                          Text(
+                            'Confirm Order',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+              );
+            },
           );
         },
       ),

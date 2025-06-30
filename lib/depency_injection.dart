@@ -31,6 +31,10 @@ import 'package:gradution/features/orders/data/repositories/order_repositry_impl
 import 'package:gradution/features/orders/domain/repositories/order_repositry.dart';
 import 'package:gradution/features/orders/domain/usecases/get_all_order.dart';
 import 'package:gradution/features/orders/presentation/cubit/orders_cubit.dart';
+import 'package:gradution/features/payments/data/repositories/payments_Repositry_Impl.dart';
+import 'package:gradution/features/payments/domain/repositories/payments_Repositry.dart';
+import 'package:gradution/features/payments/domain/usecases/payments_usecase.dart';
+import 'package:gradution/features/payments/presentation/cubit/payments_cubit.dart';
 import 'package:gradution/features/products/data/datasource/product_data_sourse_local.dart';
 import 'package:gradution/features/products/data/datasource/product_data_sourse_remote.dart';
 import 'package:gradution/features/products/data/repositories/product_repositry_impli.dart';
@@ -106,8 +110,11 @@ void setup() {
       () => SellerRepositryImpl(sl(), sl(), sl(), sl()));
   sl.registerLazySingleton<OfferRepositry>(
       () => OfferRepositryImpl(dioConsumer: sl()));
-      sl.registerLazySingleton<FavoriteRepository>(
+  sl.registerLazySingleton<FavoriteRepository>(
       () => FavoriteRepositroyImpl(dioConsumer: sl()));
+  sl.registerLazySingleton<PaymentsRepositry>(
+    () => PaymentsRepositryImpl(dioConsumer: sl()),
+  );
 
   // Usecase
   sl.registerLazySingleton(() => GetAllCategory(productsRepositry: sl()));
@@ -124,7 +131,8 @@ void setup() {
   sl.registerLazySingleton(() => CheckoutUsecase(sl()));
 
   sl.registerLazySingleton(() => AddproductUsecase(productsRepositry: sl()));
-  sl.registerLazySingleton(() => FavoriteUsecase( sl()));
+  sl.registerLazySingleton(() => FavoriteUsecase(sl()));
+  sl.registerLazySingleton(() => PaymentsUsecase(paymentsRepositry: sl()));
 
   // Cubit
   sl.registerLazySingleton(() => AddProductCubit(
@@ -141,12 +149,11 @@ void setup() {
   sl.registerFactory(() => SinupCubit(sl(), sl()));
   sl.registerFactory(() => SellerCubit(sl()));
   // Services
-sl.registerLazySingleton<OcrService>(() => OcrImpl(dioConsumer: sl())); // ضف هذا لو مش موجود
-
+  sl.registerLazySingleton<OcrService>(
+      () => OcrImpl(dioConsumer: sl())); // ضف هذا لو مش موجود
 
 // OcrCubit
-sl.registerFactory(() => OcrCubit(sl<OcrService>(), sl<CartCubit>()));
-
+  sl.registerFactory(() => OcrCubit(sl<OcrService>(), sl<CartCubit>()));
 
   sl.registerLazySingleton(() => CartCubit(
         sl(),
@@ -155,10 +162,11 @@ sl.registerFactory(() => OcrCubit(sl<OcrService>(), sl<CartCubit>()));
   sl.registerFactory(() => FavoriteCubit(sl()));
 
   sl.registerLazySingleton<ProfileCubit>(() => ProfileCubit(sl()));
-  
+
   sl.registerLazySingleton<UserprofileCubit>(() => UserprofileCubit(sl()));
   sl.registerLazySingleton<GetordersCubit>(() => GetordersCubit(sl(), sl()));
   sl.registerFactory(() => OrdersCubit(sl()));
   sl.registerFactory(() => CheckoutCubit(sl()));
   sl.registerFactory(() => ServicesCubit(sl()));
+  sl.registerFactory(() => PaymentsCubit(sl()));
 }

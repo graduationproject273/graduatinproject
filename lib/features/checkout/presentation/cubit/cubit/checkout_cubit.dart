@@ -19,6 +19,22 @@ class CheckoutCubit extends Cubit<CheckoutState> {
   List<ItemOrderModel> items = [];
   String paymentMethod = 'cash';
   bool saveAddress = false;
+  
+  // Store the last successful order
+  OrderEntity? _lastOrder;
+  OrderEntity? get lastOrder => _lastOrder;
+  
+  // Get the last order ID safely
+  int? get lastOrderId {
+    if (_lastOrder?.id != null) {
+      if (_lastOrder!.id is int) {
+        return _lastOrder!.id as int;
+      } else if (_lastOrder!.id is String) {
+        return int.tryParse(_lastOrder!.id.toString());
+      }
+    }
+    return null;
+  }
 
   void setPaymentMethod(String value) {
     if (paymentMethod != value) {
@@ -37,17 +53,37 @@ class CheckoutCubit extends Cubit<CheckoutState> {
     required String shippingAddress,
     required List<ItemOrderModel> items,
   }) async {
-    emit(CheckoutLoading());
+    try {
+      emit(CheckoutLoading());
 
-    final failureOrOrder = await checkoutUsecase.call(
-      paymentMethod: paymentMethod,
-      shippingAddress: shippingAddress,
-      items: items,
-    );
+      final failureOrOrder = await checkoutUsecase.call(
+        paymentMethod: paymentMethod,
+        shippingAddress: shippingAddress,
+        items: items,
+      );
 
-    failureOrOrder.fold(
-      (failure) => emit(CheckoutError(failure.errMessage)),
-      (order) => emit(CheckoutSuccess(order)),
-    );
+      failureOrOrder.fold(
+        (failure) {
+          _lastOrder = null;
+          emit(CheckoutError(failure.errMessage));
+        },
+        (order) {
+          _lastOrder = order;
+          emit(CheckoutSuccess(order));
+        },
+      );
+    } catch (e) {
+      _lastOrder = null;
+      emit(CheckoutError('An unexpected error occurred: ${e.toString()}'));
+    }
+  }
+
+  @override
+  Future<void> close() {
+    cardNumberController.dispose();
+    expiryController.dispose();
+    cvvController.dispose();
+    addressController.dispose();
+    return super.close();
   }
 }

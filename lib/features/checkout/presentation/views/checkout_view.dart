@@ -5,6 +5,7 @@ import 'package:gradution/depency_injection.dart';
 import 'package:gradution/features/cart/domain/entities/cart_item_entity.dart';
 import 'package:gradution/features/checkout/presentation/cubit/cubit/checkout_cubit.dart';
 import 'package:gradution/features/checkout/presentation/widgets/checkout_view_body.dart';
+import 'package:gradution/features/payments/presentation/cubit/payments_cubit.dart';
 
 class CheckoutView extends StatelessWidget {
   final List<CartItemEntity> cartItems;
@@ -20,8 +21,7 @@ class CheckoutView extends StatelessWidget {
           icon: Icon(Icons.arrow_back_ios, color: Colors.white),
           onPressed: () => GoRouter.of(context).pop(),
         ),
-
-         title: Text(
+        title: Text(
           'Checkout',
           style: TextStyle(
             color: Colors.white,
@@ -32,8 +32,15 @@ class CheckoutView extends StatelessWidget {
         centerTitle: true,
       ),
       backgroundColor: Colors.white,
-      body: BlocProvider(
-        create: (context) => sl<CheckoutCubit>(),
+      body: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => sl<CheckoutCubit>(),
+          ),
+          BlocProvider(
+            create: (context) => sl<PaymentsCubit>(),
+          ),
+        ],
         child: CheckoutPage(
           cartItems: cartItems,
         ),

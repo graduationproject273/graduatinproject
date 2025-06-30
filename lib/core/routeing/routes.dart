@@ -39,4 +39,5 @@ class Routes {
   static const String profileSeller= '/profileSeller';
   static const String ordersview= '/ordersview';
   static const String userprofile= '/userprofile';
+
 }

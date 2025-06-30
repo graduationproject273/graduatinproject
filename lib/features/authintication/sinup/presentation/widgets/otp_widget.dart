@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:gradution/core/databases/cache/cache_helper.dart';
 import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/features/authintication/sinup/presentation/cubit/verify_otp/cubit/verifyotp_cubit.dart';
 
@@ -125,7 +126,13 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
               ),
               
             );
-           GoRouter.of(context).go(Routes.home);
+            final roles = state.roles;
+          CacheHelper.sharedPreferences.setString('roles', roles.join(', '));
+          if (roles.contains("ROLE_SELLER")) {
+            GoRouter.of(context).go(Routes.dashboardseller);
+          } else {
+            GoRouter.of(context).go(Routes.home);
+          }
             
           } else if (state is VerifyotpError) {
             // في حالة الخطأ

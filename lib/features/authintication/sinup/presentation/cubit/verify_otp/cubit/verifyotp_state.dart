@@ -11,12 +11,13 @@ final class VerifyotpInitial extends VerifyotpState {}
 
 final class VerifyotpLoading extends VerifyotpState {}
 final class VerifyotpSuccess extends VerifyotpState {
-  final UserEntity userEntity;
+    final List<String> roles;
+ 
 
-  const VerifyotpSuccess({required this.userEntity});
-
-  @override
-  List<Object> get props => [userEntity];
+  const VerifyotpSuccess(this.roles,);
+  
+@override
+  List<Object> get props => [roles];
 }
 final class VerifyotpError extends VerifyotpState {
   final String error;

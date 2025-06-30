@@ -272,7 +272,7 @@ class _ProductFeedbackScreenState extends State<ProductFeedbackScreen> {
             padding: EdgeInsets.all(20),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [maincolor!, maincolor!],
+                colors: [maincolor, maincolor],
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
               ),
@@ -344,7 +344,7 @@ class _ProductFeedbackScreenState extends State<ProductFeedbackScreen> {
                   child: LinearProgressIndicator(
                     value: feedbacks.isNotEmpty ? (ratingCounts[i]! / feedbacks.length) : 0,
                     backgroundColor: Colors.grey[200],
-                    valueColor: AlwaysStoppedAnimation<Color>(maincolor!),
+                    valueColor: AlwaysStoppedAnimation<Color>(maincolor),
                     minHeight: 4,
                   ),
                 ),
@@ -397,7 +397,7 @@ class _ProductFeedbackScreenState extends State<ProductFeedbackScreen> {
                 padding: EdgeInsets.all(12),
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
-                    colors: [maincolor!, maincolor!],
+                    colors: [maincolor, maincolor],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                   ),

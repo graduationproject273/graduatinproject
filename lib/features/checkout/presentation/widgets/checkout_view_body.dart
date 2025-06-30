@@ -260,7 +260,7 @@ class _CheckoutPageState extends State<CheckoutPage> {
                           Icon(Icons.check_circle, color: Colors.white),
                           SizedBox(width: 8),
                           Text(
-                            'تأكيد الطلب',
+                            'Confirm Order',
                             style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,

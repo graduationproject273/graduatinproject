@@ -18,13 +18,9 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
 
   final List<IconData> iconss = [
     Icons.dashboard_outlined,
-
     Icons.production_quantity_limits_outlined,
-    CupertinoIcons.cart_fill,
-    Icons.payment,
-    Icons.inventory_2_outlined,
     CupertinoIcons.add_circled,
-    Icons.payment_outlined,
+    Icons.payment,
   ];
 
   final List<String> titles = [
@@ -58,7 +54,6 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
       case 3:
         GoRouter.of(context).push(Routes.payments);
         break;
-
       default:
         GoRouter.of(context).go(Routes.dashboardseller);
     }
@@ -68,16 +63,13 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
     showDialog(
       context: parentcontext,
       builder: (context) => AlertDialog(
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.r)),
         backgroundColor: Colors.white,
         title: Row(
           children: [
-            Icon(Icons.logout_outlined,
-                color: Colors.red.shade600, size: 24.sp),
+            Icon(Icons.logout_outlined, color: Colors.red.shade600, size: 24.sp),
             SizedBox(width: 10.w),
-            const Text("Confirm Logout",
-                style: TextStyle(color: Colors.black87)),
+            const Text("Confirm Logout", style: TextStyle(color: Colors.black87)),
           ],
         ),
         content: const Text(
@@ -87,8 +79,7 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child:
-                Text("Cancel", style: TextStyle(color: Colors.grey.shade600)),
+            child: Text("Cancel", style: TextStyle(color: Colors.grey.shade600)),
           ),
           ElevatedButton(
             onPressed: () {
@@ -97,8 +88,7 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.red.shade600,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8.r)),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.r)),
             ),
             child: const Text("Logout", style: TextStyle(color: Colors.white)),
           ),
@@ -191,7 +181,7 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
 
                       // Main Menu
                       ...List.generate(
-                        iconss.length,
+                        titles.length,
                         (index) => Container(
                           margin: EdgeInsets.only(bottom: 8.h),
                           decoration: BoxDecoration(
@@ -206,8 +196,7 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
                             ],
                           ),
                           child: ListTile(
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 16.w, vertical: 4.h),
+                            contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
                             leading: Container(
                               width: 35.w,
                               height: 35.h,
@@ -238,7 +227,9 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
                           ),
                         ),
                       ),
+
                       const Spacer(),
+
                       // Divider
                       Container(
                         height: 1.h,
@@ -246,9 +237,10 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
                         color: Colors.grey.shade200,
                         margin: EdgeInsets.symmetric(vertical: 20.h),
                       ),
+
                       // Bottom Menu
                       ...List.generate(
-                        icons2.length,
+                        titles2.length,
                         (index) => Container(
                           margin: EdgeInsets.only(bottom: 8.h),
                           decoration: BoxDecoration(
@@ -263,8 +255,7 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
                             ],
                           ),
                           child: ListTile(
-                            contentPadding: EdgeInsets.symmetric(
-                                horizontal: 16.w, vertical: 4.h),
+                            contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
                             leading: Container(
                               width: 35.w,
                               height: 35.h,
@@ -276,18 +267,14 @@ class _SellerDashboardDrawerState extends State<SellerDashboardDrawer> {
                               ),
                               child: Icon(
                                 icons2[index],
-                                color: index == 1
-                                    ? Colors.red.shade600
-                                    : primaryColor,
+                                color: index == 1 ? Colors.red.shade600 : primaryColor,
                                 size: 20.sp,
                               ),
                             ),
                             title: Text(
                               titles2[index],
                               style: TextStyle(
-                                color: index == 1
-                                    ? Colors.red.shade600
-                                    : Colors.black87,
+                                color: index == 1 ? Colors.red.shade600 : Colors.black87,
                                 fontSize: 14.sp,
                                 fontWeight: FontWeight.w500,
                               ),

@@ -107,7 +107,6 @@ class UserRepoImpl extends SignupRepositry {
     }
   }
 
-  @override
   Future<Either<Failure, UserEntity>> loginUser(UserEntity user) async {
     try {
       final response = await dioConsumer.post(
@@ -138,13 +137,13 @@ class UserRepoImpl extends SignupRepositry {
   }
 
   @override
-  Future<Either<Failure, UserEntity>> verifyotp(String emall, String code)async {
+  Future<Either<Failure, UserEntity>> verifyotp(String email, String code)async {
    try {
       final response = await dioConsumer.post(
         path: EndPoints.verifyotp ,
         data: {
-          'email': emall,
-          'code': code,
+          'email': email,
+          'otp': code,
         }
       );
       

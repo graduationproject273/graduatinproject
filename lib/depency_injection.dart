@@ -10,7 +10,9 @@ import 'package:gradution/features/ai/presentation/cubit/ocr_cubit.dart';
 import 'package:gradution/features/authintication/sinup/data/repositries/user_repo_Impl.dart';
 import 'package:gradution/features/authintication/sinup/domain/repositries/signup_repositry.dart';
 import 'package:gradution/features/authintication/sinup/domain/usecases/generateotpbyemail_usecase.dart';
+import 'package:gradution/features/authintication/sinup/domain/usecases/verify_otp_usecase.dart';
 import 'package:gradution/features/authintication/sinup/presentation/cubit/generat_otp/otp_cubit.dart';
+import 'package:gradution/features/authintication/sinup/presentation/cubit/verify_otp/cubit/verifyotp_cubit.dart';
 import 'package:gradution/features/cart/data/repositries/cart_repositry_Impl.dart';
 import 'package:gradution/features/cart/domain/repositries/cart_repositry.dart';
 import 'package:gradution/features/cart/domain/usecases/cart_usecase.dart';
@@ -136,6 +138,7 @@ void setup() {
   sl.registerLazySingleton(() => GetordersUsecase(sl()));
   sl.registerLazySingleton(() => UpdateStatusOrder(sl()));
   sl.registerLazySingleton(() => GetAllOrder(sl()));
+  sl.registerLazySingleton(() => VerifyOtpUsecase(sl()));
   sl.registerLazySingleton(() => OfferUsecase(offerRepositry: sl()));
   sl.registerLazySingleton<EditProduct>(
       () => EditProduct(sellerRepositry: sl()));
@@ -149,6 +152,10 @@ void setup() {
   // Cubit
   sl.registerLazySingleton(() => AddProductCubit(
         addproductUsecase: sl(),
+      ));
+
+  sl.registerLazySingleton(() => VerifyotpCubit(
+         sl(),
       ));
 
   sl.registerLazySingleton(() => SellerUsecase(signupRepositry: sl()));

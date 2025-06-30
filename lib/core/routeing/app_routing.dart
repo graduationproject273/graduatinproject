@@ -5,6 +5,7 @@ import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:gradution/core/routeing/routes.dart';
 import 'package:gradution/depency_injection.dart';
 import 'package:gradution/features/ai/presentation/pages/ocr_view.dart';
+import 'package:gradution/features/authintication/sinup/presentation/cubit/verify_otp/cubit/verifyotp_cubit.dart';
 import 'package:gradution/features/authintication/sinup/presentation/pages/generate_otp__by_email.dart';
 import 'package:gradution/features/authintication/sinup/presentation/cubit/seller_cubit/cubit/seller_cubit.dart';
 import 'package:gradution/features/authintication/sinup/presentation/pages/seller_sinup.dart';
@@ -22,6 +23,7 @@ import 'package:gradution/features/home/presentation/views/home_view.dart';
 import 'package:gradution/features/home/presentation/views/user_profile.dart';
 import 'package:gradution/features/onbording/presentation/views/auth_buttons_view.dart';
 import 'package:gradution/features/onbording/presentation/views/onboarding_view.dart';
+import 'package:gradution/features/onbording/presentation/views/splash_view.dart';
 import 'package:gradution/features/orders/domain/entities/order_entity.dart';
 import 'package:gradution/features/orders/presentation/pages/order_details_view.dart';
 import 'package:gradution/features/orders/presentation/pages/orders_view.dart';
@@ -49,7 +51,7 @@ final GoRouter router = GoRouter(
       path: Routes.splash,
 
       
-      builder: (context, state) =>  const OTPVerificationPage(
+      builder: (context, state) =>  const SplashView(
      
       ),),
       GoRoute(
@@ -210,9 +212,20 @@ final GoRouter router = GoRouter(
       path: Routes.ocr,
       builder: (context, state) => const OcrScreen(),
     ),
-    GoRoute(path: Routes.verifyOtp
-    , builder: (context , state)=> OTPVerificationPage()
-    )
+   
+// 1. تعديل GoRoute
+GoRoute(
+  path: Routes.verifyOtp,
+  builder: (context, state) {
+    final extra = state.extra as Map<String, dynamic>?;
+    final String email = extra?['email'] ?? '';
+    
+    return BlocProvider(
+      create: (context) => sl<VerifyotpCubit>(),
+      child: OTPVerificationPage(email: email),
+    );
+  },
+)
   ],
   errorBuilder: (context, state) => const Scaffold(
     body: Center(child: Text('Page not found')),

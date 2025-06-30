@@ -18,6 +18,7 @@ class SectionTextFiledAndButton extends StatefulWidget {
 
 class _SectionTextFiledAndButtonState extends State<SectionTextFiledAndButton> {
   final TextEditingController phoneController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   bool isLoading = false;
 
   // إرسال OTP لرقم الهاتف
@@ -155,7 +156,9 @@ class _SectionTextFiledAndButtonState extends State<SectionTextFiledAndButton> {
                   const SnackBar(content: Text('OTP sent successfully!')),
                 );
                 // Navigate to the OTP verification page
-                context.go(Routes.home);
+              context.go(Routes.verifyOtp, extra: {
+  'email': phoneController.text,
+});
               }
             },
             builder: (context, state) =>

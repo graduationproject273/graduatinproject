@@ -17,13 +17,13 @@ class FeedbackRepoImpli implements FeedbackRepository {
       int productId) async {
     try {
   final response = await dioConsumer.get(
-   path:      '${EndPoints.baserUrl}/ $productId',
+   path:      '${EndPoints.feedback}/product/$productId',
     queryParameters: {'productId': productId},
   );
    return response.fold(
       (l) => Left(Failure(errMessage: l)),
-      (r) => Right((r.data.map((item) => FeedbackModel.fromJson(item)).toList()),
-    ));
+    (r) => Right((r.data as List).map((item) => FeedbackModel.fromJson(item)).toList()),
+  );
 } 
     on ServerException catch (e) {
       return Left(Failure(errMessage: e.toString()));
@@ -34,7 +34,9 @@ class FeedbackRepoImpli implements FeedbackRepository {
   Future<Either<Failure, void>> sendFeedback({FeedbackSimpleModel? feedback, int? productId}) async {
     try{
       final response = await dioConsumer.post(
-        path: EndPoints.feedback);
+        path: '${EndPoints.feedback}/$productId',
+        
+        data: feedback!.toJson(),);
       return response.fold(
         (l) => Left(Failure(errMessage: l)),
         (r) => Right(null),

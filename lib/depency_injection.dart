@@ -21,6 +21,10 @@ import 'package:gradution/features/favorite/data/repositories/favorite_repositro
 import 'package:gradution/features/favorite/domain/repositories/favourite_repsitry.dart';
 import 'package:gradution/features/favorite/domain/usecases/favorite_usecase.dart';
 import 'package:gradution/features/favorite/presentation/cubit/favorite_cubit.dart';
+import 'package:gradution/features/feedback/data/repositories/feedback_repo_impli.dart';
+import 'package:gradution/features/feedback/domain/repositories/feedback_repositry.dart';
+import 'package:gradution/features/feedback/domain/usecases/feedback_usecase.dart';
+import 'package:gradution/features/feedback/presentation/cubit/feedback_cubit.dart';
 import 'package:gradution/features/home/data/repostries/user_profile_repo_Impl.dart';
 import 'package:gradution/features/home/domain/repositries/user_profile_repo.dart';
 import 'package:gradution/features/home/domain/usecases/user_profile_usecase.dart';
@@ -106,10 +110,14 @@ void setup() {
       () => SellerRepositryImpl(sl(), sl(), sl(), sl()));
   sl.registerLazySingleton<OfferRepositry>(
       () => OfferRepositryImpl(dioConsumer: sl()));
+      sl.registerLazySingleton<FeedbackRepository>(
+      () => FeedbackRepoImpli(dioConsumer: sl()));
       sl.registerLazySingleton<FavoriteRepository>(
       () => FavoriteRepositroyImpl(dioConsumer: sl()));
 
   // Usecase
+    sl.registerLazySingleton(() => FeedbackUsecase(feedbackRepository: sl()));
+
   sl.registerLazySingleton(() => GetAllCategory(productsRepositry: sl()));
   sl.registerLazySingleton(() => GetAllProduct(repository: sl()));
   sl.registerLazySingleton(() => CartUseCase(cartRepositry: sl()));
@@ -161,4 +169,5 @@ sl.registerFactory(() => OcrCubit(sl<OcrService>(), sl<CartCubit>()));
   sl.registerFactory(() => OrdersCubit(sl()));
   sl.registerFactory(() => CheckoutCubit(sl()));
   sl.registerFactory(() => ServicesCubit(sl()));
+  sl.registerFactory(() => FeedbackCubit(sl()));
 }

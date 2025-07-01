@@ -18,7 +18,7 @@ class Containerindrawer extends StatelessWidget {
     CupertinoIcons.cart_badge_plus,
     CupertinoIcons.phone_fill,
         Icons.favorite,
-
+     Icons.wifi_1_bar_outlined, // أيقونة AI
  
   ];
 
@@ -29,7 +29,7 @@ class Containerindrawer extends StatelessWidget {
     'Orders',
     'Contact Us',
     'Favorites',
-   
+    "Use Ai"
    
   ];
 
@@ -54,7 +54,9 @@ class Containerindrawer extends StatelessWidget {
         case 5:
         GoRouter.of(context).push(Routes.favorite);
         break;
-     
+      case 6:
+        GoRouter.of(context).push(Routes.ocr);
+        break;
       default:
          GoRouter.of(context).push(Routes.home);
     }

@@ -146,204 +146,202 @@ class _OTPVerificationPageState extends State<OTPVerificationPage> {
         },
         child: Padding(
           padding: const EdgeInsets.all(24.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                const SizedBox(height: 40),
-                
-                // أيقونة المنزل الذكي
-                Container(
-                  width: 100,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: primaryColor.withOpacity(0.1),
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Icon(
-                    Icons.home_outlined,
-                    size: 50,
-                    color: primaryColor,
-                  ),
+          child: Column(
+            children: [
+              const SizedBox(height: 40),
+              
+              // أيقونة المنزل الذكي
+              Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: primaryColor.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(50),
                 ),
-                
-                const SizedBox(height: 32),
-                
-                // العنوان
-                Text(
-                  'Confirm Identity',
+                child: Icon(
+                  Icons.home_outlined,
+                  size: 50,
+                  color: primaryColor,
+                ),
+              ),
+              
+              const SizedBox(height: 32),
+              
+              // العنوان
+              Text(
+                'Confirm Identity',
+                style: TextStyle(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey[800],
+                ),
+              ),
+              
+              const SizedBox(height: 12),
+              
+              // النص التوضيحي مع عرض الإيميل
+              RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
                   style: TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey[800],
+                    fontSize: 16,
+                    color: Colors.grey[600],
+                    height: 1.5,
                   ),
-                ),
-                
-                const SizedBox(height: 12),
-                
-                // النص التوضيحي مع عرض الإيميل
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.grey[600],
-                      height: 1.5,
-                    ),
-                    children: [
-                      const TextSpan(
-                        text: 'Please enter the 6-digit code sent to\n',
-                      ),
-                      TextSpan(
-                        text: widget.email,
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: primaryColor,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                
-                const SizedBox(height: 48),
-                
-                // حقول إدخال الـ OTP
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: List.generate(6, (index) {
-                    return Container(
-                      width: 50,
-                      height: 60,
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: controllers[index].text.isNotEmpty 
-                              ? primaryColor 
-                              : Colors.grey[300]!,
-                          width: 2,
-                        ),
-                        borderRadius: BorderRadius.circular(12),
-                        color: controllers[index].text.isNotEmpty 
-                            ? primaryColor.withOpacity(0.05) 
-                            : Colors.white,
-                      ),
-                      child: TextField(
-                        controller: controllers[index],
-                        focusNode: focusNodes[index],
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        maxLength: 1,
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: primaryColor,
-                        ),
-                        decoration: const InputDecoration(
-                          border: InputBorder.none,
-                          counterText: '',
-                        ),
-                        inputFormatters: [
-                          FilteringTextInputFormatter.digitsOnly,
-                        ],
-                        onChanged: (value) => onOTPChanged(value, index),
-                      ),
-                    );
-                  }),
-                ),
-                
-                const SizedBox(height: 48),
-                
-                // زر التحقق مع BlocBuilder
-                BlocBuilder<VerifyotpCubit, VerifyotpState>(
-                  builder: (context, state) {
-                    return SizedBox(
-                      width: double.infinity,
-                      height: 56,
-                      child: ElevatedButton(
-                        onPressed: (otpCode.length == 6 && state is! VerifyotpLoading) 
-                            ? verifyOTP 
-                            : null,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: primaryColor,
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          elevation: 0,
-                        ),
-                        child: state is VerifyotpLoading
-                            ? const SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                  strokeWidth: 2,
-                                ),
-                              )
-                            : const Text(
-                                'Confirm',
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                ),
-                              ),
-                      ),
-                    );
-                  },
-                ),
-                
-                const SizedBox(height: 24),
-                
-                // رابط إعادة الإرسال
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      'Didn\'t receive the code? ',
-                      style: TextStyle(
-                        color: Colors.grey[600],
-                        fontSize: 16,
-                      ),
+                    const TextSpan(
+                      text: 'Please enter the 6-digit code sent to\n',
                     ),
-                    GestureDetector(
-                      onTap: resendOTP,
-                      child: Text(
-                        'Resend',
-                        style: TextStyle(
-                          color: primaryColor,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          decoration: TextDecoration.underline,
-                        ),
+                    TextSpan(
+                      text: widget.email,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: primaryColor,
                       ),
                     ),
                   ],
                 ),
-                
-                const Spacer(),
-                
-                // نص الحماية
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 32),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.security,
-                        color: Colors.grey[400],
-                        size: 20,
+              ),
+              
+              const SizedBox(height: 48),
+              
+              // حقول إدخال الـ OTP
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: List.generate(6, (index) {
+                  return Container(
+                    width: 50,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: controllers[index].text.isNotEmpty 
+                            ? primaryColor 
+                            : Colors.grey[300]!,
+                        width: 2,
                       ),
-                      const SizedBox(width: 8),
-                      Text(
-                        'Protected by our privacy policy',
-                        style: TextStyle(
-                          color: Colors.grey[500],
-                          fontSize: 14,
+                      borderRadius: BorderRadius.circular(12),
+                      color: controllers[index].text.isNotEmpty 
+                          ? primaryColor.withOpacity(0.05) 
+                          : Colors.white,
+                    ),
+                    child: TextField(
+                      controller: controllers[index],
+                      focusNode: focusNodes[index],
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      maxLength: 1,
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: primaryColor,
+                      ),
+                      decoration: const InputDecoration(
+                        border: InputBorder.none,
+                        counterText: '',
+                      ),
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                      ],
+                      onChanged: (value) => onOTPChanged(value, index),
+                    ),
+                  );
+                }),
+              ),
+              
+              const SizedBox(height: 48),
+              
+              // زر التحقق مع BlocBuilder
+              BlocBuilder<VerifyotpCubit, VerifyotpState>(
+                builder: (context, state) {
+                  return SizedBox(
+                    width: double.infinity,
+                    height: 56,
+                    child: ElevatedButton(
+                      onPressed: (otpCode.length == 6 && state is! VerifyotpLoading) 
+                          ? verifyOTP 
+                          : null,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: primaryColor,
+                        foregroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16),
                         ),
+                        elevation: 0,
                       ),
-                    ],
+                      child: state is VerifyotpLoading
+                          ? const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                                strokeWidth: 2,
+                              ),
+                            )
+                          : const Text(
+                              'Confirm',
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                    ),
+                  );
+                },
+              ),
+              
+              const SizedBox(height: 24),
+              
+              // رابط إعادة الإرسال
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Didn\'t receive the code? ',
+                    style: TextStyle(
+                      color: Colors.grey[600],
+                      fontSize: 16,
+                    ),
                   ),
+                  GestureDetector(
+                    onTap: resendOTP,
+                    child: Text(
+                      'Resend',
+                      style: TextStyle(
+                        color: primaryColor,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              
+              const Spacer(),
+              
+              // نص الحماية
+              Padding(
+                padding: const EdgeInsets.only(bottom: 32),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.security,
+                      color: Colors.grey[400],
+                      size: 20,
+                    ),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Protected by our privacy policy',
+                      style: TextStyle(
+                        color: Colors.grey[500],
+                        fontSize: 14,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

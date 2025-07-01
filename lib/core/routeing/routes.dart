@@ -40,4 +40,5 @@ class Routes {
   static const String userprofile = '/userprofile';
 
   static const String verifyOtp = '/verifyotp';
+
 }

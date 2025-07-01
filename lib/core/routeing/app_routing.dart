@@ -225,7 +225,9 @@ GoRoute(
       child: OTPVerificationPage(email: email),
     );
   },
-)
+
+),
+
   ],
   errorBuilder: (context, state) => const Scaffold(
     body: Center(child: Text('Page not found')),
